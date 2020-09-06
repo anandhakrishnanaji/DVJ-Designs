@@ -24,6 +24,9 @@ class MyApp extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 3)))),
       home: RegistrationPage(),
+      routes: {
+        HomePage.routeName: (ctx) => HomePage(),
+      },
     );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './homePage.dart';
+
 class RegistrationPage extends StatefulWidget {
   @override
   _RegistrationPageState createState() => _RegistrationPageState();
@@ -98,7 +100,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       _emailerr = _email.text.isEmpty;
                       _companyerr = _company.text.isEmpty;
                     });
-                    //if(!_nameerr&&!_phoneerr&&!_emailerr&&!_companyerr) Navigator.of(context).pushNamed(routeName);
+                    if (!_nameerr && !_phoneerr && !_emailerr && !_companyerr)
+                      Navigator.of(context).pushNamed(HomePage.routeName);
                   }),
             )
           ],
