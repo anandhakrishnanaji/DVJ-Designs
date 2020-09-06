@@ -101,7 +101,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       _companyerr = _company.text.isEmpty;
                     });
                     if (!_nameerr && !_phoneerr && !_emailerr && !_companyerr)
-                      Navigator.of(context).pushNamed(HomePage.routeName);
+                      Navigator.of(context).popAndPushNamed(HomePage.routeName);
                   }),
             )
           ],

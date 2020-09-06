@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
+import './aboutUsPage.dart';
+import '../widgets/gridTile.dart';
+
 class HomePage extends StatelessWidget {
   static const routeName = '/homepage';
 
   final List<Map> _gridElements = [
     {
       'text': 'About Us',
-      'icon': Icons.info,
-      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
+      'icon': Icons.star,
+      'ontap': (BuildContext ctx) =>
+          Navigator.of(ctx).pushNamed(AboutUsPage.routeName)
     },
     {
       'text': 'Products',
@@ -36,6 +40,48 @@ class HomePage extends StatelessWidget {
     }
   ];
 
+  final List<Map> _drawerList = [
+    {
+      'text': 'Home',
+      'icon': Icons.home,
+      'ontap': (BuildContext ctx) =>
+          Navigator.of(ctx).pushReplacementNamed(HomePage.routeName)
+    },
+    {
+      'text': 'About Us',
+      'icon': Icons.star,
+      'ontap': (BuildContext ctx) =>
+          Navigator.of(ctx).pushNamed(AboutUsPage.routeName)
+    },
+    {
+      'text': 'Tiles',
+      'icon': Icons.gradient,
+      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
+    },
+    {
+      'text': 'Mosaic',
+      'icon': Icons.grid_on,
+      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
+    },
+    {
+      'text': 'Brochure',
+      'icon': Icons.book,
+      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
+    },
+    {
+      'text': 'Order Status',
+      'icon': Icons.account_circle,
+      'ontap': (BuildContext ctx) =>
+          Navigator.of(ctx).pushNamed('/')
+    },
+    {
+      'text': 'Contact',
+      'icon': Icons.phone,
+      'ontap': (BuildContext ctx) =>
+          Navigator.of(ctx).pushNamed('/')
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,37 +104,18 @@ class HomePage extends StatelessWidget {
       body: GridView.count(
         crossAxisCount: 2,
         children: List.generate(
-            6,
-            (val) => InkWell(
-                  child: Container(
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        color: Colors.grey[350],
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black,
-                            offset: Offset(0.0, 1.0), //(x,y)
-                            blurRadius: 6.0,
-                          ),
-                        ]),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          _gridElements[val]['icon'],
-                          size: 35,
-                        ),
-                        Text(
-                          _gridElements[val]['text'],
-                          style: TextStyle(fontSize: 24),
-                          textAlign: TextAlign.center,
-                        )
-                      ],
-                    ),
-                  ),
-                  onTap: () => _gridElements[val]['ontap'](context),
-                )),
+          6,
+          (val) => Gridtile(_gridElements[val]['text'],
+              _gridElements[val]['icon'], _gridElements[val]['ontap']),
+        ),
+      ),
+      drawer: Theme(
+        data: Theme.of(context).copyWith(canvasColor: Colors.black),
+        child: Drawer(
+          child: Column(
+            children:[],
+          ),
+        ),
       ),
     );
   }
