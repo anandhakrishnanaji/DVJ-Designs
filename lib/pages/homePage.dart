@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import './aboutUsPage.dart';
 import '../widgets/gridTile.dart';
+import '../providers/productProvider.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = '/homepage';
@@ -82,37 +84,40 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Image.asset('assets/images/logo.png'),
-        titleSpacing: 70,
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: IconButton(
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                onPressed: null),
-          )
-        ],
-      ),
-      body: GridView.count(
-        crossAxisCount: 2,
-        children: List.generate(
-          6,
-          (val) => Gridtile(_gridElements[val]['text'],
-              _gridElements[val]['icon'], _gridElements[val]['ontap']),
+    return ChangeNotifierProvider(
+      create: (context) => ProductProvider(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: Image.asset('assets/images/logo.png'),
+          titleSpacing: 70,
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                  onPressed: null),
+            )
+          ],
         ),
-      ),
-      drawer: Theme(
-        data: Theme.of(context)
-            .copyWith(canvasColor: Color.fromRGBO(46, 46, 46, 1)),
-        child: Drawer(
-          child: Column(
-            children: [],
+        body: GridView.count(
+          crossAxisCount: 2,
+          children: List.generate(
+            6,
+            (val) => Gridtile(_gridElements[val]['text'],
+                _gridElements[val]['icon'], _gridElements[val]['ontap']),
+          ),
+        ),
+        drawer: Theme(
+          data: Theme.of(context)
+              .copyWith(canvasColor: Color.fromRGBO(46, 46, 46, 1)),
+          child: Drawer(
+            child: Column(
+              children: [],
+            ),
           ),
         ),
       ),
