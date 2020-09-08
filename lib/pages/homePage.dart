@@ -92,14 +92,15 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Image.asset('assets/images/logo.png'),
-        titleSpacing: 70,
+        titleSpacing: 0.194 * width,
         actions: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(right: 10),
+            padding: EdgeInsets.only(right: 0.024 * width),
             child: IconButton(
                 icon: Icon(
                   Icons.search,

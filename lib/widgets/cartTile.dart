@@ -15,20 +15,21 @@ class _CartTileState extends State<CartTile> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Container(
       child: ListTile(
         leading: Image.asset(
           widget.cproduct.product.imageUrl,
-          width: 40,
-          height: 40,
+          width: 0.097 * width,
+          height: 0.097 * width,
         ),
         title: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 0.048 * width),
             child: FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
                   widget.cproduct.product.name,
-                  style: TextStyle(fontSize: 30),
+                  style: TextStyle(fontSize: 0.041 * height),
                 ))),
         trailing: Container(
           width: 0.35 * width,
@@ -36,7 +37,7 @@ class _CartTileState extends State<CartTile> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                width: 40,
+                width: 0.097 * width,
                 child: TextFormField(
                   initialValue: widget.cproduct.quantity.toString(),
                   onFieldSubmitted: (value) =>
@@ -47,7 +48,7 @@ class _CartTileState extends State<CartTile> {
               IconButton(
                   icon: Icon(
                     Icons.close,
-                    size: 40,
+                    size: 0.097 * width,
                     color: Colors.black,
                   ),
                   onPressed: () =>

@@ -6,16 +6,17 @@ class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Image.asset('assets/images/logo.png'),
-        titleSpacing: 70,
+        titleSpacing: 0.194 * width,
       ),
       body: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 30),
+            padding: EdgeInsets.symmetric(vertical: 0.041 * height),
             child: CarouselSlider(
               items: List.generate(
                   3,
@@ -30,7 +31,7 @@ class AboutUsPage extends StatelessWidget {
                       )),
               options: CarouselOptions(
                 enlargeCenterPage: true,
-                height: 200,
+                height: 0.274 * height,
                 initialPage: 0,
                 autoPlay: true,
               ),
@@ -38,13 +39,14 @@ class AboutUsPage extends StatelessWidget {
           ),
           Text(
             'About Us',
-            style: TextStyle(fontSize: 30),
+            style: TextStyle(fontSize: 0.041 * height),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+            padding: EdgeInsets.symmetric(
+                vertical: 0.041 * height, horizontal: 0.048 * width),
             child: Text(
                 'Dvj is a brand that represents great Ceramic Products from across the Globe. Dvj as a brand is conceived to be integral and versatile thanks to the technological innovations in the industry. The prime objective is to provide ceramic products that are technically advanced for superior lifestyle.',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 0.0273 * height),
                 textAlign: TextAlign.center),
           )
         ],

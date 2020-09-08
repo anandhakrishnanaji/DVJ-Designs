@@ -8,10 +8,11 @@ class ProductTile extends StatelessWidget {
   ProductTile(this.product);
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return InkWell(
       child: Container(
-        margin: EdgeInsets.all(10),
+        margin: EdgeInsets.all(0.0136 * height),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.black, width: 2),
         ),
@@ -30,11 +31,11 @@ class ProductTile extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     product.name,
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style:
+                        TextStyle(color: Colors.white, fontSize: 0.049 * width),
                   ),
                   Divider(
                     color: Colors.white,
-                    endIndent: 20,
                     thickness: 0.5,
                   ),
                   Row(
@@ -43,7 +44,7 @@ class ProductTile extends StatelessWidget {
                       InkWell(
                         onTap: null,
                         child: Container(
-                          margin: EdgeInsets.only(left: 10),
+                          margin: EdgeInsets.only(left: 0.024 * width),
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.white)),
                           child: Text(

@@ -16,6 +16,8 @@ class ProductListPage extends StatelessWidget {
     var width = (screenWidth - ((_crossAxisCount - 1) * _crossAxisSpacing)) /
         _crossAxisCount;
     var height = width / _aspectRatio;
+
+    final screenheight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -26,10 +28,10 @@ class ProductListPage extends StatelessWidget {
           child: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(0.0273 * screenheight),
             child: Text(
               'PRODUCTS',
-              style: TextStyle(fontSize: 30),
+              style: TextStyle(fontSize: 0.041 * screenheight),
             ),
           ),
           Expanded(

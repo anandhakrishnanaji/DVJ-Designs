@@ -8,10 +8,12 @@ class DrawerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return InkWell(
       onTap: () => ontap(context),
       child: Container(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(0.027 * height),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -20,10 +22,11 @@ class DrawerTile extends StatelessWidget {
                 color: Colors.white,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 30),
+                padding: EdgeInsets.only(left: 0.073 * width),
                 child: Text(
                   text,
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  style:
+                      TextStyle(color: Colors.white, fontSize: 0.027 * height),
                 ),
               )
             ],

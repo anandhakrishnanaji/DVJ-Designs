@@ -7,14 +7,16 @@ import './cartTile.dart';
 class CartList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Container(
       child: Column(
         children: <Widget>[
           Container(
-              height: 30,
+              height: 0.041 * height,
               decoration: BoxDecoration(color: Colors.black),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 0.025 * width),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[

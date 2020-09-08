@@ -43,14 +43,16 @@ class _DealerRegistrationState extends State<DealerRegistration> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Image.asset('assets/images/logo.png'),
-        titleSpacing: 70,
+        titleSpacing: 0.194 * width,
         actions: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(right: 10),
+            padding: EdgeInsets.only(right: 0.024 * width),
             child: IconButton(
                 icon: Icon(
                   Icons.search,
@@ -61,7 +63,7 @@ class _DealerRegistrationState extends State<DealerRegistration> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(30),
+        padding: EdgeInsets.all(0.072 * width),
         child: Form(
             key: _form,
             child: SingleChildScrollView(
@@ -69,8 +71,9 @@ class _DealerRegistrationState extends State<DealerRegistration> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: Text('Design Registration', style: TextStyle(fontSize: 30)),
+                    padding: EdgeInsets.only(bottom: 0.027 * height),
+                    child: Text('Design Registration',
+                        style: TextStyle(fontSize: 0.041 * height)),
                   ),
                   TextFormField(
                     decoration: InputDecoration(
@@ -82,8 +85,8 @@ class _DealerRegistrationState extends State<DealerRegistration> {
                         value.isEmpty ? "This field is Required" : null,
                     onSaved: (newValue) => _check['name'] = newValue,
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 0.0136 * height,
                   ),
                   TextFormField(
                       decoration: InputDecoration(
@@ -95,8 +98,8 @@ class _DealerRegistrationState extends State<DealerRegistration> {
                       validator: (value) =>
                           value.isEmpty ? "This field is Required" : null,
                       onSaved: (newValue) => _check['address'] = newValue),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 0.0136 * height,
                   ),
                   TextFormField(
                       decoration: InputDecoration(
@@ -107,8 +110,8 @@ class _DealerRegistrationState extends State<DealerRegistration> {
                       validator: (value) =>
                           value.isEmpty ? "This field is Required" : null,
                       onSaved: (newValue) => _check['cpname'] = newValue),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 0.0136 * height,
                   ),
                   TextFormField(
                       decoration: InputDecoration(
@@ -121,8 +124,8 @@ class _DealerRegistrationState extends State<DealerRegistration> {
                       validator: (value) =>
                           value.isEmpty ? "This field is Required" : null,
                       onSaved: (newValue) => _check['mobile'] = newValue),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 0.0136 * height,
                   ),
                   TextFormField(
                       decoration: InputDecoration(
@@ -135,8 +138,8 @@ class _DealerRegistrationState extends State<DealerRegistration> {
                       validator: (value) =>
                           value.isEmpty ? "This field is Required" : null,
                       onSaved: (newValue) => _check['email'] = newValue),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 0.0136 * height,
                   ),
                   TextFormField(
                       decoration: InputDecoration(
@@ -149,7 +152,7 @@ class _DealerRegistrationState extends State<DealerRegistration> {
                           value.isEmpty ? "This field is Required" : null,
                       onSaved: (newValue) => _check['cprofile'] = newValue),
                   Container(
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.all(0.0273 * height),
                     color: Colors.black,
                     child: MaterialButton(
                       child: Text(

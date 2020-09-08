@@ -16,20 +16,21 @@ class ProductsListPage extends StatelessWidget {
     var width = (screenWidth - ((_crossAxisCount - 1) * _crossAxisSpacing)) /
         _crossAxisCount;
     var height = width / _aspectRatio;
+    final screenheight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Image.asset('assets/images/logo.png'),
       ),
       body: Container(
-        padding: EdgeInsets.only(top: 20),
+        padding: EdgeInsets.only(top: 0.0273 * screenheight),
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(bottom: 30),
+              padding: EdgeInsets.only(bottom: 0.041 * screenheight),
               child: Text(
                 'Products',
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(fontSize: 0.041 * screenheight),
               ),
             ),
             Expanded(

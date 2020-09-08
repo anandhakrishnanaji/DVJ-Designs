@@ -7,9 +7,11 @@ class Gridtile extends StatelessWidget {
   Gridtile(this.text, this.icon, this.ontap);
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return InkWell(
       child: Container(
-        margin: EdgeInsets.all(10),
+        margin: EdgeInsets.all(0.0138 * height),
         decoration: BoxDecoration(
             color: Colors.grey[350],
             borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -25,11 +27,11 @@ class Gridtile extends StatelessWidget {
           children: <Widget>[
             Icon(
               icon,
-              size: 35,
+              size: 0.047 * height,
             ),
             Text(
               text,
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(fontSize: 0.058 * width),
               textAlign: TextAlign.center,
             )
           ],

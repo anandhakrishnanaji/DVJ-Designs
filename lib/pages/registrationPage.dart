@@ -49,13 +49,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Image.asset('assets/images/logo.png'),
-      ),
+          backgroundColor: Colors.black,
+          title: Image.asset('assets/images/logo.png'),
+          titleSpacing: 0.194 * width),
       body: Padding(
-        padding: const EdgeInsets.all(30),
+        padding: EdgeInsets.all(0.041 * height),
         child: Form(
             key: _form,
             child: SingleChildScrollView(
@@ -63,8 +64,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: Text('Sign In', style: TextStyle(fontSize: 30)),
+                    padding: EdgeInsets.only(bottom: 0.0273 * height),
+                    child: Text('Sign In',
+                        style: TextStyle(fontSize: 0.041 * height)),
                   ),
                   TextFormField(
                     decoration: InputDecoration(
@@ -76,8 +78,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         value.isEmpty ? "This field is Required" : null,
                     onSaved: (newValue) => _check['name'] = newValue,
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 0.0273 * height,
                   ),
                   TextFormField(
                       decoration: InputDecoration(
@@ -90,8 +92,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       validator: (value) =>
                           value.isEmpty ? "This field is Required" : null,
                       onSaved: (newValue) => _check['phone'] = newValue),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 0.0273 * height,
                   ),
                   TextFormField(
                       decoration: InputDecoration(
@@ -104,8 +106,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       validator: (value) =>
                           value.isEmpty ? "This field is Required" : null,
                       onSaved: (newValue) => _check['email'] = newValue),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 0.0273 * height,
                   ),
                   TextFormField(
                       decoration: InputDecoration(
@@ -123,8 +125,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           value.isEmpty ? "This field is Required" : null,
                       onSaved: (newValue) => _check['company'] = newValue),
                   Container(
-                    margin: EdgeInsets.all(20),
-                    height: 170,
+                    margin: EdgeInsets.all(0.0273 * height),
+                    height: 0.232 * height,
                     child: Column(
                       children: _checkbool.keys
                           .map((String key) => CheckboxListTile(

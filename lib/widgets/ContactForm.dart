@@ -38,8 +38,10 @@ class _ContactFormState extends State<ContactForm> {
   bool _isValid = false;
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(0.048 * width),
       child: Form(
           child: Column(children: [
         TextFormField(
@@ -51,8 +53,8 @@ class _ContactFormState extends State<ContactForm> {
           validator: (value) => value.isEmpty ? "This field is Required" : null,
           onSaved: (newValue) => _check['name'] = newValue,
         ),
-        const SizedBox(
-          height: 20,
+        SizedBox(
+          height: 0.0273 * height,
         ),
         TextFormField(
             decoration: InputDecoration(
@@ -65,8 +67,8 @@ class _ContactFormState extends State<ContactForm> {
             validator: (value) =>
                 value.isEmpty ? "This field is Required" : null,
             onSaved: (newValue) => _check['phone'] = newValue),
-        const SizedBox(
-          height: 20,
+        SizedBox(
+          height: 0.0273 * height,
         ),
         TextFormField(
             decoration: InputDecoration(
@@ -79,8 +81,8 @@ class _ContactFormState extends State<ContactForm> {
             validator: (value) =>
                 value.isEmpty ? "This field is Required" : null,
             onSaved: (newValue) => _check['email'] = newValue),
-        const SizedBox(
-          height: 20,
+        SizedBox(
+          height: 0.0273 * height,
         ),
         TextFormField(
             decoration: InputDecoration(
@@ -93,7 +95,7 @@ class _ContactFormState extends State<ContactForm> {
                 value.isEmpty ? "This field is Required" : null,
             onSaved: (newValue) => _check['company'] = newValue),
         Container(
-          margin: EdgeInsets.all(20),
+          margin: EdgeInsets.all(0.027 * height),
           color: Colors.black,
           child: MaterialButton(
             child: Text(
