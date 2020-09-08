@@ -71,14 +71,12 @@ class HomePage extends StatelessWidget {
     {
       'text': 'Order Status',
       'icon': Icons.account_circle,
-      'ontap': (BuildContext ctx) =>
-          Navigator.of(ctx).pushNamed('/')
+      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
     },
     {
       'text': 'Contact',
       'icon': Icons.phone,
-      'ontap': (BuildContext ctx) =>
-          Navigator.of(ctx).pushNamed('/')
+      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
     },
   ];
 
@@ -110,10 +108,11 @@ class HomePage extends StatelessWidget {
         ),
       ),
       drawer: Theme(
-        data: Theme.of(context).copyWith(canvasColor: Colors.black),
+        data: Theme.of(context)
+            .copyWith(canvasColor: Color.fromRGBO(46, 46, 46, 1)),
         child: Drawer(
           child: Column(
-            children:[],
+            children: [],
           ),
         ),
       ),
