@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/productProvider.dart';
+import '../pages/productListPage.dart';
 
 class ProductsTile extends StatelessWidget {
   final Products product;
@@ -11,18 +12,24 @@ class ProductsTile extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return InkWell(
-      onTap: null,
+      onTap: () => Navigator.of(context)
+          .pushNamed(ProductListPage.routeName, arguments: product.list),
       child: Container(
-        height: 0.3 * height,
-        width: 0.43 * width,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Image.asset(
-              product.imageUri,
-              fit: BoxFit.cover,
+            Expanded(
+              child: Image.asset(
+                product.imageUri,
+                width: 0.43 * width,
+                fit: BoxFit.cover,
+              ),
             ),
             Container(
-              child: Text(product.name, style: TextStyle(color: Colors.white)),
+              alignment: Alignment.center,
+              width: 0.43 * width,
+              child: Text(product.name,
+                  style: TextStyle(color: Colors.white, fontSize: 20)),
               decoration: BoxDecoration(color: Colors.black),
             )
           ],

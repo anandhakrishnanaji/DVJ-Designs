@@ -4,6 +4,10 @@ import 'package:provider/provider.dart';
 import './aboutUsPage.dart';
 import '../widgets/gridTile.dart';
 import '../providers/productProvider.dart';
+import './productslistPage.dart';
+import './ContactUsPage.dart';
+import './notificationPage.dart';
+import '../widgets/drawerTile.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = '/homepage';
@@ -18,7 +22,8 @@ class HomePage extends StatelessWidget {
     {
       'text': 'Products',
       'icon': Icons.shopping_basket,
-      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
+      'ontap': (BuildContext ctx) =>
+          Navigator.of(ctx).pushNamed(ProductsListPage.routeName)
     },
     {
       'text': 'Brochure',
@@ -28,12 +33,14 @@ class HomePage extends StatelessWidget {
     {
       'text': 'Contact',
       'icon': Icons.contact_mail,
-      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
+      'ontap': (BuildContext ctx) =>
+          Navigator.of(ctx).pushNamed(ContactUsPage.routeName)
     },
     {
       'text': 'Notification',
       'icon': Icons.notifications,
-      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
+      'ontap': (BuildContext ctx) =>
+          Navigator.of(ctx).pushNamed(NotificationsPage.routeName)
     },
     {
       'text': 'Register as Dealer',
@@ -78,46 +85,46 @@ class HomePage extends StatelessWidget {
     {
       'text': 'Contact',
       'icon': Icons.phone,
-      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
+      'ontap': (BuildContext ctx) =>
+          Navigator.of(ctx).pushNamed(ContactUsPage.routeName)
     },
   ];
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ProductProvider(),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: Image.asset('assets/images/logo.png'),
-          titleSpacing: 70,
-          actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: IconButton(
-                  icon: Icon(
-                    Icons.search,
-                    color: Colors.white,
-                  ),
-                  onPressed: null),
-            )
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Image.asset('assets/images/logo.png'),
+        titleSpacing: 70,
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+                onPressed: null),
+          )
+        ],
+      ),
+      body: GridView.count(
+        crossAxisCount: 2,
+        children: List.generate(
+          6,
+          (val) => Gridtile(_gridElements[val]['text'],
+              _gridElements[val]['icon'], _gridElements[val]['ontap']),
         ),
-        body: GridView.count(
-          crossAxisCount: 2,
-          children: List.generate(
-            6,
-            (val) => Gridtile(_gridElements[val]['text'],
-                _gridElements[val]['icon'], _gridElements[val]['ontap']),
-          ),
-        ),
-        drawer: Theme(
-          data: Theme.of(context)
-              .copyWith(canvasColor: Color.fromRGBO(46, 46, 46, 1)),
-          child: Drawer(
-            child: Column(
-              children: [],
-            ),
+      ),
+      drawer: Theme(
+        data: Theme.of(context)
+            .copyWith(canvasColor: Color.fromRGBO(46, 46, 46, 1)),
+        child: Drawer(
+          child: Column(
+            children: _drawerList
+                .map((e) => DrawerTile(e['text'], e['icon'], e['ontap']))
+                .toList(),
           ),
         ),
       ),

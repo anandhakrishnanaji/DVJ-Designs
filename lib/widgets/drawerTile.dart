@@ -11,19 +11,23 @@ class DrawerTile extends StatelessWidget {
     return InkWell(
       onTap: () => ontap(context),
       child: Container(
+          padding: EdgeInsets.all(20),
           child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Icon(
-            icon,
-            color: Colors.white,
-          ),
-          Text(
-            text,
-            style: TextStyle(color: Colors.white),
-          )
-        ],
-      )),
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Icon(
+                icon,
+                color: Colors.white,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: Text(
+                  text,
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              )
+            ],
+          )),
     );
   }
 }

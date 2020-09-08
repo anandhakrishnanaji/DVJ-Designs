@@ -26,9 +26,25 @@ class CartProduct {
 }
 
 class ProductProvider with ChangeNotifier {
-  List<Products> _productslist = [];
-  List<CartProduct> _cartlist = [];
-  List<Product> _productlist = [];
+  List<CartProduct> _cartlist = [
+    CartProduct(Product(3, 'Kona', 'assets/images/1.jpeg'), 1)
+  ];
+  List<Product> _productlist = [
+    Product(3, 'Kona', 'assets/images/1.jpeg'),
+    Product(4, 'joka', 'assets/images/3.jpeg'),
+    Product(5, 'jdhvf', 'assets/images/4.jpeg'),
+    Product(6, 'manio', 'assets/images/5.jpeg')
+  ];
+  List<Products> _productslist = [
+    Products(1, 'Vulcano', 'assets/images/2.jpg', [
+      Product(3, 'Kona', 'assets/images/1.jpeg'),
+      Product(4, 'joka', 'assets/images/3.jpeg'),
+    ]),
+    Products(2, 'Adobe', 'assets/images/6.jpg', [
+      Product(5, 'jdhvf', 'assets/images/4.jpeg'),
+      Product(6, 'manio', 'assets/images/5.jpeg')
+    ])
+  ];
 
   get productlist => _productlist;
   get productslist => _productslist;

@@ -39,6 +39,7 @@ class _ContactFormState extends State<ContactForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(20),
       child: Form(
           child: Column(children: [
         TextFormField(
@@ -92,6 +93,7 @@ class _ContactFormState extends State<ContactForm> {
                 value.isEmpty ? "This field is Required" : null,
             onSaved: (newValue) => _check['company'] = newValue),
         Container(
+          margin: EdgeInsets.all(20),
           color: Colors.black,
           child: MaterialButton(
             child: Text(

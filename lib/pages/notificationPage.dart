@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NotificationsPage extends StatelessWidget {
+  static const routeName = '/notifications';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

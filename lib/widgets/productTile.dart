@@ -9,34 +9,41 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
     return InkWell(
       child: Container(
-        height: 0.3 * height,
-        width: 0.43 * width,
-        decoration:
-            BoxDecoration(border: Border.all(color: Colors.black, width: 2)),
+        margin: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black, width: 2),
+        ),
         child: Column(
           children: <Widget>[
-            Image.asset(
-              product.imageUrl,
-              fit: BoxFit.fitHeight,
+            Expanded(
+              child: Image.asset(
+                product.imageUrl,
+                fit: BoxFit.cover,
+              ),
             ),
             Container(
               decoration: BoxDecoration(color: Colors.black),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     product.name,
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
-                  Divider(),
+                  Divider(
+                    color: Colors.white,
+                    endIndent: 20,
+                    thickness: 0.5,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       InkWell(
                         onTap: null,
                         child: Container(
+                          margin: EdgeInsets.only(left: 10),
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.white)),
                           child: Text(

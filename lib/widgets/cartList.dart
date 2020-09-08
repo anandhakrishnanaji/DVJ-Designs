@@ -13,18 +13,33 @@ class CartList extends StatelessWidget {
           Container(
               height: 30,
               decoration: BoxDecoration(color: Colors.black),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text('Image'),
-                  Text('Product Name'),
-                  Text('Qty/Pcs'),
-                  Text('Remove')
-                ],
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'Image',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Text(
+                      'Product Name',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Text(
+                      'Qty/Pcs',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Text(
+                      'Remove',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
               )),
           Consumer<ProductProvider>(
             builder: (context, value, child) => Column(
-              children: value.cartlist.map((e) => CartTile(e)).toList(),
+              children: value.cartlist.map<Widget>((e) => CartTile(e)).toList(),
             ),
           )
         ],
