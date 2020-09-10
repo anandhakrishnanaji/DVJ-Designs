@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './homePage.dart';
 
 class RegistrationPage extends StatefulWidget {
+  static const routeName = '/registration';
   @override
   _RegistrationPageState createState() => _RegistrationPageState();
 }
@@ -54,7 +55,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       appBar: AppBar(
           backgroundColor: Colors.black,
           title: Image.asset('assets/images/logo.png'),
-          titleSpacing: 0.194 * width),
+          titleSpacing: 0.29 * width),
       body: Padding(
         padding: EdgeInsets.all(0.041 * height),
         child: Form(
@@ -151,8 +152,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       onPressed: () {
                         _saveform();
                         if (_isValid)
-                          Navigator.of(context)
-                              .pushReplacementNamed(HomePage.routeName);
+                          // Navigator.of(context)
+                          //     .pushReplacementNamed(HomePage.routeName);
+                          Navigator.pop(context);
                       },
                     ),
                   )
