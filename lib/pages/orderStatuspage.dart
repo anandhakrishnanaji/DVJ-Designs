@@ -35,6 +35,7 @@ class OrderStatusPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
@@ -59,7 +60,7 @@ class OrderStatusPage extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Order Status',
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(fontSize: 0.041 * height),
               ),
               Divider(
                 thickness: 5,
@@ -70,7 +71,8 @@ class OrderStatusPage extends StatelessWidget {
                 shrinkWrap: true,
                 lineColor: Colors.grey,
               ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.all(10),
@@ -78,7 +80,10 @@ class OrderStatusPage extends StatelessWidget {
                     decoration: BoxDecoration(color: Colors.black),
                     child: RaisedButton(
                       onPressed: null,
-                      child: Text('Invoice',style: TextStyle(color: Colors.white,fontSize: 20),),
+                      child: Text(
+                        'Invoice',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
                     ),
                   ),
                   Container(
@@ -87,7 +92,10 @@ class OrderStatusPage extends StatelessWidget {
                     decoration: BoxDecoration(color: Colors.black),
                     child: RaisedButton(
                       onPressed: null,
-                      child: Text('LR',style: TextStyle(color: Colors.white,fontSize: 20),),
+                      child: Text(
+                        'LR',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
                     ),
                   )
                 ],
