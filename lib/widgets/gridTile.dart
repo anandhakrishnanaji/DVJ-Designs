@@ -22,19 +22,12 @@ class Gridtile extends StatelessWidget {
                 blurRadius: 6.0,
               ),
             ]),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Icon(
-              icon,
-              size: 0.047 * height,
-            ),
-            Text(
-              text,
-              style: TextStyle(fontSize: 0.058 * width),
-              textAlign: TextAlign.center,
-            )
-          ],
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 0.058 * width),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
       onTap: () => ontap(context),

@@ -27,7 +27,7 @@ class ProductsListPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(bottom: 0.041 * screenheight),
+              padding: EdgeInsets.only(bottom: 0.03 * screenheight),
               child: Text(
                 'Products',
                 style: TextStyle(fontSize: 0.041 * screenheight),

@@ -11,6 +11,7 @@ import './pages/ContactUsPage.dart';
 import './pages/notificationPage.dart';
 import './pages/productListPage.dart';
 import './providers/productProvider.dart';
+import './pages/brochurePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -41,7 +42,8 @@ class MyApp extends StatelessWidget {
             ProductsListPage.routeName: (ctx) => ProductsListPage(),
             ContactUsPage.routeName: (ctx) => ContactUsPage(),
             NotificationsPage.routeName: (ctx) => NotificationsPage(),
-            ProductListPage.routeName: (ctx) => ProductListPage()
+            ProductListPage.routeName: (ctx) => ProductListPage(),
+            BrochurePage.routeName: (ctx) => BrochurePage()
           },
         ));
   }

@@ -8,6 +8,7 @@ import './productslistPage.dart';
 import './ContactUsPage.dart';
 import './notificationPage.dart';
 import '../widgets/drawerTile.dart';
+import './brochurePage.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = '/homepage';
@@ -28,7 +29,7 @@ class HomePage extends StatelessWidget {
     {
       'text': 'Brochure',
       'icon': Icons.book,
-      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
+      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed(BrochurePage.routeName)
     },
     {
       'text': 'Contact',
@@ -36,17 +37,17 @@ class HomePage extends StatelessWidget {
       'ontap': (BuildContext ctx) =>
           Navigator.of(ctx).pushNamed(ContactUsPage.routeName)
     },
-    {
-      'text': 'Notification',
-      'icon': Icons.notifications,
-      'ontap': (BuildContext ctx) =>
-          Navigator.of(ctx).pushNamed(NotificationsPage.routeName)
-    },
-    {
-      'text': 'Register as Dealer',
-      'icon': Icons.person_add,
-      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
-    }
+    // {
+    //   'text': 'Notification',
+    //   'icon': Icons.notifications,
+    //   'ontap': (BuildContext ctx) =>
+    //       Navigator.of(ctx).pushNamed(NotificationsPage.routeName)
+    // },
+    // {
+    //   'text': 'Register as Dealer',
+    //   'icon': Icons.person_add,
+    //   'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
+    // }
   ];
 
   final List<Map> _drawerList = [
@@ -75,7 +76,7 @@ class HomePage extends StatelessWidget {
     {
       'text': 'Brochure',
       'icon': Icons.book,
-      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
+      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed(BrochurePage.routeName)
     },
     {
       'text': 'Order Status',
@@ -113,7 +114,7 @@ class HomePage extends StatelessWidget {
       body: GridView.count(
         crossAxisCount: 2,
         children: List.generate(
-          6,
+          4,
           (val) => Gridtile(_gridElements[val]['text'],
               _gridElements[val]['icon'], _gridElements[val]['ontap']),
         ),
@@ -123,9 +124,34 @@ class HomePage extends StatelessWidget {
             .copyWith(canvasColor: Color.fromRGBO(46, 46, 46, 1)),
         child: Drawer(
           child: Column(
-            children: _drawerList
-                .map((e) => DrawerTile(e['text'], e['icon'], e['ontap']))
-                .toList(),
+            children: [
+              Container(
+                padding: EdgeInsets.only(top: 30,left: 20,right: 20,bottom: 10),
+                child: Row(
+                  children: <Widget>[
+                    CircleAvatar(
+                      backgroundImage: AssetImage(
+                        'assets/images/user.png',
+                      ),
+                      radius: 25,
+                    ),
+                    Padding(
+                      padding:  EdgeInsets.only(left: 30),
+                      child: Text(
+                        'Username',
+                        style: TextStyle(color: Colors.white,fontSize: 24),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Divider(
+                color: Colors.white,
+              ),
+              ..._drawerList
+                  .map((e) => DrawerTile(e['text'], e['icon'], e['ontap']))
+                  .toList()
+            ],
           ),
         ),
       ),

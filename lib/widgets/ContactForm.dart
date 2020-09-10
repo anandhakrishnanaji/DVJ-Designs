@@ -42,7 +42,7 @@ class _ContactFormState extends State<ContactForm> {
     final height = MediaQuery.of(context).size.height;
     return Container(
       padding: EdgeInsets.all(0.048 * width),
-      child: Form(
+      child: Form(key: _form,
           child: Column(children: [
         TextFormField(
           decoration: InputDecoration(

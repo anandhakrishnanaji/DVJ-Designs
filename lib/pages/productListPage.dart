@@ -7,9 +7,9 @@ class ProductListPage extends StatelessWidget {
   static const routeName = '/productlistpage';
   @override
   Widget build(BuildContext context) {
-    final List<Product> products = ModalRoute.of(context).settings.arguments;
-    // final height = MediaQuery.of(context).size.height;
-    // final width = MediaQuery.of(context).size.width;
+    final Map arguments= ModalRoute.of(context).settings.arguments;
+    final List<Product> products=arguments['products'];
+    final title=arguments['title'];
     double _crossAxisSpacing = 6, _mainAxisSpacing = 12, _aspectRatio = 0.75;
     int _crossAxisCount = 2;
     double screenWidth = MediaQuery.of(context).size.width;
@@ -30,7 +30,7 @@ class ProductListPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(0.0273 * screenheight),
             child: Text(
-              'PRODUCTS',
+              title,
               style: TextStyle(fontSize: 0.041 * screenheight),
             ),
           ),
