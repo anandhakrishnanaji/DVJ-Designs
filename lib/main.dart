@@ -12,6 +12,7 @@ import './pages/notificationPage.dart';
 import './pages/productListPage.dart';
 import './providers/productProvider.dart';
 import './pages/brochurePage.dart';
+import './pages/orderStatuspage.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
                   border: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black, width: 5)),
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black, width: 3)))),
+                      borderSide: BorderSide(color: Colors.black, width: 3))),
+              ),
           home: RegistrationPage(),
           routes: {
             HomePage.routeName: (ctx) => HomePage(),
@@ -43,7 +45,8 @@ class MyApp extends StatelessWidget {
             ContactUsPage.routeName: (ctx) => ContactUsPage(),
             NotificationsPage.routeName: (ctx) => NotificationsPage(),
             ProductListPage.routeName: (ctx) => ProductListPage(),
-            BrochurePage.routeName: (ctx) => BrochurePage()
+            BrochurePage.routeName: (ctx) => BrochurePage(),
+            OrderStatusPage.routeName: (ctx) => OrderStatusPage()
           },
         ));
   }

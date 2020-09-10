@@ -9,6 +9,7 @@ import './ContactUsPage.dart';
 import './notificationPage.dart';
 import '../widgets/drawerTile.dart';
 import './brochurePage.dart';
+import './orderStatuspage.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = '/homepage';
@@ -29,7 +30,8 @@ class HomePage extends StatelessWidget {
     {
       'text': 'Brochure',
       'icon': Icons.book,
-      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed(BrochurePage.routeName)
+      'ontap': (BuildContext ctx) =>
+          Navigator.of(ctx).pushNamed(BrochurePage.routeName)
     },
     {
       'text': 'Contact',
@@ -66,22 +68,24 @@ class HomePage extends StatelessWidget {
     {
       'text': 'Tiles',
       'icon': Icons.gradient,
-      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
+      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed(ProductsListPage.routeName)
     },
     {
       'text': 'Mosaic',
       'icon': Icons.grid_on,
-      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
+      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed(ProductsListPage.routeName)
     },
     {
       'text': 'Brochure',
       'icon': Icons.book,
-      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed(BrochurePage.routeName)
+      'ontap': (BuildContext ctx) =>
+          Navigator.of(ctx).pushNamed(BrochurePage.routeName)
     },
     {
       'text': 'Order Status',
       'icon': Icons.account_circle,
-      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
+      'ontap': (BuildContext ctx) =>
+          Navigator.of(ctx).pushNamed(OrderStatusPage.routeName)
     },
     {
       'text': 'Contact',
@@ -126,7 +130,8 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.only(top: 30,left: 20,right: 20,bottom: 10),
+                padding:
+                    EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 10),
                 child: Row(
                   children: <Widget>[
                     CircleAvatar(
@@ -136,10 +141,10 @@ class HomePage extends StatelessWidget {
                       radius: 25,
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(left: 30),
+                      padding: EdgeInsets.only(left: 30),
                       child: Text(
                         'Username',
-                        style: TextStyle(color: Colors.white,fontSize: 24),
+                        style: TextStyle(color: Colors.white, fontSize: 24),
                       ),
                     )
                   ],

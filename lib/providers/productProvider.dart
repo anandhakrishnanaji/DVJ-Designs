@@ -27,22 +27,22 @@ class CartProduct {
 
 class ProductProvider with ChangeNotifier {
   List<CartProduct> _cartlist = [
-    CartProduct(Product(3, 'Kona', 'assets/images/1.jpeg'), 1)
+    CartProduct(Product(3, '315x1000 DVJ-Vulcano Milenio Blanco', 'assets/images/1.jpeg'), 1)
   ];
   List<Product> _productlist = [
-    Product(3, 'Kona', 'assets/images/1.jpeg'),
-    Product(4, 'joka', 'assets/images/3.jpeg'),
-    Product(5, 'jdhvf', 'assets/images/4.jpeg'),
-    Product(6, 'manio', 'assets/images/5.jpeg')
+    Product(3, '315x1000 DVJ-Vulcano Milenio Blanco', 'assets/images/1.jpeg'),
+    Product(4, '315x100 DVJ-Vulcano Golden Gate', 'assets/images/3.jpeg'),
+    Product(5, '315x1000 DVJ-Vulcano Milenio Corten', 'assets/images/4.jpeg'),
+    Product(6, '315x1000 DVJ-Vulcano Corten', 'assets/images/5.jpeg')
   ];
   List<Products> _productslist = [
     Products(1, 'Vulcano', 'assets/images/2.jpg', [
-      Product(3, 'Kona', 'assets/images/1.jpeg'),
-      Product(4, 'joka', 'assets/images/3.jpeg'),
+      Product(3, '315x1000 DVJ-Vulcano Milenio Blanco', 'assets/images/1.jpeg'),
+      Product(4, '315x100 DVJ-Vulcano Golden Gate', 'assets/images/3.jpeg'),
     ]),
     Products(2, 'Adobe', 'assets/images/6.jpg', [
-      Product(5, 'jdhvf', 'assets/images/4.jpeg'),
-      Product(6, 'manio', 'assets/images/5.jpeg')
+      Product(5, '315x1000 DVJ-Vulcano Milenio Corten', 'assets/images/4.jpeg'),
+      Product(6, '315x1000 DVJ-Vulcano Corten', 'assets/images/5.jpeg')
     ])
   ];
 
