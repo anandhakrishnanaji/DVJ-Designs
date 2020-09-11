@@ -76,7 +76,8 @@ class _OTPVerificationState extends State<OTPVerification> {
                       ispnoerror = pno.text.isEmpty;
                     });
                     if (!ispnoerror)
-                      Navigator.of(context).pushNamed(HomePage.routeName);
+                      Navigator.of(context)
+                          .pushReplacementNamed(HomePage.routeName);
                   },
                 ),
               ),
