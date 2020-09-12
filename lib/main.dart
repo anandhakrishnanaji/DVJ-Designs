@@ -6,12 +6,9 @@ import './pages/homePage.dart';
 import 'pages/loginPage.dart';
 import './pages/registrationPage.dart';
 import './pages/aboutUsPage.dart';
-//import './pages/productslistPage.dart';
-// import './pages/ContactUsPage.dart';
 import './pages/notificationPage.dart';
 import './pages/productListPage.dart';
 import './providers/productProvider.dart';
-// import './pages/brochurePage.dart';
 import './pages/orderStatuspage.dart';
 import './providers/auth.dart';
 
