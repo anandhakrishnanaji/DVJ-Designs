@@ -86,48 +86,60 @@ class _HomePageState extends State<HomePage> {
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          showUnselectedLabels: true,
           onTap: _onTabTapped,
           currentIndex: _currentIndex,
           items: [
             BottomNavigationBarItem(
                 title: Text(
-                  'Mosaic',
+                  'Home',
                   style: TextStyle(
                       color: _currentIndex == 0 ? Colors.blue : Colors.black),
                 ),
                 icon: Icon(
-                  Icons.grid_on,
+                  Icons.home,
                   color: _currentIndex == 0 ? Colors.blue : Colors.black,
+                )),
+            BottomNavigationBarItem(
+                title: Text(
+                  'Mosaic',
+                  style: TextStyle(
+                      color: _currentIndex == 1 ? Colors.blue : Colors.black),
+                ),
+                icon: Icon(
+                  Icons.grid_on,
+                  color: _currentIndex == 1 ? Colors.blue : Colors.black,
                 )),
             BottomNavigationBarItem(
                 title: Text(
                   'Tiles',
                   style: TextStyle(
-                      color: _currentIndex == 1 ? Colors.blue : Colors.black),
+                      color: _currentIndex == 2 ? Colors.blue : Colors.black),
                 ),
                 icon: Icon(
                   Icons.gradient,
-                  color: _currentIndex == 1 ? Colors.blue : Colors.black,
+                  color: _currentIndex == 2 ? Colors.blue : Colors.black,
                 )),
             BottomNavigationBarItem(
                 title: Text(
                   'Brochure',
                   style: TextStyle(
-                      color: _currentIndex == 2 ? Colors.blue : Colors.black),
+                      color: _currentIndex == 3 ? Colors.blue : Colors.black),
                 ),
                 icon: Icon(
                   Icons.book,
-                  color: _currentIndex == 2 ? Colors.blue : Colors.black,
+                  color: _currentIndex == 3 ? Colors.blue : Colors.black,
                 )),
             BottomNavigationBarItem(
                 title: Text(
                   'Contact',
                   style: TextStyle(
-                      color: _currentIndex == 3 ? Colors.blue : Colors.black),
+                      color: _currentIndex == 4 ? Colors.blue : Colors.black),
                 ),
                 icon: Icon(
                   Icons.phone,
-                  color: _currentIndex == 3 ? Colors.blue : Colors.black,
+                  color: _currentIndex == 4 ? Colors.blue : Colors.black,
                 ))
           ]),
       drawer: Theme(

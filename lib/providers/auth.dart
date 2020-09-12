@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Auth with ChangeNotifier {
   String _username = null;
   String _session = null;
+  List<String> _sliderlist = [];
   get session => _session;
 
   get username => _username;
@@ -24,6 +25,7 @@ class Auth with ChangeNotifier {
       else {
         print(jresponse);
         print(jresponse['data']['session']);
+        _sliderlist = jresponse['data']['slider'];
         _session = jresponse['data']['session'];
         await _saveToken();
 
@@ -97,5 +99,22 @@ class Auth with ChangeNotifier {
     shr.clear();
     _session = null;
     _username = null;
+  }
+
+  Future<List<String>> obtainSliderItems() async {
+    try {
+      if (_sliderlist == []) {
+        final url =
+            'https://dvj-design.com/api_dvj/Serv_v1/home?session=$session';
+        final response = await http.get(url);
+        final jresponse = json.decode(response.body) as Map;
+        if (jresponse['status'] == 'failed') throw (jresponse['message']);
+        _sliderlist = jresponse['data']['slider'];
+        return _sliderlist;
+      } else
+        return _sliderlist;
+    } catch (e) {
+      throw (e.toString());
+    }
   }
 }

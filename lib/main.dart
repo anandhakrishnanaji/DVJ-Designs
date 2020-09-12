@@ -6,7 +6,6 @@ import './pages/homePage.dart';
 import 'pages/loginPage.dart';
 import './pages/registrationPage.dart';
 import './pages/aboutUsPage.dart';
-import './pages/notificationPage.dart';
 import './pages/productListPage.dart';
 import './providers/productProvider.dart';
 import './pages/orderStatuspage.dart';
@@ -53,7 +52,6 @@ class MyApp extends StatelessWidget {
               LoginPage.routeName: (ctx) => LoginPage(),
               HomePage.routeName: (ctx) => HomePage(),
               AboutUsPage.routeName: (ctx) => AboutUsPage(),
-              NotificationsPage.routeName: (ctx) => NotificationsPage(),
               ProductListPage.routeName: (ctx) => ProductListPage(),
               OrderStatusPage.routeName: (ctx) => OrderStatusPage()
             },
