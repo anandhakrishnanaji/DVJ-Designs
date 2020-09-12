@@ -34,8 +34,9 @@ dependencies:
   timeline_list: ^0.0.3
   http: ^0.12.2
   shared_preferences: ^0.5.8
-
-
+  email_validator: ^1.0.5
+  
+  
 
 dev_dependencies:
   flutter_test:

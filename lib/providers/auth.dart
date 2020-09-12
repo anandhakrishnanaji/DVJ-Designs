@@ -11,7 +11,7 @@ class Auth with ChangeNotifier {
 
   get username => _username;
 
-  Future<bool> login(String uname) async {
+  Future<bool> login(String otp) async {
     final url =
         'https://dvj-design.com/api_dvj/Serv_v1/login?mobile=$username&pass=$_otp';
     try {
@@ -20,14 +20,12 @@ class Auth with ChangeNotifier {
       if (jresponse['status'] == 'failed')
         throw (jresponse['message']);
       else {
-        _username = uname;
         _session = jresponse['session'];
         await _saveToken();
 
         return true;
       }
     } catch (e) {
-      //print(e.toString());
       throw (e.toString());
     }
   }
@@ -39,7 +37,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<bool> register(String name, String mobile, String email,
-      String company, String profession) async {
+      String company, List<String> profession) async {
     final url =
         'https://dvj-design.com/api_dvj/Serv_v1/registration?name=$name&mobile=$mobile&email=$email&company=$company&profession=$profession';
     try {
@@ -54,7 +52,7 @@ class Auth with ChangeNotifier {
     }
   }
 
-  Future<bool> _otpsend(final String mobile) async {
+  Future<bool> otpsend(final String mobile) async {
     final url =
         'https://dvj-design.com/api_dvj/Serv_v1/get_login_otp?mobile=$mobile';
     try {

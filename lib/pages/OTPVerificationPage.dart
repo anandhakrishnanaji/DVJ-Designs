@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import './homePage.dart';
+import '../widgets/alertBox.dart';
+import '../providers/auth.dart';
 
 class OTPVerification extends StatefulWidget {
   static const routeName = '/otp';
@@ -73,17 +76,23 @@ class _OTPVerificationState extends State<OTPVerification> {
                   ),
                   onPressed: () {
                     setState(() {
-                      ispnoerror = pno.text.isEmpty;
+                      ispnoerror = pno.text.length != 6;
                     });
                     if (!ispnoerror)
-                      Navigator.of(context)
-                          .pushReplacementNamed(HomePage.routeName);
+                      Provider.of<Auth>(context, listen: false)
+                          .login(pno.text)
+                          .then((value) => value
+                              ? Navigator.of(context)
+                                  .pushReplacementNamed(HomePage.routeName)
+                              : null)
+                          .catchError((e) => showDialog(
+                              context: context, child: Alertbox(e.toString())));
                   },
                 ),
               ),
               FlatButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('Back to Login'))
+                  child: Text('Send Again'))
             ],
           ),
         ),

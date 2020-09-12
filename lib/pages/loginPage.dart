@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import './OTPVerificationPage.dart';
 import './registrationPage.dart';
+import '../providers/auth.dart';
+import '../widgets/alertBox.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/login';
@@ -79,18 +82,24 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   onPressed: () {
                     setState(() {
-                      ispnoerror = pno.text.isEmpty;
+                      ispnoerror = pno.text.length != 10;
                     });
                     if (!ispnoerror)
-                      Navigator.of(context)
-                          .pushNamed(OTPVerification.routeName);
+                      Provider.of<Auth>(context, listen: false)
+                          .otpsend(pno.text)
+                          .then((value) => value
+                              ? Navigator.of(context)
+                                  .pushNamed(OTPVerification.routeName)
+                              : null)
+                          .catchError((e) => showDialog(
+                              context: context, child: Alertbox(e.toString())));
                   },
                 ),
               ),
               FlatButton(
                   onPressed: () => Navigator.of(context)
                       .pushNamed(RegistrationPage.routeName),
-                  child: Text('Sign Up Instead'))
+                  child: Text('Go to Registration page'))
             ],
           ),
         ),

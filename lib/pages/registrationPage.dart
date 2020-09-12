@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:provider/provider.dart';
 
-import './homePage.dart';
+import './OTPVerificationPage.dart';
+import '../providers/auth.dart';
+import '../widgets/alertBox.dart';
 
 class RegistrationPage extends StatefulWidget {
   static const routeName = '/registration';
@@ -13,6 +17,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _emailfocusnode = FocusNode();
   final _compfocusnode = FocusNode();
   final _form = GlobalKey<FormState>();
+
+  bool _isNumeric(String s) {
+    if (s == null) {
+      return false;
+    }
+    return double.tryParse(s) != null;
+  }
 
   bool _isValid = false;
 
@@ -66,7 +77,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(bottom: 0.0273 * height),
-                    child: Text('Sign In',
+                    child: Text('CREATE ACCOUNT',
                         style: TextStyle(fontSize: 0.041 * height)),
                   ),
                   TextFormField(
@@ -76,7 +87,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (_) => _phonefocusnode.requestFocus(),
                     validator: (value) =>
-                        value.isEmpty ? "This field is Required" : null,
+                        value.isEmpty ? "The field cannot be empty" : null,
                     onSaved: (newValue) => _check['name'] = newValue,
                   ),
                   SizedBox(
@@ -90,8 +101,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       textInputAction: TextInputAction.next,
                       onFieldSubmitted: (_) => _emailfocusnode.requestFocus(),
                       focusNode: _phonefocusnode,
-                      validator: (value) =>
-                          value.isEmpty ? "This field is Required" : null,
+                      validator: (value) {
+                        if (value.isEmpty)
+                          return "The field cannot be empty";
+                        else if (value.length != 10)
+                          return "The field must only contain 10 digits";
+                        else if (!_isNumeric(value))
+                          return "The field can only contain digits";
+                        else
+                          return null;
+                      },
                       onSaved: (newValue) => _check['phone'] = newValue),
                   SizedBox(
                     height: 0.0273 * height,
@@ -104,8 +123,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       textInputAction: TextInputAction.next,
                       onFieldSubmitted: (_) => _compfocusnode.requestFocus(),
                       focusNode: _emailfocusnode,
-                      validator: (value) =>
-                          value.isEmpty ? "This field is Required" : null,
+                      validator: (value) {
+                        if (value.isEmpty)
+                          return "The field cannot be empty";
+                        else if (!EmailValidator.validate(value))
+                          return "The E-mail entered is not of valid format";
+                        else
+                          return null;
+                      },
                       onSaved: (newValue) => _check['email'] = newValue),
                   SizedBox(
                     height: 0.0273 * height,
@@ -116,12 +141,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                       textInputAction: TextInputAction.done,
                       focusNode: _compfocusnode,
-                      onFieldSubmitted: (_) {
-                        _saveform();
-                        if (_isValid)
-                          Navigator.of(context)
-                              .pushReplacementNamed(HomePage.routeName);
-                      },
                       validator: (value) =>
                           value.isEmpty ? "This field is Required" : null,
                       onSaved: (newValue) => _check['company'] = newValue),
@@ -151,12 +170,40 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                       onPressed: () {
                         _saveform();
-                        if (_isValid)
-                          // Navigator.of(context)
-                          //     .pushReplacementNamed(HomePage.routeName);
-                          Navigator.pop(context);
+                        if (_isValid &&
+                            (_checkbool['Architect/Interior Designer'] ||
+                                _checkbool['Trader'] ||
+                                _checkbool['Individual'])) {
+                          List<String> profession = [];
+                          _checkbool.keys.forEach((element) =>
+                              _checkbool[element]
+                                  ? profession.add(element)
+                                  : null);
+                          Provider.of<Auth>(context, listen: false)
+                              .register(
+                                  _check['name'],
+                                  _check['mobile'],
+                                  _check['email'],
+                                  _check['company'],
+                                  profession)
+                              .then((value) => value
+                                  ? Navigator.of(context)
+                                      .pushNamed(OTPVerification.routeName)
+                                  : null)
+                              .catchError((e) => showDialog(
+                                  context: context,
+                                  child: Alertbox(e.toString())));
+                        }
                       },
                     ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text('Already have an account ?'),
+                      FlatButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: Text('Login here')),
+                    ],
                   )
                 ],
               ),

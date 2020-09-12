@@ -6,12 +6,12 @@ import './pages/homePage.dart';
 import 'pages/loginPage.dart';
 import './pages/registrationPage.dart';
 import './pages/aboutUsPage.dart';
-import './pages/productslistPage.dart';
-import './pages/ContactUsPage.dart';
+//import './pages/productslistPage.dart';
+// import './pages/ContactUsPage.dart';
 import './pages/notificationPage.dart';
 import './pages/productListPage.dart';
 import './providers/productProvider.dart';
-import './pages/brochurePage.dart';
+// import './pages/brochurePage.dart';
 import './pages/orderStatuspage.dart';
 
 void main() {
@@ -43,11 +43,8 @@ class MyApp extends StatelessWidget {
             RegistrationPage.routeName: (ctx) => RegistrationPage(),
             HomePage.routeName: (ctx) => HomePage(),
             AboutUsPage.routeName: (ctx) => AboutUsPage(),
-            ProductsListPage.routeName: (ctx) => ProductsListPage(),
-            ContactUsPage.routeName: (ctx) => ContactUsPage(),
             NotificationsPage.routeName: (ctx) => NotificationsPage(),
             ProductListPage.routeName: (ctx) => ProductListPage(),
-            BrochurePage.routeName: (ctx) => BrochurePage(),
             OrderStatusPage.routeName: (ctx) => OrderStatusPage()
           },
         ));

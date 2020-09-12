@@ -1,55 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import './aboutUsPage.dart';
-import '../widgets/gridTile.dart';
-import '../providers/productProvider.dart';
 import './productslistPage.dart';
 import './ContactUsPage.dart';
-import './notificationPage.dart';
 import '../widgets/drawerTile.dart';
 import './brochurePage.dart';
 import './orderStatuspage.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   static const routeName = '/homepage';
 
-  final List<Map> _gridElements = [
-    {
-      'text': 'About Us',
-      'icon': Icons.star,
-      'ontap': (BuildContext ctx) =>
-          Navigator.of(ctx).pushNamed(AboutUsPage.routeName)
-    },
-    {
-      'text': 'Products',
-      'icon': Icons.shopping_basket,
-      'ontap': (BuildContext ctx) =>
-          Navigator.of(ctx).pushNamed(ProductsListPage.routeName)
-    },
-    {
-      'text': 'Brochure',
-      'icon': Icons.book,
-      'ontap': (BuildContext ctx) =>
-          Navigator.of(ctx).pushNamed(BrochurePage.routeName)
-    },
-    {
-      'text': 'Contact',
-      'icon': Icons.contact_mail,
-      'ontap': (BuildContext ctx) =>
-          Navigator.of(ctx).pushNamed(ContactUsPage.routeName)
-    },
-    // {
-    //   'text': 'Notification',
-    //   'icon': Icons.notifications,
-    //   'ontap': (BuildContext ctx) =>
-    //       Navigator.of(ctx).pushNamed(NotificationsPage.routeName)
-    // },
-    // {
-    //   'text': 'Register as Dealer',
-    //   'icon': Icons.person_add,
-    //   'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed('/')
-    // }
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  final List<Widget> _children = [
+    ProductsListPage(),
+    ProductsListPage(),
+    BrochurePage(),
+    ContactUsPage()
   ];
 
   final List<Map> _drawerList = [
@@ -65,34 +42,16 @@ class HomePage extends StatelessWidget {
       'ontap': (BuildContext ctx) =>
           Navigator.of(ctx).pushNamed(AboutUsPage.routeName)
     },
-    {
-      'text': 'Tiles',
-      'icon': Icons.gradient,
-      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed(ProductsListPage.routeName)
-    },
-    {
-      'text': 'Mosaic',
-      'icon': Icons.grid_on,
-      'ontap': (BuildContext ctx) => Navigator.of(ctx).pushNamed(ProductsListPage.routeName)
-    },
-    {
-      'text': 'Brochure',
-      'icon': Icons.book,
-      'ontap': (BuildContext ctx) =>
-          Navigator.of(ctx).pushNamed(BrochurePage.routeName)
-    },
+    {'text': 'Tiles', 'icon': Icons.gradient, 'ontap': null},
+    {'text': 'Mosaic', 'icon': Icons.grid_on, 'ontap': null},
+    {'text': 'Brochure', 'icon': Icons.book, 'ontap': null},
     {
       'text': 'Order Status',
       'icon': Icons.account_circle,
       'ontap': (BuildContext ctx) =>
           Navigator.of(ctx).pushNamed(OrderStatusPage.routeName)
     },
-    {
-      'text': 'Contact',
-      'icon': Icons.phone,
-      'ontap': (BuildContext ctx) =>
-          Navigator.of(ctx).pushNamed(ContactUsPage.routeName)
-    },
+    {'text': 'Contact', 'icon': Icons.phone, 'ontap': null},
   ];
 
   @override
@@ -115,14 +74,36 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      body: GridView.count(
-        crossAxisCount: 2,
-        children: List.generate(
-          4,
-          (val) => Gridtile(_gridElements[val]['text'],
-              _gridElements[val]['icon'], _gridElements[val]['ontap']),
-        ),
-      ),
+      body: _children[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+          onTap: _onTabTapped,
+          currentIndex: _currentIndex,
+          items: [
+            BottomNavigationBarItem(
+                title: const Text('Mosaic'),
+                icon: Icon(
+                  Icons.grid_on,
+                  color: _currentIndex == 0 ? Colors.blue : Colors.black,
+                )),
+            BottomNavigationBarItem(
+                title: const Text('Tiles'),
+                icon: Icon(
+                  Icons.gradient,
+                  color: _currentIndex == 1 ? Colors.blue : Colors.black,
+                )),
+            BottomNavigationBarItem(
+                title: const Text('Brochure'),
+                icon: Icon(
+                  Icons.book,
+                  color: _currentIndex == 2 ? Colors.blue : Colors.black,
+                )),
+            BottomNavigationBarItem(
+                title: Text('Contact'),
+                icon: Icon(
+                  Icons.phone,
+                  color: _currentIndex == 3 ? Colors.blue : Colors.black,
+                ))
+          ]),
       drawer: Theme(
         data: Theme.of(context)
             .copyWith(canvasColor: Color.fromRGBO(46, 46, 46, 1)),
