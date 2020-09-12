@@ -16,6 +16,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController ccode, pno;
   bool ispnoerror = false;
+  bool _isloading = false;
 
   @override
   void initState() {
@@ -72,30 +73,42 @@ class _LoginPageState extends State<LoginPage> {
                       )
                     ],
                   )),
-              Container(
-                width: 0.9 * width,
-                color: Colors.black,
-                child: MaterialButton(
-                  child: Text(
-                    'Send OTP',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      ispnoerror = pno.text.length != 10;
-                    });
-                    if (!ispnoerror)
-                      Provider.of<Auth>(context, listen: false)
-                          .otpsend(pno.text)
-                          .then((value) => value
-                              ? Navigator.of(context)
-                                  .pushNamed(OTPVerification.routeName)
-                              : null)
-                          .catchError((e) => showDialog(
-                              context: context, child: Alertbox(e.toString())));
-                  },
-                ),
-              ),
+              _isloading
+                  ? Container(
+                      width: 0.9 * width,
+                      color: Colors.black,
+                      child: MaterialButton(
+                        child: Text(
+                          'Send OTP',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            ispnoerror = pno.text.length != 10;
+                          });
+                          if (!ispnoerror) {
+                            setState(() {
+                              _isloading = true;
+                            });
+                            Provider.of<Auth>(context, listen: false)
+                                .otpsend(pno.text)
+                                .then((value) {
+                              if (value)
+                                Navigator.of(context)
+                                    .pushNamed(OTPVerification.routeName);
+                            }).catchError((e) {
+                              setState(() {
+                                _isloading = false;
+                              });
+                              showDialog(
+                                  context: context,
+                                  child: Alertbox(e.toString()));
+                            });
+                          }
+                        },
+                      ),
+                    )
+                  : CircularProgressIndicator(),
               FlatButton(
                   onPressed: () => Navigator.of(context)
                       .pushNamed(RegistrationPage.routeName),

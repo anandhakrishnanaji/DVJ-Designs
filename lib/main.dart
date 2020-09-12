@@ -13,6 +13,7 @@ import './pages/productListPage.dart';
 import './providers/productProvider.dart';
 // import './pages/brochurePage.dart';
 import './pages/orderStatuspage.dart';
+import './providers/auth.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,8 +22,12 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (_) => ProductProvider(),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<ProductProvider>(
+              create: (_) => ProductProvider()),
+          ChangeNotifierProvider<Auth>(create: (_) => Auth())
+        ],
         child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(

@@ -7,8 +7,10 @@ class Alertbox extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text('Error'),
-      content: content,
-      actions: <Widget>[FlatButton(onPressed: null, child: Text('OK'))],
+      content: Text(content),
+      actions: <Widget>[
+        FlatButton(onPressed: () => Navigator.pop(context), child: Text('OK'))
+      ],
     );
   }
 }

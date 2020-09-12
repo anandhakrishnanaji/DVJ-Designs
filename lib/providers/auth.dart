@@ -6,14 +6,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Auth with ChangeNotifier {
   String _username = null;
   String _session = null;
-  String _otp = null;
   get session => _session;
 
   get username => _username;
 
   Future<bool> login(String otp) async {
+    print(_username);
+    print(otp);
     final url =
-        'https://dvj-design.com/api_dvj/Serv_v1/login?mobile=$username&pass=$_otp';
+        'https://dvj-design.com/api_dvj/Serv_v1/login?mobile=$_username&pass=$otp';
+        print(url);
     try {
       final response = await http.get(url);
       final jresponse = json.decode(response.body) as Map;
@@ -53,6 +55,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<bool> otpsend(final String mobile) async {
+    _username = mobile;
     final url =
         'https://dvj-design.com/api_dvj/Serv_v1/get_login_otp?mobile=$mobile';
     try {
