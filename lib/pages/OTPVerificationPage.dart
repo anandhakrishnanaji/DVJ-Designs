@@ -21,6 +21,8 @@ class _OTPVerificationState extends State<OTPVerification> {
     super.dispose();
   }
 
+  bool _isloading = false;
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -39,7 +41,11 @@ class _OTPVerificationState extends State<OTPVerification> {
             children: <Widget>[
               Text(
                 'Enter your OTP',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                'OTP was sent to ${Provider.of<Auth>(context, listen: false).username}',
+                style: TextStyle(color: Colors.grey, fontSize: 20),
               ),
               Container(
                   width: 170,
@@ -66,33 +72,50 @@ class _OTPVerificationState extends State<OTPVerification> {
                       )
                     ],
                   )),
-              Container(
-                width: 0.9 * width,
-                color: Colors.black,
-                child: MaterialButton(
-                  child: Text(
-                    'Verify',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      ispnoerror = pno.text.length != 6;
-                    });
-                    if (!ispnoerror)
-                      Provider.of<Auth>(context, listen: false)
-                          .login(pno.text)
-                          .then((value) => value
-                              ? Navigator.of(context)
-                                  .pushReplacementNamed(HomePage.routeName)
-                              : null)
-                          .catchError((e) => showDialog(
-                              context: context, child: Alertbox(e.toString())));
-                  },
-                ),
-              ),
+              !_isloading
+                  ? Container(
+                      width: 0.9 * width,
+                      color: Colors.black,
+                      child: MaterialButton(
+                        child: Text(
+                          'Verify',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            ispnoerror = pno.text.length != 6;
+                          });
+                          if (!ispnoerror) {
+                            setState(() {
+                              _isloading = true;
+                            });
+                            Provider.of<Auth>(context, listen: false)
+                                .login(pno.text)
+                                .then((value) => value
+                                    ? Navigator.of(context)
+                                        .pushReplacementNamed(
+                                            HomePage.routeName)
+                                    : null)
+                                .catchError((e) {
+                              setState(() {
+                                _isloading = false;
+                              });
+                              showDialog(
+                                  context: context,
+                                  child: Alertbox(e.toString()));
+                            });
+                          }
+                        },
+                      ),
+                    )
+                  : CircularProgressIndicator(),
               FlatButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text('Send Again'))
+                  onPressed: () => Provider.of<Auth>(context,listen: false).otpsend(
+                      Provider.of<Auth>(context, listen: false).username),
+                  child: Text(
+                    'Send Again',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ))
             ],
           ),
         ),

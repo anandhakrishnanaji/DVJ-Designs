@@ -15,14 +15,16 @@ class Auth with ChangeNotifier {
     print(otp);
     final url =
         'https://dvj-design.com/api_dvj/Serv_v1/login?mobile=$_username&pass=$otp';
-        print(url);
+    print(url);
     try {
       final response = await http.get(url);
       final jresponse = json.decode(response.body) as Map;
       if (jresponse['status'] == 'failed')
         throw (jresponse['message']);
       else {
-        _session = jresponse['session'];
+        print(jresponse);
+        print(jresponse['data']['session']);
+        _session = jresponse['data']['session'];
         await _saveToken();
 
         return true;
@@ -36,12 +38,16 @@ class Auth with ChangeNotifier {
     SharedPreferences shr = await SharedPreferences.getInstance();
     shr.setString('session', _session);
     shr.setString('username', _username);
+    print(shr.getString('session'));
+    print(shr.getString('username'));
   }
 
   Future<bool> register(String name, String mobile, String email,
       String company, List<String> profession) async {
+    _username = mobile;
     final url =
         'https://dvj-design.com/api_dvj/Serv_v1/registration?name=$name&mobile=$mobile&email=$email&company=$company&profession=$profession';
+    print(url);
     try {
       final response = await http.get(url);
       final jresponse = json.decode(response.body);
@@ -55,12 +61,14 @@ class Auth with ChangeNotifier {
   }
 
   Future<bool> otpsend(final String mobile) async {
+    print(mobile);
     _username = mobile;
     final url =
         'https://dvj-design.com/api_dvj/Serv_v1/get_login_otp?mobile=$mobile';
     try {
       final response = await http.get(url);
       final jresponse = json.decode(response.body);
+      print(jresponse);
       if (jresponse['status'] == 'failed')
         throw (jresponse['message']);
       else
@@ -72,7 +80,10 @@ class Auth with ChangeNotifier {
 
   Future<bool> isloggedin() async {
     SharedPreferences shr = await SharedPreferences.getInstance();
+    print(shr.containsKey('session'));
+    print(shr.containsKey('username'));
     if (shr.containsKey('session') && shr.containsKey('username')) {
+      print('hello');
       _session = shr.getString('session');
       _username = shr.getString('username');
 

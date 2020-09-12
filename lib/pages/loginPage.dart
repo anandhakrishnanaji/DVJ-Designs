@@ -31,6 +31,7 @@ class _LoginPageState extends State<LoginPage> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
           title: Image.asset('assets/images/logo.png'),
           titleSpacing: 0.29 * width),
@@ -73,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                       )
                     ],
                   )),
-              _isloading
+              !_isloading
                   ? Container(
                       width: 0.9 * width,
                       color: Colors.black,
@@ -96,6 +97,9 @@ class _LoginPageState extends State<LoginPage> {
                               if (value)
                                 Navigator.of(context)
                                     .pushNamed(OTPVerification.routeName);
+                              setState(() {
+                                _isloading = false;
+                              });
                             }).catchError((e) {
                               setState(() {
                                 _isloading = false;
@@ -109,10 +113,22 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     )
                   : CircularProgressIndicator(),
-              FlatButton(
-                  onPressed: () => Navigator.of(context)
-                      .pushNamed(RegistrationPage.routeName),
-                  child: Text('Go to Registration page'))
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('Don\'t have an account ?'),
+                  FlatButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text(
+                        'Create one here',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Colors.black,
+                            decorationThickness: 2),
+                      )),
+                ],
+              )
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import './aboutUsPage.dart';
 import './productslistPage.dart';
@@ -6,6 +7,7 @@ import './ContactUsPage.dart';
 import '../widgets/drawerTile.dart';
 import './brochurePage.dart';
 import './orderStatuspage.dart';
+import '../providers/auth.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/homepage';
@@ -52,6 +54,14 @@ class _HomePageState extends State<HomePage> {
           Navigator.of(ctx).pushNamed(OrderStatusPage.routeName)
     },
     {'text': 'Contact', 'icon': Icons.phone, 'ontap': null},
+    {
+      'text': 'Logout',
+      'icon': Icons.exit_to_app,
+      'ontap': (BuildContext ctx) => Provider.of<Auth>(ctx, listen: false)
+          .logout()
+          .then((value) => Navigator.of(ctx)
+              .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false))
+    }
   ];
 
   @override
@@ -80,25 +90,41 @@ class _HomePageState extends State<HomePage> {
           currentIndex: _currentIndex,
           items: [
             BottomNavigationBarItem(
-                title: const Text('Mosaic'),
+                title: Text(
+                  'Mosaic',
+                  style: TextStyle(
+                      color: _currentIndex == 0 ? Colors.blue : Colors.black),
+                ),
                 icon: Icon(
                   Icons.grid_on,
                   color: _currentIndex == 0 ? Colors.blue : Colors.black,
                 )),
             BottomNavigationBarItem(
-                title: const Text('Tiles'),
+                title: Text(
+                  'Tiles',
+                  style: TextStyle(
+                      color: _currentIndex == 1 ? Colors.blue : Colors.black),
+                ),
                 icon: Icon(
                   Icons.gradient,
                   color: _currentIndex == 1 ? Colors.blue : Colors.black,
                 )),
             BottomNavigationBarItem(
-                title: const Text('Brochure'),
+                title: Text(
+                  'Brochure',
+                  style: TextStyle(
+                      color: _currentIndex == 2 ? Colors.blue : Colors.black),
+                ),
                 icon: Icon(
                   Icons.book,
                   color: _currentIndex == 2 ? Colors.blue : Colors.black,
                 )),
             BottomNavigationBarItem(
-                title: Text('Contact'),
+                title: Text(
+                  'Contact',
+                  style: TextStyle(
+                      color: _currentIndex == 3 ? Colors.blue : Colors.black),
+                ),
                 icon: Icon(
                   Icons.phone,
                   color: _currentIndex == 3 ? Colors.blue : Colors.black,
@@ -124,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: EdgeInsets.only(left: 30),
                       child: Text(
-                        'Username',
+                        Provider.of<Auth>(context, listen: false).username,
                         style: TextStyle(color: Colors.white, fontSize: 24),
                       ),
                     )

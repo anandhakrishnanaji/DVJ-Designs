@@ -28,30 +28,39 @@ class MyApp extends StatelessWidget {
               create: (_) => ProductProvider()),
           ChangeNotifierProvider<Auth>(create: (_) => Auth())
         ],
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primaryColor: Colors.black,
-            accentColor: Colors.grey[600],
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-            inputDecorationTheme: InputDecorationTheme(
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black, width: 5)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black, width: 3))),
+        child: Consumer<Auth>(
+          builder: (context, value, child) => MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              primaryColor: Colors.black,
+              accentColor: Colors.grey[600],
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              inputDecorationTheme: InputDecorationTheme(
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 5)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 3))),
+            ),
+            routes: {
+              "/": (ctx) => FutureBuilder(
+                  future: value.isloggedin(),
+                  builder: (_, snapshot) =>
+                      snapshot.connectionState == ConnectionState.waiting
+                          ? Scaffold()
+                          : (snapshot.data != null && snapshot.data)
+                              ? HomePage()
+                              : RegistrationPage()),
+              OTPVerification.routeName: (ctx) => OTPVerification(),
+              LoginPage.routeName: (ctx) => LoginPage(),
+              HomePage.routeName: (ctx) => HomePage(),
+              AboutUsPage.routeName: (ctx) => AboutUsPage(),
+              NotificationsPage.routeName: (ctx) => NotificationsPage(),
+              ProductListPage.routeName: (ctx) => ProductListPage(),
+              OrderStatusPage.routeName: (ctx) => OrderStatusPage()
+            },
           ),
-          home: LoginPage(),
-          routes: {
-            OTPVerification.routeName: (ctx) => OTPVerification(),
-            RegistrationPage.routeName: (ctx) => RegistrationPage(),
-            HomePage.routeName: (ctx) => HomePage(),
-            AboutUsPage.routeName: (ctx) => AboutUsPage(),
-            NotificationsPage.routeName: (ctx) => NotificationsPage(),
-            ProductListPage.routeName: (ctx) => ProductListPage(),
-            OrderStatusPage.routeName: (ctx) => OrderStatusPage()
-          },
         ));
   }
 }

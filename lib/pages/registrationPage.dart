@@ -1,3 +1,4 @@
+import 'package:dvjdesign/pages/loginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _emailfocusnode = FocusNode();
   final _compfocusnode = FocusNode();
   final _form = GlobalKey<FormState>();
+
+  bool istickederror = true;
 
   bool _isNumeric(String s) {
     if (s == null) {
@@ -58,6 +61,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
     super.dispose();
   }
 
+  bool isloading = false;
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -68,7 +73,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
           title: Image.asset('assets/images/logo.png'),
           titleSpacing: 0.29 * width),
       body: Padding(
-        padding: EdgeInsets.all(0.041 * height),
+        padding: EdgeInsets.symmetric(
+            horizontal: 0.04 * height, vertical: 0.01 * height),
         child: Form(
             key: _form,
             child: SingleChildScrollView(
@@ -76,9 +82,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(bottom: 0.0273 * height),
+                    padding: EdgeInsets.only(bottom: 0.027 * height),
                     child: Text('CREATE ACCOUNT',
-                        style: TextStyle(fontSize: 0.041 * height)),
+                        style: TextStyle(fontSize: 0.04 * height)),
                   ),
                   TextFormField(
                     decoration: InputDecoration(
@@ -91,7 +97,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     onSaved: (newValue) => _check['name'] = newValue,
                   ),
                   SizedBox(
-                    height: 0.0273 * height,
+                    height: 0.027 * height,
                   ),
                   TextFormField(
                       decoration: InputDecoration(
@@ -111,9 +117,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         else
                           return null;
                       },
-                      onSaved: (newValue) => _check['phone'] = newValue),
+                      onSaved: (newValue) => _check['mobile'] = newValue),
                   SizedBox(
-                    height: 0.0273 * height,
+                    height: 0.027 * height,
                   ),
                   TextFormField(
                       decoration: InputDecoration(
@@ -133,7 +139,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       },
                       onSaved: (newValue) => _check['email'] = newValue),
                   SizedBox(
-                    height: 0.0273 * height,
+                    height: 0.027 * height,
                   ),
                   TextFormField(
                       decoration: InputDecoration(
@@ -145,8 +151,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           value.isEmpty ? "This field is Required" : null,
                       onSaved: (newValue) => _check['company'] = newValue),
                   Container(
-                    margin: EdgeInsets.all(0.0273 * height),
-                    height: 0.232 * height,
+                    alignment: Alignment.topLeft,
+                    //margin: EdgeInsets.all(0.01 * height),
+                    height: 0.23 * height,
                     child: Column(
                       children: _checkbool.keys
                           .map((String key) => CheckboxListTile(
@@ -161,48 +168,87 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           .toList(),
                     ),
                   ),
-                  Container(
-                    color: Colors.black,
-                    child: MaterialButton(
-                      child: Text(
-                        'Submit',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () {
-                        _saveform();
-                        if (_isValid &&
-                            (_checkbool['Architect/Interior Designer'] ||
-                                _checkbool['Trader'] ||
-                                _checkbool['Individual'])) {
-                          List<String> profession = [];
-                          _checkbool.keys.forEach((element) =>
-                              _checkbool[element]
-                                  ? profession.add(element)
-                                  : null);
-                          Provider.of<Auth>(context, listen: false)
-                              .register(
-                                  _check['name'],
-                                  _check['mobile'],
-                                  _check['email'],
-                                  _check['company'],
-                                  profession)
-                              .then((value) => value
-                                  ? Navigator.of(context)
-                                      .pushNamed(OTPVerification.routeName)
-                                  : null)
-                              .catchError((e) => showDialog(
-                                  context: context,
-                                  child: Alertbox(e.toString())));
-                        }
-                      },
-                    ),
-                  ),
+                  !istickederror
+                      ? Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Text(
+                            'Atleast one of the containers must be selected',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        )
+                      : SizedBox(
+                          height: 10,
+                        ),
+                  isloading
+                      ? CircularProgressIndicator()
+                      : Container(
+                          color: Colors.black,
+                          child: MaterialButton(
+                            child: Text(
+                              'Submit',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPressed: () {
+                              _saveform();
+                              setState(() {
+                                istickederror =
+                                    _checkbool['Architect/Interior Designer'] ||
+                                        _checkbool['Trader'] ||
+                                        _checkbool['Individual'];
+                              });
+                              print(_isValid);
+                              print(istickederror);
+                              if (_isValid && istickederror) {
+                                setState(() {
+                                  isloading = true;
+                                });
+                                List<String> profession = [];
+                                _checkbool.keys.forEach((element) =>
+                                    _checkbool[element]
+                                        ? profession.add(element)
+                                        : null);
+                                print(_check['mobile']);
+                                Provider.of<Auth>(context, listen: false)
+                                    .register(
+                                        _check['name'],
+                                        _check['mobile'],
+                                        _check['email'],
+                                        _check['company'],
+                                        profession)
+                                    .then((value) {
+                                  if (value)
+                                    Navigator.of(context)
+                                        .pushNamed(OTPVerification.routeName);
+                                  setState(() {
+                                    isloading = false;
+                                  });
+                                }).catchError((e) {
+                                  setState(() {
+                                    isloading = false;
+                                  });
+                                  showDialog(
+                                      context: context,
+                                      child: Alertbox(e.toString()));
+                                });
+                              }
+                            },
+                          ),
+                        ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text('Already have an account ?'),
                       FlatButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: Text('Login here')),
+                          onPressed: () => Navigator.of(context)
+                              .pushNamed(LoginPage.routeName),
+                          child: Text(
+                            'Login here',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                                decorationColor: Colors.black,
+                                decorationThickness: 2),
+                          )),
                     ],
                   )
                 ],
