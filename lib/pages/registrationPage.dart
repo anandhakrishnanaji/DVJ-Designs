@@ -82,14 +82,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(bottom: 0.027 * height),
-                    child: Text('CREATE ACCOUNT',
-                        style: TextStyle(fontSize: 0.04 * height)),
+                    padding: EdgeInsets.only(bottom: 0.03 * height),
+                    child: Text('Create Account',
+                        style: TextStyle(fontSize: 0.035 * height)),
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Enter your Name',
-                    ),
+                        labelText: 'Enter your Name',
+                        isDense: true,
+                        contentPadding: EdgeInsets.all(10)),
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (_) => _phonefocusnode.requestFocus(),
                     validator: (value) =>
@@ -97,12 +98,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     onSaved: (newValue) => _check['name'] = newValue,
                   ),
                   SizedBox(
-                    height: 0.027 * height,
+                    height: 0.02 * height,
                   ),
                   TextFormField(
                       decoration: InputDecoration(
-                        labelText: 'Enter your Mobile',
-                      ),
+                          labelText: 'Enter your Mobile',
+                          isDense: true,
+                          contentPadding: EdgeInsets.all(10)),
                       keyboardType: TextInputType.phone,
                       textInputAction: TextInputAction.next,
                       onFieldSubmitted: (_) => _emailfocusnode.requestFocus(),
@@ -119,12 +121,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       },
                       onSaved: (newValue) => _check['mobile'] = newValue),
                   SizedBox(
-                    height: 0.027 * height,
+                    height: 0.02 * height,
                   ),
                   TextFormField(
                       decoration: InputDecoration(
-                        labelText: 'Enter your Email',
-                      ),
+                          labelText: 'Enter your Email',
+                          isDense: true,
+                          contentPadding: EdgeInsets.all(10)),
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       onFieldSubmitted: (_) => _compfocusnode.requestFocus(),
@@ -139,12 +142,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       },
                       onSaved: (newValue) => _check['email'] = newValue),
                   SizedBox(
-                    height: 0.027 * height,
+                    height: 0.02 * height,
                   ),
                   TextFormField(
                       decoration: InputDecoration(
-                        labelText: 'Enter your Company Name',
-                      ),
+                          labelText: 'Enter your Company Name',
+                          isDense: true,
+                          contentPadding: EdgeInsets.all(10)),
                       textInputAction: TextInputAction.done,
                       focusNode: _compfocusnode,
                       validator: (value) =>

@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Auth with ChangeNotifier {
   String _username = null;
   String _session = null;
-  List<String> _sliderlist = [];
+  List _sliderlist = [];
   get session => _session;
 
   get username => _username;
@@ -101,7 +101,7 @@ class Auth with ChangeNotifier {
     _username = null;
   }
 
-  Future<List<String>> obtainSliderItems() async {
+  Future<List> obtainSliderItems() async {
     try {
       if (_sliderlist == []) {
         final url =

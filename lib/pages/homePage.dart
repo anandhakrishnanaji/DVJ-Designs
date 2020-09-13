@@ -8,6 +8,8 @@ import '../widgets/drawerTile.dart';
 import './brochurePage.dart';
 import './orderStatuspage.dart';
 import '../providers/auth.dart';
+import '../widgets/homeTab.dart';
+
 
 class HomePage extends StatefulWidget {
   static const routeName = '/homepage';
@@ -25,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   final List<Widget> _children = [
+    HomeTab(),
     ProductsListPage(),
     ProductsListPage(),
     BrochurePage(),
@@ -150,7 +153,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               Container(
                 padding:
-                    EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 10),
+                    EdgeInsets.only(top: 50, left: 20, right: 20, bottom: 10),
                 child: Row(
                   children: <Widget>[
                     CircleAvatar(
