@@ -11,7 +11,7 @@ class DrawerTile extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return InkWell(
-      onTap: () => ontap(context),
+      onTap: () => ontap(),
       child: Container(
           padding: EdgeInsets.all(0.027 * height),
           child: Row(

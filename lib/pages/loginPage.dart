@@ -36,21 +36,21 @@ class _LoginPageState extends State<LoginPage> {
           title: Image.asset('assets/images/logo.png'),
           titleSpacing: 0.29 * width),
       body: Center(
-        child: Container(
-          height: 0.5 * height,
+        child: Container(padding: EdgeInsets.all(30),
+          height: 0.6 * height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
                 'Enter your mobile number',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               Text(
                 'We need to text you the OTP to authenticate your account',
-                style: TextStyle(color: Colors.grey, fontSize: 14),
+                style: TextStyle(color: Colors.grey, fontSize: 18,),textAlign: TextAlign.center,
               ),
               Container(
-                  width: 270,
+                  width: 0.7 * width,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: MaterialButton(
                         child: Text(
                           'Send OTP',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white,fontSize: 20),
                         ),
                         onPressed: () {
                           setState(() {

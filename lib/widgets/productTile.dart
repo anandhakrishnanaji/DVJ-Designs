@@ -32,7 +32,7 @@ class ProductTile extends StatelessWidget {
                   Text(
                     product.name,
                     style:
-                        TextStyle(color: Colors.white, fontSize: 0.049 * width),
+                        TextStyle(color: Colors.white, fontSize: 0.04 * width),
                   ),
                   Divider(
                     color: Colors.white,

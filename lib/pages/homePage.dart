@@ -10,7 +10,6 @@ import './orderStatuspage.dart';
 import '../providers/auth.dart';
 import '../widgets/homeTab.dart';
 
-
 class HomePage extends StatefulWidget {
   static const routeName = '/homepage';
 
@@ -35,28 +34,23 @@ class _HomePageState extends State<HomePage> {
   ];
 
   final List<Map> _drawerList = [
-    {
-      'text': 'Home',
-      'icon': Icons.home,
-      'ontap': (BuildContext ctx) =>
-          Navigator.of(ctx).pushReplacementNamed(HomePage.routeName)
-    },
+    {'text': 'Home', 'icon': Icons.home, 'ontap': (BuildContext ctx) => 0},
     {
       'text': 'About Us',
       'icon': Icons.star,
       'ontap': (BuildContext ctx) =>
           Navigator.of(ctx).pushNamed(AboutUsPage.routeName)
     },
-    {'text': 'Tiles', 'icon': Icons.gradient, 'ontap': null},
-    {'text': 'Mosaic', 'icon': Icons.grid_on, 'ontap': null},
-    {'text': 'Brochure', 'icon': Icons.book, 'ontap': null},
+    {'text': 'Tiles', 'icon': Icons.gradient, 'ontap': (BuildContext ctx) => 2},
+    {'text': 'Mosaic', 'icon': Icons.grid_on, 'ontap': (BuildContext ctx) => 1},
+    {'text': 'Brochure', 'icon': Icons.book, 'ontap': (BuildContext ctx) => 3},
     {
       'text': 'Order Status',
       'icon': Icons.account_circle,
       'ontap': (BuildContext ctx) =>
           Navigator.of(ctx).pushNamed(OrderStatusPage.routeName)
     },
-    {'text': 'Contact', 'icon': Icons.phone, 'ontap': null},
+    {'text': 'Contact', 'icon': Icons.phone, 'ontap': (BuildContext ctx) => 4},
     {
       'text': 'Logout',
       'icon': Icons.exit_to_app,
@@ -176,7 +170,14 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
               ),
               ..._drawerList
-                  .map((e) => DrawerTile(e['text'], e['icon'], e['ontap']))
+                  .map((e) => DrawerTile(e['text'], e['icon'], () {
+                        Navigator.pop(context);
+                        final a = e['ontap'](context);
+                        if (a is int)
+                          setState(() {
+                            _currentIndex = a;
+                          });
+                      }))
                   .toList()
             ],
           ),

@@ -25,12 +25,10 @@ class _CartTileState extends State<CartTile> {
         ),
         title: Container(
             padding: EdgeInsets.symmetric(horizontal: 0.048 * width),
-            child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  widget.cproduct.product.name,
-                  style: TextStyle(fontSize: 0.041 * height),
-                ))),
+            child: Text(
+              widget.cproduct.product.name,
+              style: TextStyle(fontSize: 0.02 * height),
+            )),
         trailing: Container(
           width: 0.35 * width,
           child: Row(

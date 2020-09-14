@@ -9,20 +9,22 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Provider.of<Auth>(context).obtainSliderItems(),
-        builder: (context, snapshot) =>
-            snapshot.connectionState == ConnectionState.waiting
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : snapshot.hasError
-                    ? Alertbox(snapshot.error.toString())
-                    : Container(
-                        child: Carousel(
-                          images: snapshot.data
-                              .map((e) => NetworkImage(e))
-                              .toList(),
-                        ),
-                      ));
+        future: Provider.of<Auth>(context, listen: false).obtainSliderItems(),
+        builder: (context, snapshot) => snapshot.connectionState ==
+                ConnectionState.waiting
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : snapshot.hasError
+                ? showDialog(
+                    context: context,
+                    child: Alertbox(snapshot.error.toString()))
+                : Container(
+                    child: Carousel(
+                      // boxFit: BoxFit.contain,
+                      images:
+                          snapshot.data.map((e) => NetworkImage(e)).toList(),
+                    ),
+                  ));
   }
 }

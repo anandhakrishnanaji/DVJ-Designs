@@ -1,6 +1,7 @@
 import 'package:dvjdesign/pages/OTPVerificationPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 import './pages/homePage.dart';
 import 'pages/loginPage.dart';
@@ -18,6 +19,10 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<ProductProvider>(

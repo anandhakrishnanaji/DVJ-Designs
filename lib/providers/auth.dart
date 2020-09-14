@@ -102,14 +102,19 @@ class Auth with ChangeNotifier {
   }
 
   Future<List> obtainSliderItems() async {
+    print('slider');
+    print(_sliderlist==[]);
     try {
-      if (_sliderlist == []) {
+      if (_sliderlist.length==0) {
+        print('hi bro\n\n');
         final url =
             'https://dvj-design.com/api_dvj/Serv_v1/home?session=$session';
         final response = await http.get(url);
         final jresponse = json.decode(response.body) as Map;
+        print(jresponse);
         if (jresponse['status'] == 'failed') throw (jresponse['message']);
         _sliderlist = jresponse['data']['slider'];
+        print(_sliderlist);
         return _sliderlist;
       } else
         return _sliderlist;
