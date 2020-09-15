@@ -1,68 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'dart:convert';
+
+import '../providers/auth.dart';
+import '../widgets/alertBox.dart';
+import '../widgets/brochureTile.dart';
 
 class BrochurePage extends StatelessWidget {
-  Future<void> _launch(String url) async {
-    if (await canLaunch(url)) launch(url);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+    final url =
+        'http://dvj-design.com/api_dvj/Serv_v1/brochure?session=${Provider.of<Auth>(context).session}';
+
     return Container(
         padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            InkWell(
-              onTap: () => _launch(
-                  'https://www.dvj-design.com/pdf/brochure/Master_Catalogue_2018.pdf'),
-              child: Column(
-                children: <Widget>[
-                  Image.asset(
-                    'assets/images/broch2018.jpg',
-                    width: 0.43 * width,
-                    height: 0.37 * height,
-                    fit: BoxFit.cover,
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    width: 0.43 * width,
-                    child: Text(
-                      'Brochure 2018',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 23),
-                    ),
-                    decoration: BoxDecoration(color: Colors.black87),
-                  )
-                ],
-              ),
-            ),
-            InkWell(
-              onTap: () => _launch(
-                  'https://www.dvj-design.com/pdf/brochure/Master_Catalouge_2019_new1.pdf'),
-              child: Column(
-                children: <Widget>[
-                  Image.asset(
-                    'assets/images/broch2019.jpg',
-                    width: 0.43 * width,
-                    height: 0.37 * height,
-                    fit: BoxFit.cover,
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    width: 0.43 * width,
-                    child: Text(
-                      'Brochure 2019',
-                      style: TextStyle(color: Colors.white, fontSize: 23),
-                      textAlign: TextAlign.center,
-                    ),
-                    decoration: BoxDecoration(color: Colors.black87),
-                  )
-                ],
-              ),
-            )
+            FutureBuilder(
+                future: http.get(url),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting)
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  else if (snapshot.hasError) {
+                    showDialog(
+                        context: context,
+                        child: Alertbox(snapshot.error.toString()));
+                    return SizedBox();
+                  } else {
+                    final List _list =
+                        json.decode(snapshot.data)['data']['brochure'];
+                    return GridView.builder(
+                      itemCount: _list.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 6,
+                        mainAxisSpacing: 12,
+                        childAspectRatio: 1,
+                      ),
+                      itemBuilder: (context, index) => BrochureTile(
+                          _list[index]['brochure_image'],
+                          _list[index]['brochure_name'],
+                          _list[index]['brochure_pdf']),
+                    );
+                  }
+                }),
           ],
         ));
   }

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/auth.dart';
 
 class AboutUsPage extends StatelessWidget {
   static const routeName = '/aboutus';
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<Auth>(context, listen: false);
+
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -17,24 +22,28 @@ class AboutUsPage extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.symmetric(vertical: 0.041 * height),
-            child: CarouselSlider(
-              items: List.generate(
-                  3,
-                  (val) => Container(
-                        width: width,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            image: DecorationImage(
-                                image:
-                                    AssetImage('assets/images/slide$val.jpg'),
-                                fit: BoxFit.cover)),
-                      )),
-              options: CarouselOptions(
-                enlargeCenterPage: true,
-                height: 0.274 * height,
-                initialPage: 0,
-                autoPlay: true,
-              ),
+            child: FutureBuilder(
+              future: auth.obtainSliderItems(),
+              builder: (ctx, value) =>
+                  value.connectionState == ConnectionState.waiting
+                      ? CircularProgressIndicator()
+                      : CarouselSlider(
+                          items: value.data.map((val) => Container(
+                                width: width,
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    image: DecorationImage(
+                                        image: NetworkImage(val),
+                                        fit: BoxFit.cover)),
+                              )),
+                          options: CarouselOptions(
+                            enlargeCenterPage: true,
+                            height: 0.274 * height,
+                            initialPage: 0,
+                            autoPlay: true,
+                          ),
+                        ),
             ),
           ),
           Text(

@@ -22,7 +22,7 @@ class DrawerTile extends StatelessWidget {
                 color: Colors.white,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 0.073 * width),
+                padding: EdgeInsets.only(left: 0.06 * width),
                 child: Text(
                   text,
                   style:
