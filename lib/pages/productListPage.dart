@@ -45,7 +45,7 @@ class ProductListPage extends StatelessWidget {
               print(snapshot.hasError);
               print(snapshot.error);
               return Container(
-                  //margin: EdgeInsets.only(top: 40, left: 20, right: 20),
+                  padding: EdgeInsets.only(bottom: 20),
                   child: Column(
                 children: <Widget>[
                   Padding(

@@ -8,6 +8,7 @@ class BrochureTile extends StatelessWidget {
   BrochureTile(this.url, this.name, this.launchUrl);
 
   Future<void> _launch(String url) async {
+    print('launching!!!!');
     if (await canLaunch(url)) launch(url);
   }
 
@@ -23,12 +24,12 @@ class BrochureTile extends StatelessWidget {
           children: <Widget>[
             Image.network(
               url,
-              width: 0.4 * width,
+              width: 0.43 * width,
               height: 0.3 * height,
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
             ),
             Container(
-              //width: 0.4 * width,
+              width: 0.43 * width,
               child: Text(
                 name,
                 textAlign: TextAlign.center,

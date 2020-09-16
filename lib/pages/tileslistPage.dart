@@ -36,7 +36,7 @@ class TilesListPage extends StatelessWidget {
           // } 
           else
             return Container(
-              padding: EdgeInsets.only(top: 0.0273 * screenheight),
+              padding: EdgeInsets.only(top: 0.0273 * screenheight,bottom: 15),
               child: Column(
                 children: <Widget>[
                   Padding(

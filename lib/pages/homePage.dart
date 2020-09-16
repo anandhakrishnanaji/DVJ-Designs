@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import './aboutUsPage.dart';
 import './tileslistPage.dart';
@@ -24,6 +25,11 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _currentIndex = index;
     });
+  }
+
+  Future<void> _launch() async {
+    const String url = 'https://api.whatsapp.com/send?phone=918080150150';
+    if (await canLaunch(url)) launch(url);
   }
 
   final List<Widget> _children = [
@@ -179,7 +185,14 @@ class _HomePageState extends State<HomePage> {
                             _currentIndex = a;
                           });
                       }))
-                  .toList()
+                  .toList(),
+              Container(padding: EdgeInsets.all(15),
+                alignment: Alignment.centerLeft,
+                child: InkWell(
+                  onTap: _launch,
+                  child: Image.asset('assets/images/whatsapp.png'),
+                ),
+              )
             ],
           ),
         ),

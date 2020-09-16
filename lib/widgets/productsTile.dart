@@ -24,7 +24,7 @@ class ProductsTile extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            Container(
+            Container(padding: EdgeInsets.all(5),
               alignment: Alignment.center,
               width: 0.43 * width,
               child: Text(product.name,

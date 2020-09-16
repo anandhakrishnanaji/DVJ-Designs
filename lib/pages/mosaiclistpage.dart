@@ -37,7 +37,7 @@ class MosaicListPage extends StatelessWidget {
             // print(snapshot.hasError);
             // print(snapshot.error);
             return Container(
-              padding: EdgeInsets.only(top: 0.0273 * screenheight),
+              padding: EdgeInsets.only(top: 0.0273 * screenheight,bottom: 15),
               child: Column(
                 children: <Widget>[
                   Padding(
