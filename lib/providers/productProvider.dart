@@ -1,18 +1,27 @@
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:io';
 
 class Product {
   final id;
   final String name;
   final String imageUrl;
-  Product(this.id, this.name, this.imageUrl);
+  final String bigImageUrl;
+  final int categoryid;
+  final String productPrice;
+  final String date;
+  final int isNewArrival;
+  final int status;
+  Product(this.id, this.name, this.imageUrl, this.bigImageUrl, this.categoryid,
+      this.productPrice, this.date, this.isNewArrival, this.status);
 }
 
 class Products {
-  final id;
+  final int id;
   final String name;
   final String imageUri;
-  final List<Product> list;
-  Products(this.id, this.name, this.imageUri, this.list);
+  Products(this.id, this.name, this.imageUri);
 }
 
 class CartProduct {
@@ -26,34 +35,18 @@ class CartProduct {
 }
 
 class ProductProvider with ChangeNotifier {
-  List<CartProduct> _cartlist = [
-    CartProduct(Product(3, '315x1000 DVJ-Vulcano Milenio Blanco', 'assets/images/1.jpeg'), 1)
-  ];
-  List<Product> _productlist = [
-    Product(3, '315x1000 DVJ-Vulcano Milenio Blanco', 'assets/images/1.jpeg'),
-    Product(4, '315x100 DVJ-Vulcano Golden Gate', 'assets/images/3.jpeg'),
-    Product(5, '315x1000 DVJ-Vulcano Milenio Corten', 'assets/images/4.jpeg'),
-    Product(6, '315x1000 DVJ-Vulcano Corten', 'assets/images/5.jpeg')
-  ];
-  List<Products> _productslist = [
-    Products(1, 'Vulcano', 'assets/images/2.jpg', [
-      Product(3, '315x1000 DVJ-Vulcano Milenio Blanco', 'assets/images/1.jpeg'),
-      Product(4, '315x100 DVJ-Vulcano Golden Gate', 'assets/images/3.jpeg'),
-    ]),
-    Products(2, 'Adobe', 'assets/images/6.jpg', [
-      Product(5, '315x1000 DVJ-Vulcano Milenio Corten', 'assets/images/4.jpeg'),
-      Product(6, '315x1000 DVJ-Vulcano Corten', 'assets/images/5.jpeg')
-    ])
-  ];
+  List<CartProduct> _cartlist = [];
+  List<Products> _tiles = [];
+  List<Products> _mosaic = [];
 
-  get productlist => _productlist;
-  get productslist => _productslist;
+  get mosaic => _mosaic;
+  get tiles => _tiles;
   get cartlist => _cartlist;
 
-  void addtocart(var id) {
-    Product tobeadded = _productlist.firstWhere((element) => element.id == id);
-    _cartlist.add(CartProduct(tobeadded, 1));
-    notifyListeners();
+  void addtocart(int id) {
+    // Product tobeadded = _productlist.firstWhere((element) => element.id == id);
+    // _cartlist.add(CartProduct(tobeadded, 1));
+    // notifyListeners();
   }
 
   void removefromcart(var id) {
@@ -64,5 +57,83 @@ class ProductProvider with ChangeNotifier {
   void changequantity(var id, var val) {
     var index = _cartlist.indexWhere((element) => element.product.id == id);
     _cartlist[index].changequantity(val);
+  }
+
+  Future<List<Products>> obtaintiles(final String session) async {
+    try {
+      if (_tiles.length == 0) {
+        final url =
+            'http://dvj-design.com/api_dvj/Serv_v1/tile?session=$session';
+        final response = await http.get(url);
+        final jresponse = json.decode(response.body) as Map;
+        if (jresponse['status'] == 'failed') throw (jresponse['message']);
+        final tilelist = jresponse['data']['category'];
+        tilelist.forEach((element) {
+          _tiles.add(Products(
+              int.parse(element['category_id']),
+              element['category_name'].replaceAll('+', ' '),
+              Uri.decodeFull(element['category_image'])));
+        });
+        print(_tiles);
+        return _tiles;
+      } else
+        return _tiles;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<List<Products>> obtainmosaic(final String session) async {
+    try {
+      if (_mosaic.length == 0) {
+        final url =
+            'http://dvj-design.com/api_dvj/Serv_v1/mosaic?session=$session';
+        final response = await http.get(url);
+        final jresponse = json.decode(response.body) as Map;
+        if (jresponse['status'] == 'failed') throw (jresponse['message']);
+        final mosaiclist = jresponse['data']['category'];
+        mosaiclist.forEach((element) {
+          _mosaic.add(Products(
+              int.parse(element['category_id']),
+              element['category_name'].replaceAll('+', ' '),
+              Uri.decodeFull(element['category_image'])));
+        });
+        print(_mosaic);
+        return _mosaic;
+      } else
+        return _mosaic;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<List<Product>> obtainproductitem(
+      final int categoryId, final String session) async {
+    try {
+      print('hello\n\n\n');
+      List<Product> productlist = [];
+      final url =
+          'http://dvj-design.com/api_dvj/Serv_v1/product_list?category_id=$categoryId&session=$session';
+      final response = await http.get(url);
+      final jresponse = json.decode(response.body);
+      if (jresponse['status'] == 'failed') throw (jresponse['message']);
+      final plist = jresponse['data']['products'];
+      plist.forEach((element) {
+        productlist.add(Product(
+            int.parse(element['product_id']),
+            element['product_name'].replaceAll('+', ' '),
+            Uri.decodeFull(element['product_image']),
+            Uri.decodeFull(element['bigproduct_image']),
+            int.parse(element['category_id']),
+            element['product_price'],
+            element['datec'],
+            int.parse(element['is_new_arrival']),
+            int.parse(element['status'])));
+      });
+      print(productlist);
+      return productlist;
+    } catch (e) {
+      throw e.toString();
+    }
   }
 }

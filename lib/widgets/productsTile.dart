@@ -11,14 +11,14 @@ class ProductsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return InkWell(
-      onTap: () => Navigator.of(context)
-          .pushNamed(ProductListPage.routeName, arguments: {'products':product.list,'title':product.name}),
+      onTap: () => Navigator.of(context).pushNamed(ProductListPage.routeName,
+          arguments: {'category_id': product.id, 'title': product.name}),
       child: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Expanded(
-              child: Image.asset(
+              child: Image.network(
                 product.imageUri,
                 width: 0.43 * width,
                 fit: BoxFit.cover,

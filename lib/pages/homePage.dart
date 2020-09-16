@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './aboutUsPage.dart';
-import './productslistPage.dart';
+import './tileslistPage.dart';
+import './mosaiclistpage.dart';
 import './ContactUsPage.dart';
 import '../widgets/drawerTile.dart';
 import './brochurePage.dart';
@@ -27,8 +28,8 @@ class _HomePageState extends State<HomePage> {
 
   final List<Widget> _children = [
     HomeTab(),
-    ProductsListPage(),
-    ProductsListPage(),
+    MosaicListPage(),
+    TilesListPage(),
     BrochurePage(),
     ContactUsPage()
   ];

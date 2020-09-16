@@ -23,17 +23,16 @@ class BrochureTile extends StatelessWidget {
           children: <Widget>[
             Image.network(
               url,
-              width: 0.43 * width,
-              height: 0.37 * height,
+              width: 0.4 * width,
+              height: 0.3 * height,
               fit: BoxFit.cover,
             ),
             Container(
-              padding: EdgeInsets.all(5),
-              width: 0.43 * width,
+              //width: 0.4 * width,
               child: Text(
                 name,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 23),
+                style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               decoration: BoxDecoration(color: Colors.black87),
             )

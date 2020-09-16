@@ -19,7 +19,7 @@ class ProductTile extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Expanded(
-              child: Image.asset(
+              child: Image.network(
                 product.imageUrl,
                 fit: BoxFit.cover,
               ),
