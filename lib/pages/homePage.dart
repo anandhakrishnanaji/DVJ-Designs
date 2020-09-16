@@ -71,6 +71,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -186,11 +187,16 @@ class _HomePageState extends State<HomePage> {
                           });
                       }))
                   .toList(),
-              Container(padding: EdgeInsets.all(15),
+              Container(
+                padding: EdgeInsets.all(15),
                 alignment: Alignment.centerLeft,
                 child: InkWell(
                   onTap: _launch,
-                  child: Image.asset('assets/images/whatsapp.png'),
+                  child: Image.asset(
+                    'assets/images/whatsapp.png',
+                    width: 0.07 * height,
+                    height: 0.07 * height,
+                  ),
                 ),
               )
             ],

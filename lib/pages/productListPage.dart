@@ -65,7 +65,7 @@ class ProductListPage extends StatelessWidget {
                         childAspectRatio: _aspectRatio,
                       ),
                       itemBuilder: (context, index) =>
-                          ProductTile(snapshot.data[index]),
+                          ProductTile(snapshot.data[index],title),
                     ),
                   ),
                 ],

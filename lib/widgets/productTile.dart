@@ -1,11 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:flutter/foundation.dart';
+import 'dart:io';
+import 'dart:typed_data';
 
 import '../providers/productProvider.dart';
+import '../pages/productPreviePage.dart';
 
 class ProductTile extends StatelessWidget {
   final Product product;
-  ProductTile(this.product);
+  final String title;
+  ProductTile(this.product, this.title);
+
+  Future<void> _share() async {
+    try {
+      var request = await HttpClient().getUrl(Uri.parse(product.imageUrl));
+      var response = await request.close();
+      Uint8List bytes = await consolidateHttpClientResponseBytes(response);
+      await Share.file('DVJ DESIGNS', '${product.name}.jpg', bytes, 'image/jpg',
+          text: 'https://www.dvj-design.com/Product.php?name=$title');
+    } catch (e) {
+      print('error: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -19,11 +38,15 @@ class ProductTile extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Expanded(
+                child: InkWell(
+              onTap: () => Navigator.of(context).pushNamed(
+                  ProductPreview.routeName,
+                  arguments: product.bigImageUrl),
               child: Image.network(
                 product.imageUrl,
                 fit: BoxFit.cover,
               ),
-            ),
+            )),
             Container(
               decoration: BoxDecoration(color: Colors.black),
               child: Column(
@@ -58,7 +81,7 @@ class ProductTile extends StatelessWidget {
                             Icons.share,
                             color: Colors.white,
                           ),
-                          onPressed: null)
+                          onPressed: _share)
                     ],
                   )
                 ],
