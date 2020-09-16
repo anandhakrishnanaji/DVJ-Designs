@@ -7,9 +7,13 @@ class BrochureTile extends StatelessWidget {
   final String launchUrl;
   BrochureTile(this.url, this.name, this.launchUrl);
 
-  Future<void> _launch(String url) async {
+  Future<void> _launch() async {
     print('launching!!!!');
-    if (await canLaunch(url)) launch(url);
+    print(launchUrl);
+    if (await canLaunch(launchUrl)) {
+      print(launchUrl);
+      launch(launchUrl);
+    }
   }
 
   @override
@@ -17,7 +21,7 @@ class BrochureTile extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return InkWell(
-      onTap: () => _launch(launchUrl),
+      onTap: _launch,
       child: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

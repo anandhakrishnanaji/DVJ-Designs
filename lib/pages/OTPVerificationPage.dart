@@ -48,7 +48,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                 style: TextStyle(color: Colors.grey, fontSize: 20),
               ),
               Container(
-                  width: 170,
+                  width: 0.41*width,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[

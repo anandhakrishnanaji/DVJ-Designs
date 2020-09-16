@@ -54,7 +54,7 @@ class OrderStatusPage extends StatelessWidget {
           ],
         ),
         body: Container(
-          padding: EdgeInsets.all(30),
+          padding: EdgeInsets.all(0.041 * height),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[

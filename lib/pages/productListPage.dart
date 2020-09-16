@@ -14,13 +14,6 @@ class ProductListPage extends StatelessWidget {
     final int categoryId = arguments['category_id'];
     final session = Provider.of<Auth>(context, listen: false).session;
     final title = arguments['title'];
-    double _crossAxisSpacing = 6, _mainAxisSpacing = 12, _aspectRatio = 0.75;
-    int _crossAxisCount = 2;
-    double screenWidth = MediaQuery.of(context).size.width;
-    var width = (screenWidth - ((_crossAxisCount - 1) * _crossAxisSpacing)) /
-        _crossAxisCount;
-    var height = width / _aspectRatio;
-
     final screenheight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
@@ -35,41 +28,44 @@ class ProductListPage extends StatelessWidget {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            // else if (snapshot.hasError) {
-            //   showDialog(
-            //       context: ctx, child: Alertbox(snapshot.error.toString()));
-            //   return SizedBox();
-            // }
-             else {
-              print(snapshot.hasData);
-              print(snapshot.hasError);
-              print(snapshot.error);
+            else if (snapshot.hasError) {
+              Future.delayed(
+                  Duration.zero,
+                  () => showDialog(
+                      context: ctx,
+                      child: Alertbox(snapshot.error.toString())));
+              return SizedBox();
+            } else {
+              // print(snapshot.hasData);
+              // print(snapshot.hasError);
+              // print(snapshot.error);
               return Container(
                   padding: EdgeInsets.only(bottom: 20),
                   child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(0.0273 * screenheight),
-                    child: Text(
-                      title,
-                      style: TextStyle(fontSize: 0.041 * screenheight),
-                    ),
-                  ),
-                  Expanded(
-                    child: GridView.builder(
-                      itemCount: snapshot.data.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: _crossAxisCount,
-                        crossAxisSpacing: _crossAxisSpacing,
-                        mainAxisSpacing: _mainAxisSpacing,
-                        childAspectRatio: _aspectRatio,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(0.0273 * screenheight),
+                        child: Text(
+                          title,
+                          style: TextStyle(fontSize: 0.041 * screenheight),
+                        ),
                       ),
-                      itemBuilder: (context, index) =>
-                          ProductTile(snapshot.data[index],title),
-                    ),
-                  ),
-                ],
-              ));
+                      Expanded(
+                        child: GridView.builder(
+                          itemCount: snapshot.data.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 6,
+                            mainAxisSpacing: 12,
+                            childAspectRatio: 0.75,
+                          ),
+                          itemBuilder: (context, index) =>
+                              ProductTile(snapshot.data[index], title),
+                        ),
+                      ),
+                    ],
+                  ));
             }
           }),
     );

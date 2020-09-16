@@ -187,6 +187,9 @@ class _HomePageState extends State<HomePage> {
                           });
                       }))
                   .toList(),
+              Divider(
+                color: Colors.white,
+              ),
               Container(
                 padding: EdgeInsets.all(15),
                 alignment: Alignment.centerLeft,

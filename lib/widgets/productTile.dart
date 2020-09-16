@@ -56,6 +56,7 @@ class ProductTile extends StatelessWidget {
                     product.name,
                     style:
                         TextStyle(color: Colors.white, fontSize: 0.04 * width),
+                    overflow: TextOverflow.ellipsis,
                   ),
                   Divider(
                     color: Colors.white,

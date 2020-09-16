@@ -19,7 +19,7 @@ class BrochurePage extends StatelessWidget {
 
     return Container(
       height: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 30, horizontal: 7),
+      padding: EdgeInsets.symmetric(vertical: 0.041 * height, horizontal: 7),
       child: FutureBuilder(
           future: http.get(url),
           builder: (context, snapshot) {
@@ -48,7 +48,7 @@ class BrochurePage extends StatelessWidget {
                   itemBuilder: (context, index) => BrochureTile(
                       Uri.decodeFull(_list[index]['brochure_image']),
                       _list[index]['brochure_name'].replaceAll('+', ' '),
-                      _list[index]['brochure_pdf']),
+                      Uri.decodeFull(_list[index]['brochure_pdf'])),
                 ),
               );
             }
