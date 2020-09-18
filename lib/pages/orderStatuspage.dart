@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 
+import './searchPage.dart';
+
 class OrderStatusPage extends StatelessWidget {
   static const routeName = '/orderstatus';
 
@@ -49,7 +51,8 @@ class OrderStatusPage extends StatelessWidget {
                     Icons.search,
                     color: Colors.white,
                   ),
-                  onPressed: null),
+                  onPressed:() =>
+                    Navigator.of(context).pushNamed(SearchPage.routeName)),
             )
           ],
         ),

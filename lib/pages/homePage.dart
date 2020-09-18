@@ -11,6 +11,7 @@ import './brochurePage.dart';
 import './orderStatuspage.dart';
 import '../providers/auth.dart';
 import '../widgets/homeTab.dart';
+import './searchPage.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/homepage';
@@ -85,7 +86,8 @@ class _HomePageState extends State<HomePage> {
                   Icons.search,
                   color: Colors.white,
                 ),
-                onPressed: null),
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(SearchPage.routeName)),
           )
         ],
       ),

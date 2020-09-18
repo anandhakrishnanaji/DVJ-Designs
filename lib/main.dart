@@ -12,7 +12,7 @@ import './providers/productProvider.dart';
 import './pages/orderStatuspage.dart';
 import './providers/auth.dart';
 import './pages/productPreviePage.dart';
-
+import './pages/searchPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -62,7 +62,8 @@ class MyApp extends StatelessWidget {
               AboutUsPage.routeName: (ctx) => AboutUsPage(),
               ProductListPage.routeName: (ctx) => ProductListPage(),
               OrderStatusPage.routeName: (ctx) => OrderStatusPage(),
-              ProductPreview.routeName:(ctx)=>ProductPreview(),
+              ProductPreview.routeName: (ctx) => ProductPreview(),
+              SearchPage.routeName: (ctx) => SearchPage(),
             },
           ),
         ));
