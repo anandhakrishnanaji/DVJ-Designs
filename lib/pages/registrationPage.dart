@@ -1,8 +1,8 @@
-import 'package:dvjdesign/pages/loginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:provider/provider.dart';
 
+import './loginPage.dart';
 import './OTPVerificationPage.dart';
 import '../providers/auth.dart';
 import '../widgets/alertBox.dart';
@@ -192,7 +192,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             child: MaterialButton(
                               child: Text(
                                 'Submit',
-                                style: TextStyle(color: Colors.white,fontSize: 18),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
                               ),
                               onPressed: () {
                                 _saveform();

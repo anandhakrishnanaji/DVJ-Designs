@@ -43,10 +43,9 @@ class ProductProvider with ChangeNotifier {
   get tiles => _tiles;
   get cartlist => _cartlist;
 
-  void addtocart(int id) {
-    // Product tobeadded = _productlist.firstWhere((element) => element.id == id);
-    // _cartlist.add(CartProduct(tobeadded, 1));
-    // notifyListeners();
+  void addtocart(final Product product, final String session) {
+    _cartlist.add(CartProduct(product, 1));
+    notifyListeners();
   }
 
   void removefromcart(var id) {
@@ -132,6 +131,33 @@ class ProductProvider with ChangeNotifier {
       });
       print(productlist);
       return productlist;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<bool> sendEnquiry(
+      final String name, final String phone, final String session,
+      {final String email = null, final String msg = null}) async {
+    try {
+      String url =
+          'https://dvj-design.com/api_dvj/Serv_v1/enquiry?enquiry_name=$name&enquiry_mobile=$phone&session=$session';
+      if (email != null) url += '&enquiry_emailid=$email';
+      if (msg != null) url += '&enquiry_msg=$msg';
+      if (_cartlist.length != 0) {
+        List<Map> prod = [];
+        _cartlist.forEach((element) {
+          prod.add({
+            "product_name": element.product.name,
+            "product_qty": element.quantity
+          });
+        });
+        url += prod.toString();
+      }
+      final response = await http.get(url);
+      final jresponse = json.decode(response.body);
+      if (jresponse['status'] == 'failed') throw jresponse['message'];
+      return true;
     } catch (e) {
       throw e.toString();
     }

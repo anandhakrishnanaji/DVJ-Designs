@@ -7,6 +7,7 @@ import 'dart:typed_data';
 
 import '../providers/productProvider.dart';
 import '../pages/productPreviePage.dart';
+import '../providers/auth.dart';
 
 class ProductTile extends StatelessWidget {
   final Product product;
@@ -27,6 +28,7 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final session = Provider.of(context, listen: false).session;
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return InkWell(
@@ -66,7 +68,8 @@ class ProductTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       InkWell(
-                        onTap: null,
+                        onTap: () => Provider.of<ProductProvider>(context)
+                            .addtocart(product, session),
                         child: Container(
                           margin: EdgeInsets.only(left: 0.024 * width),
                           decoration: BoxDecoration(
