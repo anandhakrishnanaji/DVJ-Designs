@@ -55,51 +55,64 @@ class _SearchPageState extends State<SearchPage> {
             title: Image.asset('assets/images/logo.png'),
             titleSpacing: 0.29 * width),
         body: Container(
+            padding: EdgeInsets.all(20),
             child: ListView(children: <Widget>[
-          Column(children: <Widget>[
-            TextField(
-              controller: pno,
-              keyboardType: TextInputType.number,
-              autofocus: false,
-              decoration: InputDecoration(
-                errorText: ispnoerror ? 'Required field' : null,
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                border: OutlineInputBorder(),
-              ),
-            ),
-            RaisedButton(
-              child: Text('Search'),
-              onPressed: () {
-                setState(() => _isloading = true);
-                _fetchResults()
-                    .then((value) => setState(() => _isloading = false));
-              },
-            ),
-            ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: double.infinity,
+              Column(children: <Widget>[
+                TextField(
+                  controller: pno,
+                  autofocus: false,
+                  decoration: InputDecoration(
+                    errorText: ispnoerror ? 'Required field' : null,
+                    hintText: 'Search',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    border: OutlineInputBorder(),
+                  ),
                 ),
-                child: _isloading
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Container(
-                        child: GridView.builder(
-                            scrollDirection: Axis.vertical,
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: _productlist.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 6,
-                              mainAxisSpacing: 12,
-                              childAspectRatio: 0.75,
-                            ),
-                            itemBuilder: (context, index) =>
-                                ProductTile(_productlist[index], 'hello'))))
-          ])
-        ])));
+                Container(
+                  margin: EdgeInsets.all(20),
+                  decoration: BoxDecoration(color: Colors.black),
+                  child: RaisedButton(
+                    color: Colors.black,
+                    child: Text(
+                      'Search',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      setState(() => ispnoerror = pno.text.isEmpty);
+                      if (!ispnoerror) {
+                        setState(() => _isloading = true);
+                        _fetchResults().then(
+                            (value) => setState(() => _isloading = false));
+                      }
+                    },
+                  ),
+                ),
+                ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: double.infinity,
+                    ),
+                    child: _isloading
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Container(
+                            child: GridView.builder(
+                                scrollDirection: Axis.vertical,
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: _productlist.length,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 6,
+                                  mainAxisSpacing: 12,
+                                  childAspectRatio: 0.75,
+                                ),
+                                itemBuilder: (context, index) =>
+                                    ProductTile(_productlist[index], 'hello'))))
+              ])
+            ])));
   }
 }
