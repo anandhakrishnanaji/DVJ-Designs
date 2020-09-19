@@ -124,7 +124,10 @@ class _ContactFormState extends State<ContactForm> {
                 validator: (value) => null,
                 onSaved: (newValue) => _check['message'] = newValue),
             _isloading
-                ? CircularProgressIndicator()
+                ? Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: CircularProgressIndicator(),
+                )
                 : Container(
                     margin: EdgeInsets.all(0.027 * height),
                     color: Colors.black,

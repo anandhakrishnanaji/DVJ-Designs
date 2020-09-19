@@ -8,12 +8,7 @@ class BrochureTile extends StatelessWidget {
   BrochureTile(this.url, this.name, this.launchUrl);
 
   Future<void> _launch() async {
-    print('launching!!!!');
-    print(launchUrl);
-    if (await canLaunch(launchUrl)) {
-      print(launchUrl);
-      launch(launchUrl);
-    }
+    if (await canLaunch(launchUrl)) launch(launchUrl);
   }
 
   @override

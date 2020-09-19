@@ -54,6 +54,7 @@ class ProductProvider with ChangeNotifier {
   }
 
   void changequantity(var id, var val) {
+    print('hello');
     var index = _cartlist.indexWhere((element) => element.product.id == id);
     _cartlist[index].changequantity(val);
   }
@@ -154,8 +155,10 @@ class ProductProvider with ChangeNotifier {
         });
         url += prod.toString();
       }
+      print(url);
       final response = await http.get(url);
       final jresponse = json.decode(response.body);
+      print(jresponse);
       if (jresponse['status'] == 'failed') throw jresponse['message'];
       return true;
     } catch (e) {

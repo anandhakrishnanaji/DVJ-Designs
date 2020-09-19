@@ -28,7 +28,7 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final session = Provider.of(context, listen: false).session;
+    final session = Provider.of<Auth>(context, listen: false).session;
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return InkWell(
@@ -68,8 +68,12 @@ class ProductTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       InkWell(
-                        onTap: () => Provider.of<ProductProvider>(context)
-                            .addtocart(product, session),
+                        onTap: () {
+                          Provider.of<ProductProvider>(context, listen: false)
+                              .addtocart(product, session);
+                          Scaffold.of(context).showSnackBar(
+                              SnackBar(content: Text('Item added to cart')));
+                        },
                         child: Container(
                           margin: EdgeInsets.only(left: 0.024 * width),
                           decoration: BoxDecoration(

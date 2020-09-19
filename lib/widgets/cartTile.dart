@@ -12,13 +12,27 @@ class CartTile extends StatefulWidget {
 }
 
 class _CartTileState extends State<CartTile> {
+  TextEditingController qty = TextEditingController();
+
+  @override
+  void initState() {
+    qty.text = widget.cproduct.quantity.toString();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    qty.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Container(
       child: ListTile(
-        leading: Image.asset(
+        leading: Image.network(
           widget.cproduct.product.imageUrl,
           width: 0.097 * width,
           height: 0.097 * width,
@@ -36,11 +50,13 @@ class _CartTileState extends State<CartTile> {
             children: <Widget>[
               Container(
                 width: 0.097 * width,
-                child: TextFormField(
-                  initialValue: widget.cproduct.quantity.toString(),
-                  onFieldSubmitted: (value) =>
-                      Provider.of<ProductProvider>(context).changequantity(
-                          widget.cproduct.product.id, int.parse(value)),
+                child: TextField(
+                  controller: qty,
+                  onChanged: (value) => print(value),
+                  onSubmitted: (value){ 
+                    print('kona');
+                    Provider.of<ProductProvider>(context,listen: false)
+                      .changequantity(widget.cproduct.product.id  , int.parse(qty.text));},
                 ),
               ),
               IconButton(
