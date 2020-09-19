@@ -85,11 +85,16 @@ class Auth with ChangeNotifier {
     print(shr.containsKey('session'));
     print(shr.containsKey('username'));
     if (shr.containsKey('session') && shr.containsKey('username')) {
-      print('hello');
       _session = shr.getString('session');
       _username = shr.getString('username');
-
-      return true;
+      final response = await http
+          .get('https://dvj-design.com/api_dvj/Serv_v1/home?session=$session');
+      final jresponse = json.decode(response.body);
+      if (jresponse['status'] == 'failed') {
+        shr.clear();
+        return false;
+      } else
+        return true;
     } else
       return false;
   }
@@ -103,9 +108,9 @@ class Auth with ChangeNotifier {
 
   Future<List> obtainSliderItems() async {
     print('slider');
-    print(_sliderlist==[]);
+    print(_sliderlist == []);
     try {
-      if (_sliderlist.length==0) {
+      if (_sliderlist.length == 0) {
         print('hi bro\n\n');
         final url =
             'https://dvj-design.com/api_dvj/Serv_v1/home?session=$session';
