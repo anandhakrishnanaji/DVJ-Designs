@@ -17,40 +17,21 @@ class AboutUsPage extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Image.asset('assets/images/logo.png'),
-        titleSpacing: 0.194 * width,
-      ),
+          backgroundColor: Colors.black,
+          title: InkWell(
+              child: Image.asset('assets/images/logo.png'),
+              onTap: () => Navigator.of(context).pop()),
+          titleSpacing: 0.194 * width,
+          actions: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(right: 0.14 * width),
+              child: SizedBox(),
+            )
+          ]),
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
           children: <Widget>[
-            // Padding(
-            //   padding: EdgeInsets.symmetric(vertical: 0.041 * height),
-            //   child: FutureBuilder(
-            //     future: auth.obtainSliderItems(),
-            //     builder: (ctx, value) =>
-            //         value.connectionState == ConnectionState.waiting
-            //             ? CircularProgressIndicator()
-            //             : CarouselSlider(
-            //                 items: value.data.map((val) => Container(
-            //                       width: width,
-            //                       decoration: BoxDecoration(
-            //                           borderRadius:
-            //                               BorderRadius.all(Radius.circular(20)),
-            //                           image: DecorationImage(
-            //                               image: NetworkImage(val),
-            //                               fit: BoxFit.cover)),
-            //                     )),
-            //                 options: CarouselOptions(
-            //                   enlargeCenterPage: true,
-            //                   height: 0.274 * height,
-            //                   initialPage: 0,
-            //                   autoPlay: true,
-            //                 ),
-            //               ),
-            //   ),
-            // ),
             Text(
               'About Us',
               style: TextStyle(fontSize: 0.041 * height),
@@ -69,7 +50,8 @@ class AboutUsPage extends StatelessWidget {
                     else if (snapshot.hasError) {
                       showDialog(
                         context: ctx,
-                        builder: (context) => Alertbox(snapshot.error.toString()),
+                        builder: (context) =>
+                            Alertbox(snapshot.error.toString()),
                       );
                       return SizedBox();
                     }
@@ -81,7 +63,7 @@ class AboutUsPage extends StatelessWidget {
                       );
                       return SizedBox();
                     } else
-                      return Text(jresponse['data'].replaceAll('<br>','') ,
+                      return Text(jresponse['data'].replaceAll('<br>', ''),
                           style: TextStyle(fontSize: 0.0273 * height),
                           textAlign: TextAlign.center);
                   }),

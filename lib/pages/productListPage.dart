@@ -15,11 +15,20 @@ class ProductListPage extends StatelessWidget {
     final session = Provider.of<Auth>(context, listen: false).session;
     final title = arguments['title'];
     final screenheight = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Image.asset('assets/images/logo.png'),
-      ),
+          backgroundColor: Colors.black,
+          title: InkWell(
+              child: Image.asset('assets/images/logo.png'),
+              onTap: () => Navigator.of(context).pop()),
+          titleSpacing: 0.194 * width,
+          actions: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(right: 0.14 * width),
+              child: SizedBox(),
+            )
+          ]),
       body: FutureBuilder(
           future: Provider.of<ProductProvider>(context, listen: false)
               .obtainproductitem(categoryId, session),
@@ -36,9 +45,6 @@ class ProductListPage extends StatelessWidget {
                       child: Alertbox(snapshot.error.toString())));
               return SizedBox();
             } else {
-              // print(snapshot.hasData);
-              // print(snapshot.hasError);
-              // print(snapshot.error);
               return Container(
                   padding: EdgeInsets.only(bottom: 20),
                   child: Column(

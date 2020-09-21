@@ -26,10 +26,17 @@ class OrderStatusPage extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: Image.asset('assets/images/logo.png'),
-          titleSpacing: 0.194 * width,
-        ),
+            backgroundColor: Colors.black,
+            title: InkWell(
+                child: Image.asset('assets/images/logo.png'),
+                onTap: () => Navigator.of(context).pop()),
+            titleSpacing: 0.194 * width,
+            actions: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(right: 0.14 * width),
+                child: SizedBox(),
+              )
+            ]),
         body: FutureBuilder(
             future: _orderlist(session),
             builder: (context, snapshot) {

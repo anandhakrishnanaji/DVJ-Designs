@@ -38,13 +38,10 @@ class OrderStatusWidget extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
 
     return Container(
-      padding: EdgeInsets.all(0.041 * height),
+      padding: EdgeInsets.all(0.03 * height),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Divider(
-            thickness: 5,
-          ),
           Timeline(
             children: _generateStatus(),
             position: TimelinePosition.Left,

@@ -37,7 +37,7 @@ class Auth with ChangeNotifier {
         _sliderlist = jresponse['data']['slider'];
         _session = jresponse['data']['session'];
         _userdetails['name'] = jresponse['data']['userinfo']['name'];
-        _userdetails['mobile'] = jresponse['data']['userinfo']['email'];
+        _userdetails['mobile'] = jresponse['data']['userinfo']['mobile'];
         _userdetails['email'] = jresponse['data']['userinfo']['email'];
         _userdetails['company'] = jresponse['data']['userinfo']['company'];
 
@@ -97,9 +97,7 @@ class Auth with ChangeNotifier {
 
   Future<bool> isloggedin() async {
     SharedPreferences shr = await SharedPreferences.getInstance();
-    print(shr.containsKey('session'));
-    print(shr.containsKey('username'));
-    if (shr.containsKey('session') && shr.containsKey('username')) {
+    if (shr.containsKey('session')) {
       _session = shr.getString('session');
       final response = await http
           .get('https://dvj-design.com/api_dvj/Serv_v1/home?session=$session');
@@ -112,7 +110,7 @@ class Auth with ChangeNotifier {
         _userdetails['mobile'] = shr.getString('mobile');
         _userdetails['email'] = shr.getString('email');
         _userdetails['company'] = shr.getString('company');
-
+        _sliderlist = jresponse['data']['slider'];
         return true;
       }
     } else
@@ -122,15 +120,14 @@ class Auth with ChangeNotifier {
   Future<void> logout() async {
     SharedPreferences shr = await SharedPreferences.getInstance();
     shr.clear();
+    _userdetails = {};
     _session = null;
   }
 
   Future<List> obtainSliderItems() async {
-    print('slider');
     print(_sliderlist == []);
     try {
       if (_sliderlist.length == 0) {
-        print('hi bro\n\n');
         final url =
             'https://dvj-design.com/api_dvj/Serv_v1/home?session=$session';
         final response = await http.get(url);
@@ -138,7 +135,6 @@ class Auth with ChangeNotifier {
         print(jresponse);
         if (jresponse['status'] == 'failed') throw (jresponse['message']);
         _sliderlist = jresponse['data']['slider'];
-        print(_sliderlist);
         return _sliderlist;
       } else
         return _sliderlist;

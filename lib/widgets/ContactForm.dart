@@ -54,7 +54,7 @@ class _ContactFormState extends State<ContactForm> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    final userdetails = Provider.of<Auth>(context).userdetails;
+    final userdetails = Provider.of<Auth>(context,listen: false).userdetails;
     return Container(
       padding: EdgeInsets.all(0.048 * width),
       child: Form(

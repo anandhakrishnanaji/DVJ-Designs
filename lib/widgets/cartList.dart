@@ -40,9 +40,16 @@ class CartList extends StatelessWidget {
                 ),
               )),
           Consumer<ProductProvider>(
-            builder: (context, value, child) => Column(
-              children: value.cartlist.map<Widget>((e) => CartTile(e)).toList(),
-            ),
+            builder: (context, value, child) => FutureBuilder(
+                future: value.obtaincartlist(),
+                builder: (context, snapshot) =>
+                    snapshot.connectionState == ConnectionState.waiting
+                        ? CircularProgressIndicator()
+                        : Column(
+                            children: value.cartlist
+                                .map<Widget>((e) => CartTile(e))
+                                .toList(),
+                          )),
           )
         ],
       ),

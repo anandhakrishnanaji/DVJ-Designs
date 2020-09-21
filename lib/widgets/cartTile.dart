@@ -26,6 +26,13 @@ class _CartTileState extends State<CartTile> {
     super.dispose();
   }
 
+  bool _isNumeric(String s) {
+    if (s == null) {
+      return false;
+    }
+    return int.tryParse(s) != null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -52,11 +59,17 @@ class _CartTileState extends State<CartTile> {
                 width: 0.097 * width,
                 child: TextField(
                   controller: qty,
-                  onChanged: (value) => print(value),
-                  onSubmitted: (value){ 
-                    print('kona');
-                    Provider.of<ProductProvider>(context,listen: false)
-                      .changequantity(widget.cproduct.product.id  , int.parse(qty.text));},
+                  //onChanged: (value) => print(value),
+                  onSubmitted: (value) {
+                    if (_isNumeric(value) && int.parse(value) > 0)
+                      Provider.of<ProductProvider>(context, listen: false)
+                          .changequantity(
+                              widget.cproduct.product.id, int.parse(qty.text));
+                    else {
+                      print('wrong');
+                      setState(() => qty.text = '1');
+                    }
+                  },
                 ),
               ),
               IconButton(

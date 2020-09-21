@@ -13,7 +13,7 @@ class BrochurePage extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     final url =
-        'http://dvj-design.com/api_dvj/Serv_v1/brochure?session=${Provider.of<Auth>(context).session}';
+        'http://dvj-design.com/api_dvj/Serv_v1/brochure?session=${Provider.of<Auth>(context,listen:false).session}';
 
     return Container(
       height: double.infinity,

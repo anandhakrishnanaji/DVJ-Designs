@@ -12,6 +12,7 @@ import './orderStatuspage.dart';
 import '../providers/auth.dart';
 import '../widgets/homeTab.dart';
 import './searchPage.dart';
+import '../providers/productProvider.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/homepage';
@@ -62,15 +63,18 @@ class _HomePageState extends State<HomePage> {
     {
       'text': 'Logout',
       'icon': Icons.exit_to_app,
-      'ontap': (BuildContext ctx) => Provider.of<Auth>(ctx, listen: false)
-          .logout()
-          .then((value) => Navigator.of(ctx)
-              .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false))
+      'ontap': (BuildContext ctx) {
+        Provider.of<ProductProvider>(ctx, listen: false).clearTable();
+        Provider.of<Auth>(ctx, listen: false).logout().then((value) =>
+            Navigator.of(ctx)
+                .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false));
+      }
     }
   ];
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<ProductProvider>(context, listen: false).opendb();
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(

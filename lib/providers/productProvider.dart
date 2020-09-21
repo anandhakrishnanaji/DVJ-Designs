@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:io';
+import 'dart:async';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 class Product {
   final id;
@@ -38,24 +40,55 @@ class ProductProvider with ChangeNotifier {
   List<CartProduct> _cartlist = [];
   List<Products> _tiles = [];
   List<Products> _mosaic = [];
-
+  Database _db = null;
+  bool _obtainedCart = false;
   get mosaic => _mosaic;
   get tiles => _tiles;
   get cartlist => _cartlist;
 
-  void addtocart(final Product product, final String session) {
-    _cartlist.add(CartProduct(product, 1));
-    notifyListeners();
+  Future<void> addtocart(final Product product, final String session) async {
+    var index =
+        _cartlist.indexWhere((element) => element.product.id == product.id);
+    if (index == -1) {
+      await _db.insert(
+        'cart',
+        {
+          'id': product.id,
+          'name': product.name,
+          'link': product.imageUrl,
+          'quantity': 1
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+      print('added prod');
+      _cartlist.add(CartProduct(product, 1));
+      notifyListeners();
+    }
   }
 
-  void removefromcart(var id) {
+  Future<void> removefromcart(var id) async {
+    await _db.delete(
+      'cart',
+      where: "id = ?",
+      whereArgs: [id],
+    );
     _cartlist.removeWhere((element) => element.product.id == id);
     notifyListeners();
   }
 
-  void changequantity(var id, var val) {
-    print('hello');
+  Future<void> changequantity(var id, var val) async {
     var index = _cartlist.indexWhere((element) => element.product.id == id);
+    await _db.update(
+      'cart',
+      {
+        'id': _cartlist[index].product.id,
+        'name': _cartlist[index].product.name,
+        'link': _cartlist[index].product.imageUrl,
+        'quantity': val
+      },
+      where: "id = ?",
+      whereArgs: [id],
+    );
     _cartlist[index].changequantity(val);
   }
 
@@ -160,6 +193,7 @@ class ProductProvider with ChangeNotifier {
       final jresponse = json.decode(response.body);
       print(jresponse);
       if (jresponse['status'] == 'failed') throw jresponse['message'];
+      _db.delete('cart');
       _cartlist = [];
       notifyListeners();
       return true;
@@ -167,4 +201,39 @@ class ProductProvider with ChangeNotifier {
       throw e.toString();
     }
   }
+
+  Future<void> opendb() async {
+    if (_db == null) {
+      _db = await openDatabase(
+        join(await getDatabasesPath(), 'cart.db'),
+        onCreate: (db, version) {
+          print('aayittills');
+          return db.execute(
+            "CREATE TABLE cart(id INTEGER PRIMARY KEY, name TEXT, link TEXT,quantity INTEGER)",
+          );
+        },
+        version: 1,
+      );
+    }
+  }
+
+  Future<List<CartProduct>> obtaincartlist() async {
+    if (!_obtainedCart) {
+      _cartlist = [];
+      print('hello myr');
+      final List<Map<String, dynamic>> cartitems = await _db.query('cart');
+      cartitems.forEach((element) {
+        print(element['name']);
+        _cartlist.add(CartProduct(
+            Product(element['id'], element['name'], element['link'], null, null,
+                null, null, null, null),
+            element['quantity']));
+      });
+      _obtainedCart = true;
+      return _cartlist;
+    } else
+      return _cartlist;
+  }
+
+  Future<void> clearTable() async => await _db.delete('cart');
 }

@@ -33,91 +33,90 @@ class _OTPVerificationState extends State<OTPVerification> {
           backgroundColor: Colors.black,
           title: Image.asset('assets/images/logo.png'),
           titleSpacing: 0.29 * width),
-      body: Center(
-        child: Container(
-          height: 0.5 * height,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                'Enter your OTP',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                'OTP was sent to ${Provider.of<Auth>(context, listen: false).mobile}',
-                style: TextStyle(color: Colors.grey, fontSize: 20),
-              ),
-              Container(
-                  width: 0.41*width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      FittedBox(
-                        child: Text(
-                          'OTP',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        fit: BoxFit.fitWidth,
+      body: Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.symmetric(vertical: 50),
+        height: 0.5 * height,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(
+              'Enter your OTP',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'OTP was sent to ${Provider.of<Auth>(context, listen: false).mobile}',
+              style: TextStyle(color: Colors.grey, fontSize: 20),
+            ),
+            Container(
+                width: 0.41 * width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    FittedBox(
+                      child: Text(
+                        'OTP',
+                        style: TextStyle(color: Colors.grey),
                       ),
-                      TextField(
-                        controller: pno,
-                        keyboardType: TextInputType.number,
-                        autofocus: false,
-                        decoration: InputDecoration(
-                          errorText: ispnoerror ? 'Required field' : null,
-                          contentPadding:
-                              EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                          border: OutlineInputBorder(),
-                        ),
-                      )
-                    ],
-                  )),
-              !_isloading
-                  ? Container(
-                      width: 0.9 * width,
-                      color: Colors.black,
-                      child: MaterialButton(
-                        child: Text(
-                          'Verify',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            ispnoerror = pno.text.length != 6;
-                          });
-                          if (!ispnoerror) {
-                            setState(() {
-                              _isloading = true;
-                            });
-                            Provider.of<Auth>(context, listen: false)
-                                .login(pno.text)
-                                .then((value) => value
-                                    ? Navigator.of(context)
-                                        .pushReplacementNamed(
-                                            HomePage.routeName)
-                                    : null)
-                                .catchError((e) {
-                              setState(() {
-                                _isloading = false;
-                              });
-                              showDialog(
-                                  context: context,
-                                  child: Alertbox(e.toString()));
-                            });
-                          }
-                        },
+                      fit: BoxFit.fitWidth,
+                    ),
+                    TextField(
+                      controller: pno,
+                      keyboardType: TextInputType.number,
+                      autofocus: false,
+                      decoration: InputDecoration(
+                        errorText: ispnoerror ? 'Invalid OTP' : null,
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                        border: OutlineInputBorder(),
                       ),
                     )
-                  : CircularProgressIndicator(),
-              FlatButton(
-                  onPressed: () => Provider.of<Auth>(context,listen: false).otpsend(
-                      Provider.of<Auth>(context, listen: false).mobile),
-                  child: Text(
-                    'Send Again',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ))
-            ],
-          ),
+                  ],
+                )),
+            !_isloading
+                ? Container(
+                    width: 0.9 * width,
+                    color: Colors.black,
+                    child: MaterialButton(
+                      child: Text(
+                        'Verify',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          ispnoerror = pno.text.length != 6;
+                        });
+                        if (!ispnoerror) {
+                          setState(() {
+                            _isloading = true;
+                          });
+                          Provider.of<Auth>(context, listen: false)
+                              .login(pno.text)
+                              .then((value) => value
+                                  ? Navigator.of(context)
+                                      .pushReplacementNamed(HomePage.routeName)
+                                  : null)
+                              .catchError((e) {
+                            setState(() {
+                              _isloading = false;
+                            });
+                            showDialog(
+                                context: context,
+                                child: Alertbox(e.toString()));
+                          });
+                        }
+                      },
+                    ),
+                  )
+                : CircularProgressIndicator(),
+            FlatButton(
+                onPressed: () => Provider.of<Auth>(context, listen: false)
+                    .otpsend(Provider.of<Auth>(context, listen: false).mobile),
+                child: Text(
+                  'Send Again',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ))
+          ],
         ),
       ),
     );

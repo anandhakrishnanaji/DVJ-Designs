@@ -74,7 +74,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           titleSpacing: 0.29 * width),
       body: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: 0.04 * height, vertical: 0.01 * height),
+            horizontal: 0.04 * height, vertical: 0.05 * height),
         child: Form(
             key: _form,
             child: SingleChildScrollView(
