@@ -169,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: EdgeInsets.only(left: 30),
                       child: Text(
-                        Provider.of<Auth>(context, listen: false).username,
+                        Provider.of<Auth>(context, listen: false).name,
                         style: TextStyle(color: Colors.white, fontSize: 24),
                       ),
                     )

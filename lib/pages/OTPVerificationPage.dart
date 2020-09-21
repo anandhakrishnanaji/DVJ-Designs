@@ -44,7 +44,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               Text(
-                'OTP was sent to ${Provider.of<Auth>(context, listen: false).username}',
+                'OTP was sent to ${Provider.of<Auth>(context, listen: false).mobile}',
                 style: TextStyle(color: Colors.grey, fontSize: 20),
               ),
               Container(
@@ -111,7 +111,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                   : CircularProgressIndicator(),
               FlatButton(
                   onPressed: () => Provider.of<Auth>(context,listen: false).otpsend(
-                      Provider.of<Auth>(context, listen: false).username),
+                      Provider.of<Auth>(context, listen: false).mobile),
                   child: Text(
                     'Send Again',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

@@ -22,6 +22,8 @@ class OrderStatusPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final session = Provider.of<Auth>(context, listen: false).session;
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
@@ -46,7 +48,10 @@ class OrderStatusPage extends StatelessWidget {
                 return Container(
                     padding: EdgeInsets.all(20),
                     child: ListView(children: [
-                      Text('Order Status'),
+                      Text(
+                        'Order Status',
+                        style: TextStyle(fontSize: 0.041 * height),
+                      ),
                       ConstrainedBox(
                         constraints: BoxConstraints(maxHeight: double.infinity),
                         child: ListView.builder(

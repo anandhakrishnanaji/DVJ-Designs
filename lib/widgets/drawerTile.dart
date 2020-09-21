@@ -13,7 +13,7 @@ class DrawerTile extends StatelessWidget {
     return InkWell(
       onTap: () => ontap(),
       child: Container(
-          padding: EdgeInsets.all(0.024 * height),
+          padding: EdgeInsets.all(0.02 * height),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[

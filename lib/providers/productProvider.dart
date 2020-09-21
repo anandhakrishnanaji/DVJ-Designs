@@ -160,6 +160,8 @@ class ProductProvider with ChangeNotifier {
       final jresponse = json.decode(response.body);
       print(jresponse);
       if (jresponse['status'] == 'failed') throw jresponse['message'];
+      _cartlist = [];
+      notifyListeners();
       return true;
     } catch (e) {
       throw e.toString();

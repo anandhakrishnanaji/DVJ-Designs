@@ -54,6 +54,7 @@ class _ContactFormState extends State<ContactForm> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    final userdetails = Provider.of<Auth>(context).userdetails;
     return Container(
       padding: EdgeInsets.all(0.048 * width),
       child: Form(
@@ -63,6 +64,7 @@ class _ContactFormState extends State<ContactForm> {
               decoration: InputDecoration(
                 labelText: 'Enter your Name',
               ),
+              initialValue: userdetails['name'],
               textInputAction: TextInputAction.next,
               onFieldSubmitted: (_) => _phonefocusnode.requestFocus(),
               validator: (value) =>
@@ -76,6 +78,7 @@ class _ContactFormState extends State<ContactForm> {
                 decoration: InputDecoration(
                   labelText: 'Enter your Mobile',
                 ),
+                initialValue: userdetails['mobile'],
                 keyboardType: TextInputType.phone,
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (_) => _emailfocusnode.requestFocus(),
@@ -98,6 +101,7 @@ class _ContactFormState extends State<ContactForm> {
                 decoration: InputDecoration(
                   labelText: 'Enter your Email',
                 ),
+                initialValue: userdetails['email'],
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (_) => _messagefocusnode.requestFocus(),
@@ -125,9 +129,9 @@ class _ContactFormState extends State<ContactForm> {
                 onSaved: (newValue) => _check['message'] = newValue),
             _isloading
                 ? Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: CircularProgressIndicator(),
-                )
+                    padding: const EdgeInsets.all(20),
+                    child: CircularProgressIndicator(),
+                  )
                 : Container(
                     margin: EdgeInsets.all(0.027 * height),
                     color: Colors.black,

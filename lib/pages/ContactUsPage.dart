@@ -8,14 +8,16 @@ class ContactUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Container(
-      padding: EdgeInsets.only(top: 0.041 * height),
       alignment: Alignment.center,
       child: ListView(
         children: <Widget>[
-          Text(
-            'Contact Us',
-            style: TextStyle(fontSize: 0.041 * height),
-            textAlign: TextAlign.center,
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Text(
+              'Contact Us',
+              style: TextStyle(fontSize: 0.041 * height),
+              textAlign: TextAlign.center,
+            ),
           ),
           CartList(),
           ContactForm()

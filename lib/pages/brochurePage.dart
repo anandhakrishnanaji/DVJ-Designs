@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -19,7 +17,7 @@ class BrochurePage extends StatelessWidget {
 
     return Container(
       height: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 0.041 * height, horizontal: 7),
+      padding: EdgeInsets.symmetric(vertical: 0.04 * height, horizontal: 7),
       child: FutureBuilder(
           future: http.get(url),
           builder: (context, snapshot) {
@@ -35,22 +33,35 @@ class BrochurePage extends StatelessWidget {
               final List _list =
                   json.decode(snapshot.data.body)['data']['brochure'];
               return Container(
-                width: width,
-                height: height,
-                child: GridView.builder(
-                  itemCount: _list.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 12,
-                    childAspectRatio: 0.6,
+                  child: ListView(children: [
+                Container(
+                  padding: EdgeInsets.only(bottom: 20),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Brochures',
+                    style: TextStyle(fontSize: 0.041 * height),
                   ),
-                  itemBuilder: (context, index) => BrochureTile(
-                      Uri.decodeFull(_list[index]['brochure_image']),
-                      _list[index]['brochure_name'].replaceAll('+', ' '),
-                      Uri.decodeFull(_list[index]['brochure_pdf'])),
                 ),
-              );
+                ConstrainedBox(
+                  constraints: BoxConstraints(maxHeight: double.infinity),
+                  child: GridView.builder(
+                    scrollDirection: Axis.vertical,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: _list.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 12,
+                      childAspectRatio: 0.6,
+                    ),
+                    itemBuilder: (context, index) => BrochureTile(
+                        Uri.decodeFull(_list[index]['brochure_image']),
+                        _list[index]['brochure_name'].replaceAll('+', ' '),
+                        Uri.decodeFull(_list[index]['brochure_pdf'])),
+                  ),
+                )
+              ]));
             }
           }),
     );
