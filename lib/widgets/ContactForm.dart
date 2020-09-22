@@ -7,6 +7,8 @@ import '../providers/productProvider.dart';
 import '../widgets/alertBox.dart';
 
 class ContactForm extends StatefulWidget {
+  final Function changetab;
+  ContactForm(this.changetab);
   @override
   _ContactFormState createState() => _ContactFormState();
 }
@@ -54,7 +56,7 @@ class _ContactFormState extends State<ContactForm> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    final userdetails = Provider.of<Auth>(context,listen: false).userdetails;
+    final userdetails = Provider.of<Auth>(context, listen: false).userdetails;
     return Container(
       padding: EdgeInsets.all(0.048 * width),
       child: Form(
@@ -120,6 +122,7 @@ class _ContactFormState extends State<ContactForm> {
             ),
             TextFormField(
                 decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(10),
                   labelText: 'Enter your Message',
                 ),
                 focusNode: _messagefocusnode,
@@ -153,6 +156,7 @@ class _ContactFormState extends State<ContactForm> {
                                   msg: _check['message'])
                               .then((value) {
                             setState(() => _isloading = false);
+                            widget.changetab();
                             Scaffold.of(context).showSnackBar(SnackBar(
                                 content: Text('Enquiry sent successfully')));
                           }).catchError((e) {

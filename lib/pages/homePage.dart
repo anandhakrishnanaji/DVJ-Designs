@@ -34,14 +34,6 @@ class _HomePageState extends State<HomePage> {
     if (await canLaunch(url)) launch(url);
   }
 
-  final List<Widget> _children = [
-    HomeTab(),
-    MosaicListPage(),
-    TilesListPage(),
-    BrochurePage(),
-    ContactUsPage()
-  ];
-
   final List<Map> _drawerList = [
     {'text': 'Home', 'icon': Icons.home, 'ontap': (BuildContext ctx) => 0},
     {
@@ -71,6 +63,18 @@ class _HomePageState extends State<HomePage> {
       }
     }
   ];
+  List<Widget> _children;
+  @override
+  void initState() {
+    _children = [
+      HomeTab(),
+      MosaicListPage(),
+      TilesListPage(),
+      BrochurePage(),
+      ContactUsPage(() => setState(() => _currentIndex = 0))
+    ];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

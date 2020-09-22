@@ -4,6 +4,8 @@ import '../widgets/cartList.dart';
 import '../widgets/ContactForm.dart';
 
 class ContactUsPage extends StatelessWidget {
+  final Function changetab;
+  ContactUsPage(this.changetab);
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -20,7 +22,7 @@ class ContactUsPage extends StatelessWidget {
             ),
           ),
           CartList(),
-          ContactForm()
+          ContactForm(changetab)
         ],
       ),
     );
