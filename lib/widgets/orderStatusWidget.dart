@@ -33,7 +33,6 @@ class OrderStatusWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool _islr = orderStatus['lr_attach'] != "";
     bool _isinv = orderStatus['invoice_attach'] != "";
     final height = MediaQuery.of(context).size.height;
 
@@ -61,25 +60,12 @@ class OrderStatusWidget extends StatelessWidget {
                       ? () => _launch(orderStatus['invoice_attach'])
                       : null,
                   child: Text(
-                    'Invoice',
+                    'Invoice & LR',
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.all(10),
-                padding: EdgeInsets.all(3),
-                decoration:
-                    BoxDecoration(color: _islr ? Colors.black : Colors.grey),
-                child: MaterialButton(
-                  onPressed:
-                      _islr ? () => _launch(orderStatus['lr_attach']) : null,
-                  child: Text(
-                    'LR',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                ),
-              )
+ 
             ],
           ),
           Divider(
