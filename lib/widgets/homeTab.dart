@@ -24,6 +24,7 @@ class HomeTab extends StatelessWidget {
           } else
             return Container(
               child: Carousel(
+                showIndicator: false,
                 // boxFit: BoxFit.contain,
                 images: snapshot.data.map((e) => NetworkImage(e)).toList(),
               ),

@@ -29,8 +29,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Future<void> _launch() async {
-    const String url = 'https://api.whatsapp.com/send?phone=918080150150';
+  Future<void> _launch(String url) async {
     if (await canLaunch(url)) launch(url);
   }
 
@@ -44,14 +43,22 @@ class _HomePageState extends State<HomePage> {
     },
     {'text': 'Tiles', 'icon': Icons.gradient, 'ontap': (BuildContext ctx) => 2},
     {'text': 'Mosaic', 'icon': Icons.grid_on, 'ontap': (BuildContext ctx) => 1},
-    {'text': 'Brochure', 'icon': Icons.book, 'ontap': (BuildContext ctx) => 3},
     {
       'text': 'Order Status',
       'icon': Icons.account_circle,
-      'ontap': (BuildContext ctx) =>
-          Navigator.of(ctx).pushNamed(OrderStatusPage.routeName)
+      'ontap': (BuildContext ctx) => 3
     },
-    {'text': 'Contact', 'icon': Icons.phone, 'ontap': (BuildContext ctx) => 4},
+    {
+      'text': 'Brochures',
+      'icon': Icons.book,
+      'ontap': (BuildContext ctx) =>
+          Navigator.of(ctx).pushNamed(BrochurePage.routeName)
+    },
+    {
+      'text': 'Contact with Enquiry',
+      'icon': Icons.phone,
+      'ontap': (BuildContext ctx) => 4
+    },
     {
       'text': 'Logout',
       'icon': Icons.exit_to_app,
@@ -70,7 +77,7 @@ class _HomePageState extends State<HomePage> {
       HomeTab(),
       MosaicListPage(),
       TilesListPage(),
-      BrochurePage(),
+      OrderStatusPage(),
       ContactUsPage(() => setState(() => _currentIndex = 0))
     ];
     super.initState();
@@ -138,17 +145,17 @@ class _HomePageState extends State<HomePage> {
                 )),
             BottomNavigationBarItem(
                 title: Text(
-                  'Brochure',
+                  'Order Status',
                   style: TextStyle(
                       color: _currentIndex == 3 ? Colors.blue : Colors.black),
                 ),
                 icon: Icon(
-                  Icons.book,
+                  Icons.account_circle,
                   color: _currentIndex == 3 ? Colors.blue : Colors.black,
                 )),
             BottomNavigationBarItem(
                 title: Text(
-                  'Contact',
+                  'Contact with Enquiry',
                   style: TextStyle(
                       color: _currentIndex == 4 ? Colors.blue : Colors.black),
                 ),
@@ -203,13 +210,34 @@ class _HomePageState extends State<HomePage> {
               Container(
                 padding: EdgeInsets.all(15),
                 alignment: Alignment.centerLeft,
-                child: InkWell(
-                  onTap: _launch,
-                  child: Image.asset(
-                    'assets/images/whatsapp.png',
-                    width: 0.07 * height,
-                    height: 0.07 * height,
-                  ),
+                child: Row(
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () => _launch(
+                          'https://api.whatsapp.com/send?phone=918080150150'),
+                      child: Image.asset(
+                        'assets/images/whatsapp.png',
+                        width: 0.07 * height,
+                        height: 0.07 * height,
+                      ),
+                    ),
+                    InkWell(
+                      onTap:()=> _launch('https://www.facebook.com/dvjdesign/'),
+                      child: Image.asset(
+                        'assets/images/fb.png',
+                        width: 0.07 * height,
+                        height: 0.07 * height,
+                      ),
+                    ),
+                    InkWell(
+                      onTap:()=> _launch('https://www.instagram.com/dvjdesign/'),
+                      child: Image.asset(
+                        'assets/images/instagram.png',
+                        width: 0.07 * height,
+                        height: 0.07 * height,
+                      ),
+                    ),
+                  ],
                 ),
               )
             ],

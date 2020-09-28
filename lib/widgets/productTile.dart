@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:io';
@@ -7,7 +6,7 @@ import 'dart:typed_data';
 
 import '../providers/productProvider.dart';
 import '../pages/productPreviePage.dart';
-import '../providers/auth.dart';
+import './textfieldDialog.dart';
 
 class ProductTile extends StatelessWidget {
   final Product product;
@@ -28,7 +27,6 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final session = Provider.of<Auth>(context, listen: false).session;
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return InkWell(
@@ -68,12 +66,9 @@ class ProductTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       InkWell(
-                        onTap: () {
-                          Provider.of<ProductProvider>(context, listen: false)
-                              .addtocart(product, session);
-                          Scaffold.of(context).showSnackBar(
-                              SnackBar(content: Text('Item added to cart')));
-                        },
+                        onTap: () => showDialog(
+                            context: context,
+                            builder: (context) => TextfieldDialog(product)),
                         child: Container(
                           margin: EdgeInsets.only(left: 0.024 * width),
                           decoration: BoxDecoration(

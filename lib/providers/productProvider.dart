@@ -174,6 +174,7 @@ class ProductProvider with ChangeNotifier {
       final String name, final String phone, final String session,
       {final String email = null, final String msg = null}) async {
     try {
+      if (_cartlist.length == 0) throw "Cart is Empty";
       String url =
           'https://dvj-design.com/api_dvj/Serv_v1/enquiry?enquiry_name=$name&enquiry_mobile=$phone&session=$session';
       if (email != null) url += '&enquiry_emailid=$email';

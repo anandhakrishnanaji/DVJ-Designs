@@ -16,7 +16,7 @@ class ContactUsPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(20),
             child: Text(
-              'Contact Us',
+              'Contact with Enquiry',
               style: TextStyle(fontSize: 0.041 * height),
               textAlign: TextAlign.center,
             ),
