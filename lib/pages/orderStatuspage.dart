@@ -9,16 +9,18 @@ import '../widgets/alertBox.dart';
 
 class OrderStatusPage extends StatelessWidget {
   static const routeName = '/orderDetail';
-  Future _orderlist(final String session,final String id) async {
+  Future _orderlist(final String session, final String id) async {
     final response = await http.get(
         'http://dvj-design.com/api_dvj/Serv_v1/order_details?session=$session&enquiry_id=$id');
     final jresponse = json.decode(response.body);
+    print(jresponse);
     if (jresponse['status'] == 'failed') throw jresponse['message'];
     return jresponse['data']['Order_list'][0];
-    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final String id=ModalRoute.of(context).settings.arguments;
+    final String id = ModalRoute.of(context).settings.arguments;
     final session = Provider.of<Auth>(context, listen: false).session;
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
@@ -39,7 +41,7 @@ class OrderStatusPage extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.all(15),
         child: FutureBuilder(
-            future: _orderlist(session,id),
+            future: _orderlist(session, id),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting)
                 return Center(

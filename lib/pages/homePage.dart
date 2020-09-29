@@ -13,6 +13,7 @@ import '../providers/auth.dart';
 import '../widgets/homeTab.dart';
 import './searchPage.dart';
 import '../providers/productProvider.dart';
+import './orderListPage.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/homepage';
@@ -55,7 +56,7 @@ class _HomePageState extends State<HomePage> {
           Navigator.of(ctx).pushNamed(BrochurePage.routeName)
     },
     {
-      'text': 'Contact with Enquiry',
+      'text': 'Enquiry',
       'icon': Icons.phone,
       'ontap': (BuildContext ctx) => 4
     },
@@ -77,7 +78,7 @@ class _HomePageState extends State<HomePage> {
       HomeTab(),
       MosaicListPage(),
       TilesListPage(),
-      OrderStatusPage(),
+      OrderListPage(),
       ContactUsPage(() => setState(() => _currentIndex = 0))
     ];
     super.initState();
@@ -155,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                 )),
             BottomNavigationBarItem(
                 title: Text(
-                  'Contact with Enquiry',
+                  'Enquiry',
                   style: TextStyle(
                       color: _currentIndex == 4 ? Colors.blue : Colors.black),
                 ),
@@ -211,6 +212,7 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.all(15),
                 alignment: Alignment.centerLeft,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     InkWell(
                       onTap: () => _launch(
@@ -222,7 +224,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     InkWell(
-                      onTap:()=> _launch('https://www.facebook.com/dvjdesign/'),
+                      onTap: () =>
+                          _launch('https://www.facebook.com/dvjdesign/'),
                       child: Image.asset(
                         'assets/images/fb.png',
                         width: 0.07 * height,
@@ -230,7 +233,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     InkWell(
-                      onTap:()=> _launch('https://www.instagram.com/dvjdesign/'),
+                      onTap: () =>
+                          _launch('https://www.instagram.com/dvjdesign/'),
                       child: Image.asset(
                         'assets/images/instagram.png',
                         width: 0.07 * height,

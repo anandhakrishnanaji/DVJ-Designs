@@ -94,7 +94,9 @@ class _OTPVerificationState extends State<OTPVerification> {
                               .login(pno.text)
                               .then((value) => value
                                   ? Navigator.of(context)
-                                      .pushReplacementNamed(HomePage.routeName)
+                                      .pushNamedAndRemoveUntil(
+                                          HomePage.routeName,
+                                          (Route<dynamic> route) => false)
                                   : null)
                               .catchError((e) {
                             setState(() {

@@ -20,54 +20,53 @@ class OrderListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _session = Provider.of<Auth>(context).session;
-    final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    return Scaffold(
-        appBar: AppBar(
-            backgroundColor: Colors.black,
-            title: InkWell(
-                child: Image.asset('assets/images/logo.png'),
-                onTap: () => Navigator.of(context).pop()),
-            titleSpacing: 0.194 * width,
-            actions: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(right: 0.14 * width),
-                child: SizedBox(),
-              )
-            ]),
-        body: FutureBuilder(
-            future: _fetchOrders(_session),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting)
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              else if (snapshot.hasError) {
-                Future.delayed(
-                    Duration.zero,
-                    () => showDialog(
-                        context: context,
-                        child: Alertbox(snapshot.error.toString())));
-                return SizedBox();
-              } else
-                return ListView(
-                  children: [
-                    ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxHeight: double.infinity,
+    return Container(
+      padding: EdgeInsets.all(15),
+      child: FutureBuilder(
+          future: _fetchOrders(_session),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting)
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            else if (snapshot.hasError) {
+              Future.delayed(
+                  Duration.zero,
+                  () => showDialog(
+                      context: context,
+                      child: Alertbox(snapshot.error.toString())));
+              return SizedBox();
+            } else
+              return ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(
+                      'Orders',
+                      style: TextStyle(fontSize: 0.041 * height),
+                    ),
+                  ),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: double.infinity,
+                    ),
+                    child: Container(
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (context, index) => OrderListTile(
+                            snapshot.data[index]['enquiry_id'],
+                            snapshot.data[index]['created_date'],
+                            snapshot.data[index]['order_value']),
                       ),
-                      child: Container(
-                        child: ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (context, index) => OrderListTile(snapshot.data[index]['enquiry_id'], snapshot.data[index]['created_date'], snapshot.data[index]['order_value']),
-                        ),
-                      ),
-                    )
-                  ],
-                );
-            }));
+                    ),
+                  )
+                ],
+              );
+          }),
+    );
   }
 }

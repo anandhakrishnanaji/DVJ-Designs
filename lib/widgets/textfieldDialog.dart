@@ -42,32 +42,37 @@ class _TextfieldDialogState extends State<TextfieldDialog> {
     final height = MediaQuery.of(context).size.height;
     return AlertDialog(
       title: Text('Add to Cart'),
-      content: Column(
-        children: <Widget>[
-          ListTile(
-            leading: Image.network(
-              widget.product.imageUrl,
-              width: 0.097 * width,
-              height: 0.097 * width,
+      content: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: 0.2 * height),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            ListTile(
+              leading: Image.network(
+                widget.product.imageUrl,
+                width: 0.1 * width,
+                height: 0.1 * width,
+              ),
+              title: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 0.048 * width),
+                  child: Text(
+                    widget.product.name,
+                    style: TextStyle(fontSize: 0.02 * height),
+                  )),
             ),
-            title: Container(
-                padding: EdgeInsets.symmetric(horizontal: 0.048 * width),
-                child: Text(
-                  widget.product.name,
-                  style: TextStyle(fontSize: 0.02 * height),
-                )),
-          ),
-          TextField(
-            controller: _quantity,
-            keyboardType: TextInputType.phone,
-            decoration: InputDecoration(
-              labelText: 'Product Quantity',
-              errorText: _isError ? 'Invalid Quantity' : null,
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              border: OutlineInputBorder(),
-            ),
-          )
-        ],
+            TextField(
+              controller: _quantity,
+              keyboardType: TextInputType.phone,
+              decoration: InputDecoration(
+                labelText: 'Product Quantity',
+                errorText: _isError ? 'Invalid Quantity' : null,
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                border: OutlineInputBorder(),
+              ),
+            )
+          ],
+        ),
       ),
       actions: <Widget>[
         FlatButton(
@@ -78,8 +83,8 @@ class _TextfieldDialogState extends State<TextfieldDialog> {
               if (_isNumeric(_quantity.text) &&
                   int.parse(_quantity.text) > 0 &&
                   int.parse(_quantity.text) < 100000) {
-                Provider.of<ProductProvider>(context, listen: false)
-                    .addtocart(widget.product, _session);
+                Provider.of<ProductProvider>(context, listen: false).addtocart(
+                    widget.product, _session, int.parse(_quantity.text));
                 Navigator.pop(context);
                 Scaffold.of(context).showSnackBar(
                     SnackBar(content: Text('Item added to cart')));

@@ -46,7 +46,8 @@ class ProductProvider with ChangeNotifier {
   get tiles => _tiles;
   get cartlist => _cartlist;
 
-  Future<void> addtocart(final Product product, final String session) async {
+  Future<void> addtocart(
+      final Product product, final String session, final int quantity) async {
     var index =
         _cartlist.indexWhere((element) => element.product.id == product.id);
     if (index == -1) {
@@ -56,12 +57,12 @@ class ProductProvider with ChangeNotifier {
           'id': product.id,
           'name': product.name,
           'link': product.imageUrl,
-          'quantity': 1
+          'quantity': quantity
         },
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
       print('added prod');
-      _cartlist.add(CartProduct(product, 1));
+      _cartlist.add(CartProduct(product, quantity));
       notifyListeners();
     }
   }
