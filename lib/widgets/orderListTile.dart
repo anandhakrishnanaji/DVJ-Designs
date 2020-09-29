@@ -28,7 +28,7 @@ class OrderListTile extends StatelessWidget {
         padding: EdgeInsets.all(15),
         // width: double.infinity,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,19 +39,7 @@ class OrderListTile extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(
-              width: 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Order', style: TextStyle(color: Colors.grey[600])),
-                Text(id)
-              ],
-            ),
-            SizedBox(
-              width: 10,
-            ),
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

@@ -7,8 +7,6 @@ import '../providers/productProvider.dart';
 import '../widgets/alertBox.dart';
 
 class ContactForm extends StatefulWidget {
-  final Function changetab;
-  ContactForm(this.changetab);
   @override
   _ContactFormState createState() => _ContactFormState();
 }
@@ -156,7 +154,8 @@ class _ContactFormState extends State<ContactForm> {
                                   msg: _check['message'])
                               .then((value) {
                             setState(() => _isloading = false);
-                            widget.changetab();
+                            Provider.of<ProductProvider>(context,listen: false)
+                                .homecallback(0);
                             Scaffold.of(context).showSnackBar(SnackBar(
                                 content: Text('Enquiry sent successfully')));
                           }).catchError((e) {

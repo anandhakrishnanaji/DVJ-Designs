@@ -6,7 +6,8 @@ import '../providers/auth.dart';
 
 class TextfieldDialog extends StatefulWidget {
   final Product product;
-  TextfieldDialog(this.product);
+  final Function callback;
+  TextfieldDialog(this.product, this.callback);
   @override
   _TextfieldDialogState createState() => _TextfieldDialogState();
 }
@@ -37,7 +38,7 @@ class _TextfieldDialogState extends State<TextfieldDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final String _session = Provider.of<Auth>(context).session;
+    final String _session = Provider.of<Auth>(context, listen: false).session;
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return AlertDialog(
@@ -85,9 +86,7 @@ class _TextfieldDialogState extends State<TextfieldDialog> {
                   int.parse(_quantity.text) < 100000) {
                 Provider.of<ProductProvider>(context, listen: false).addtocart(
                     widget.product, _session, int.parse(_quantity.text));
-                Navigator.pop(context);
-                Scaffold.of(context).showSnackBar(
-                    SnackBar(content: Text('Item added to cart')));
+                widget.callback();
               } else
                 setState(() => _isError = true);
             },

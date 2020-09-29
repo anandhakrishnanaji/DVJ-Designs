@@ -3,6 +3,7 @@ import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:provider/provider.dart';
 
 import '../providers/productProvider.dart';
 import '../pages/productPreviePage.dart';
@@ -68,7 +69,20 @@ class ProductTile extends StatelessWidget {
                       InkWell(
                         onTap: () => showDialog(
                             context: context,
-                            builder: (context) => TextfieldDialog(product)),
+                            builder: (contex) => TextfieldDialog(product, () {
+                                  Navigator.pop(context);
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text('Item added to cart'),
+                                    action: SnackBarAction(textColor: Colors.grey[300],
+                                        label: 'Go to Enquiry',
+                                        onPressed: () {
+                                          Provider.of<ProductProvider>(context,listen: false)
+                                              .homecallback(4);
+                                          Navigator.of(context).popUntil(
+                                              (route) => route.isFirst);
+                                        }),
+                                  ));
+                                })),
                         child: Container(
                           margin: EdgeInsets.only(left: 0.024 * width),
                           decoration: BoxDecoration(

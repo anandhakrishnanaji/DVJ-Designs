@@ -8,7 +8,6 @@ import './mosaiclistpage.dart';
 import './ContactUsPage.dart';
 import '../widgets/drawerTile.dart';
 import './brochurePage.dart';
-import './orderStatuspage.dart';
 import '../providers/auth.dart';
 import '../widgets/homeTab.dart';
 import './searchPage.dart';
@@ -45,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     {'text': 'Tiles', 'icon': Icons.gradient, 'ontap': (BuildContext ctx) => 2},
     {'text': 'Mosaic', 'icon': Icons.grid_on, 'ontap': (BuildContext ctx) => 1},
     {
-      'text': 'Order Status',
+      'text': 'Orders',
       'icon': Icons.account_circle,
       'ontap': (BuildContext ctx) => 3
     },
@@ -55,11 +54,7 @@ class _HomePageState extends State<HomePage> {
       'ontap': (BuildContext ctx) =>
           Navigator.of(ctx).pushNamed(BrochurePage.routeName)
     },
-    {
-      'text': 'Enquiry',
-      'icon': Icons.phone,
-      'ontap': (BuildContext ctx) => 4
-    },
+    {'text': 'Enquiry', 'icon': Icons.phone, 'ontap': (BuildContext ctx) => 4},
     {
       'text': 'Logout',
       'icon': Icons.exit_to_app,
@@ -72,6 +67,17 @@ class _HomePageState extends State<HomePage> {
     }
   ];
   List<Widget> _children;
+  bool _iscallbackset = false;
+
+  @override
+  void didChangeDependencies() {
+    if (!_iscallbackset) {
+      Provider.of<ProductProvider>(context,listen: false).setcallback(_onTabTapped);
+      _iscallbackset = true;
+    }
+    super.didChangeDependencies();
+  }
+
   @override
   void initState() {
     _children = [
@@ -79,7 +85,7 @@ class _HomePageState extends State<HomePage> {
       MosaicListPage(),
       TilesListPage(),
       OrderListPage(),
-      ContactUsPage(() => setState(() => _currentIndex = 0))
+      ContactUsPage()
     ];
     super.initState();
   }
@@ -146,9 +152,10 @@ class _HomePageState extends State<HomePage> {
                 )),
             BottomNavigationBarItem(
                 title: Text(
-                  'Order Status',
+                  'Orders',
                   style: TextStyle(
-                      color: _currentIndex == 3 ? Colors.blue : Colors.black),
+                    color: _currentIndex == 3 ? Colors.blue : Colors.black,
+                  ),
                 ),
                 icon: Icon(
                   Icons.account_circle,

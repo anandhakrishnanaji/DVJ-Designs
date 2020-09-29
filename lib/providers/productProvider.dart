@@ -41,10 +41,14 @@ class ProductProvider with ChangeNotifier {
   List<Products> _tiles = [];
   List<Products> _mosaic = [];
   Database _db = null;
+  Function _homecallback;
   bool _obtainedCart = false;
   get mosaic => _mosaic;
   get tiles => _tiles;
   get cartlist => _cartlist;
+  get homecallback => _homecallback;
+
+  void setcallback(Function callback) => _homecallback = callback;
 
   Future<void> addtocart(
       final Product product, final String session, final int quantity) async {
