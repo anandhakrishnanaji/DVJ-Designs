@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
           automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
           title: Image.asset('assets/images/logo.png'),
-          titleSpacing: 0.29 * width),
+          centerTitle: true,),
       body: Center(
         child: Container(padding: EdgeInsets.all(30),
           height: 0.6 * height,

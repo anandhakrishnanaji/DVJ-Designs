@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../providers/productProvider.dart';
 import '../pages/productPreviePage.dart';
 import './textfieldDialog.dart';
+import '../pages/productListPage.dart';
 
 class ProductTile extends StatelessWidget {
   final Product product;
@@ -67,22 +68,29 @@ class ProductTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       InkWell(
-                        onTap: () => showDialog(
-                            context: context,
-                            builder: (contex) => TextfieldDialog(product, () {
-                                  Navigator.pop(context);
-                                  Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text('Item added to cart'),
-                                    action: SnackBarAction(textColor: Colors.grey[300],
-                                        label: 'Go to Enquiry',
-                                        onPressed: () {
-                                          Provider.of<ProductProvider>(context,listen: false)
-                                              .homecallback(4);
-                                          Navigator.of(context).popUntil(
-                                              (route) => route.isFirst);
-                                        }),
-                                  ));
-                                })),
+                        onTap: () async => await showDialog(
+                                context: context,
+                                builder: (contex) => TextfieldDialog(product))
+                            .then((value) {
+                          if (value == 1) {
+                            var currentScaffold =
+                                globalScaffoldKey.currentState;
+                            currentScaffold.showSnackBar(SnackBar(
+                              content: Text('Item added to cart'),
+                              action: SnackBarAction(
+                                  textColor: Colors.grey[300],
+                                  label: 'Go to Enquiry',
+                                  onPressed: () {
+                                    print('hrllokunno');
+                                    Provider.of<ProductProvider>(currentScaffold.context,
+                                            listen: false)
+                                        .homecallback(4);
+                                    Navigator.of(currentScaffold.context)
+                                        .popUntil((route) => route.isFirst);
+                                  }),
+                            ));
+                          }
+                        }),
                         child: Container(
                           margin: EdgeInsets.only(left: 0.024 * width),
                           decoration: BoxDecoration(

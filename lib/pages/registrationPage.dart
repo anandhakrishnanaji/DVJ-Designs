@@ -66,12 +66,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: Image.asset('assets/images/logo.png'),
-          titleSpacing: 0.29 * width),
+        backgroundColor: Colors.black,
+        title: Image.asset('assets/images/logo.png'),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: 0.04 * height, vertical: 0.05 * height),

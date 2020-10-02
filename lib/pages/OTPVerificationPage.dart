@@ -32,7 +32,7 @@ class _OTPVerificationState extends State<OTPVerification> {
           automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
           title: Image.asset('assets/images/logo.png'),
-          titleSpacing: 0.29 * width),
+          centerTitle: true,),
       body: Container(
         alignment: Alignment.center,
         margin: EdgeInsets.symmetric(vertical: 50),
@@ -116,7 +116,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                     .otpsend(Provider.of<Auth>(context, listen: false).mobile),
                 child: Text(
                   'Send Again',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),  
                 ))
           ],
         ),

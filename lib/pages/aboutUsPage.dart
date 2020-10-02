@@ -21,7 +21,7 @@ class AboutUsPage extends StatelessWidget {
           title: InkWell(
               child: Image.asset('assets/images/logo.png'),
               onTap: () => Navigator.of(context).pop()),
-          titleSpacing: 0.194 * width,
+          centerTitle: true,
           actions: <Widget>[
             Padding(
               padding: EdgeInsets.only(right: 0.14 * width),

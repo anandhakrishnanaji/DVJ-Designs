@@ -48,12 +48,11 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
             backgroundColor: Colors.black,
             title: Image.asset('assets/images/logo.png'),
-            titleSpacing: 0.29 * width),
+            centerTitle: true,),
         body: Container(
             padding: EdgeInsets.all(20),
             child: ListView(children: <Widget>[
@@ -110,8 +109,9 @@ class _SearchPageState extends State<SearchPage> {
                                   mainAxisSpacing: 12,
                                   childAspectRatio: 0.75,
                                 ),
-                                itemBuilder: (context, index) =>
-                                    ProductTile(_productlist[index], 'hello'))))
+                                itemBuilder: (context, index) => ProductTile(
+                                    _productlist[index],
+                                    _productlist[index].name))))
               ])
             ])));
   }

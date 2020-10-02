@@ -72,7 +72,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void didChangeDependencies() {
     if (!_iscallbackset) {
-      Provider.of<ProductProvider>(context,listen: false).setcallback(_onTabTapped);
+      Provider.of<ProductProvider>(context, listen: false)
+          .setcallback(_onTabTapped);
       _iscallbackset = true;
     }
     super.didChangeDependencies();
@@ -96,10 +97,11 @@ class _HomePageState extends State<HomePage> {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
+      // key: globalScaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Image.asset('assets/images/logo.png'),
-        titleSpacing: 0.194 * width,
+        centerTitle: true,
         actions: <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 0.024 * width),

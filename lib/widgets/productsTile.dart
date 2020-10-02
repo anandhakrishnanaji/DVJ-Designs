@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../providers/productProvider.dart';
 import '../pages/productListPage.dart';
@@ -24,7 +23,8 @@ class ProductsTile extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            Container(padding: EdgeInsets.all(5),
+            Container(
+              padding: EdgeInsets.all(5),
               alignment: Alignment.center,
               width: 0.43 * width,
               child: Text(product.name,

@@ -16,7 +16,7 @@ class ProductPreview extends StatelessWidget {
               child: Image.asset('assets/images/logo.png'),
               onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
                   HomePage.routeName, (Route<dynamic> route) => false)),
-          titleSpacing: 0.194 * width,
+          centerTitle: true,
           actions: <Widget>[
             Padding(
               padding: EdgeInsets.only(right: 0.14 * width),

@@ -6,8 +6,8 @@ import '../providers/auth.dart';
 
 class TextfieldDialog extends StatefulWidget {
   final Product product;
-  final Function callback;
-  TextfieldDialog(this.product, this.callback);
+  // final Function callback;
+  TextfieldDialog(this.product, );
   @override
   _TextfieldDialogState createState() => _TextfieldDialogState();
 }
@@ -77,7 +77,7 @@ class _TextfieldDialogState extends State<TextfieldDialog> {
       ),
       actions: <Widget>[
         FlatButton(
-            onPressed: () => Navigator.pop(context), child: Text('Cancel')),
+            onPressed: () => Navigator.pop(context,0), child: Text('Cancel')),
         FlatButton(
             onPressed: () {
               setState(() => _isError = false);
@@ -86,7 +86,7 @@ class _TextfieldDialogState extends State<TextfieldDialog> {
                   int.parse(_quantity.text) < 100000) {
                 Provider.of<ProductProvider>(context, listen: false).addtocart(
                     widget.product, _session, int.parse(_quantity.text));
-                widget.callback();
+                Navigator.pop(context,1);
               } else
                 setState(() => _isError = true);
             },
