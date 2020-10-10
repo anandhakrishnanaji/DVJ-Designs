@@ -25,7 +25,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     if (s == null) {
       return false;
     }
-    return double.tryParse(s) != null;
+    return int.tryParse(s) != null;
   }
 
   bool _isValid = false;

@@ -16,6 +16,7 @@ class _SearchPageState extends State<SearchPage> {
   bool ispnoerror = false;
   bool _isloading = false;
   List<Product> _productlist = [];
+  List<String> _productnames = [];
 
   @override
   void dispose() {
@@ -42,6 +43,7 @@ class _SearchPageState extends State<SearchPage> {
           element['datec'],
           int.parse(element['is_new_arrival']),
           int.parse(element['status'])));
+      _productnames.add(element['category_name']);
     });
     print(_productlist.length);
   }
@@ -50,9 +52,10 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: Colors.black,
-            title: Image.asset('assets/images/logo.png'),
-            centerTitle: true,),
+          backgroundColor: Colors.black,
+          title: Image.asset('assets/images/logo.png'),
+          centerTitle: true,
+        ),
         body: Container(
             padding: EdgeInsets.all(20),
             child: ListView(children: <Widget>[
@@ -111,7 +114,7 @@ class _SearchPageState extends State<SearchPage> {
                                 ),
                                 itemBuilder: (context, index) => ProductTile(
                                     _productlist[index],
-                                    _productlist[index].name))))
+                                    _productnames[index]))))
               ])
             ])));
   }

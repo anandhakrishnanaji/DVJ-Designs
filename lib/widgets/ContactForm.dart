@@ -38,7 +38,7 @@ class _ContactFormState extends State<ContactForm> {
     if (s == null) {
       return false;
     }
-    return double.tryParse(s) != null;
+    return int.tryParse(s) != null;
   }
 
   @override
