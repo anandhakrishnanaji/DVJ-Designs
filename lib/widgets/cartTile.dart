@@ -58,10 +58,13 @@ class _CartTileState extends State<CartTile> {
               Container(
                 width: 0.2 * width,
                 child: TextField(
+                  textAlign: TextAlign.right,
                   controller: qty,
                   //onChanged: (value) => print(value),
                   onSubmitted: (value) {
-                    if (_isNumeric(value) && int.parse(value) > 0 && int.parse(value)<100000)
+                    if (_isNumeric(value) &&
+                        int.parse(value) > 0 &&
+                        int.parse(value) < 100000)
                       Provider.of<ProductProvider>(context, listen: false)
                           .changequantity(
                               widget.cproduct.product.id, int.parse(qty.text));

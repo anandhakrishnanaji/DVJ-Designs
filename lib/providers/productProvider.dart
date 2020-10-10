@@ -189,8 +189,8 @@ class ProductProvider with ChangeNotifier {
         List<Map> prod = [];
         _cartlist.forEach((element) {
           prod.add({
-            "product_name": element.product.name,
-            "product_qty": element.quantity
+            '"product_name"': '"${element.product.name}"',
+            '"product_qty"': '"${element.quantity}"'
           });
         });
         url += '&enquiry_product=$prod';
