@@ -43,7 +43,7 @@ class OrderListTile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Total', style: TextStyle(color: Colors.grey[600])),
+                Text('Invoice No.', style: TextStyle(color: Colors.grey[600])),
                 Text(total)
               ],
             )

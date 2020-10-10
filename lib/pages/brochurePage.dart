@@ -65,7 +65,7 @@ class BrochurePage extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: _list.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
+                        crossAxisCount: 1,
                         crossAxisSpacing: 15,
                         mainAxisSpacing: 12,
                         childAspectRatio: 0.6,

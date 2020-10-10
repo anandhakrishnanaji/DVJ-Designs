@@ -179,6 +179,7 @@ class ProductProvider with ChangeNotifier {
       final String name, final String phone, final String session,
       {final String email = null, final String msg = null}) async {
     try {
+      print('hello $phone');
       if (_cartlist.length == 0) throw "Cart is Empty";
       String url =
           'https://dvj-design.com/api_dvj/Serv_v1/enquiry?enquiry_name=$name&enquiry_mobile=$phone&session=$session';
@@ -192,10 +193,11 @@ class ProductProvider with ChangeNotifier {
             "product_qty": element.quantity
           });
         });
-        url += prod.toString();
+        url += '&enquiry_product=$prod';
       }
       print(url);
       final response = await http.get(url);
+      print(response.body);
       final jresponse = json.decode(response.body);
       print(jresponse);
       if (jresponse['status'] == 'failed') throw jresponse['message'];

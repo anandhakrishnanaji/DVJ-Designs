@@ -56,7 +56,7 @@ class _CartTileState extends State<CartTile> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                width: 0.097 * width,
+                width: 0.2 * width,
                 child: TextField(
                   controller: qty,
                   //onChanged: (value) => print(value),
