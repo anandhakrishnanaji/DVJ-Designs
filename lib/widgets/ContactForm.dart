@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/services.dart';
 
 import '../providers/auth.dart';
 import '../providers/productProvider.dart';
@@ -75,6 +76,7 @@ class _ContactFormState extends State<ContactForm> {
               height: 0.0273 * height,
             ),
             TextFormField(
+                inputFormatters: [LengthLimitingTextInputFormatter(10)],
                 decoration: InputDecoration(
                   labelText: 'Enter your Mobile',
                 ),
@@ -154,7 +156,7 @@ class _ContactFormState extends State<ContactForm> {
                                   msg: _check['message'])
                               .then((value) {
                             setState(() => _isloading = false);
-                            Provider.of<ProductProvider>(context,listen: false)
+                            Provider.of<ProductProvider>(context, listen: false)
                                 .homecallback(0);
                             Scaffold.of(context).showSnackBar(SnackBar(
                                 content: Text('Enquiry sent successfully')));

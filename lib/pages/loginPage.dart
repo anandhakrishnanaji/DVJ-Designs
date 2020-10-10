@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 import './OTPVerificationPage.dart';
 import './registrationPage.dart';
@@ -31,12 +32,14 @@ class _LoginPageState extends State<LoginPage> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.black,
-          title: Image.asset('assets/images/logo.png'),
-          centerTitle: true,),
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.black,
+        title: Image.asset('assets/images/logo.png'),
+        centerTitle: true,
+      ),
       body: Center(
-        child: Container(padding: EdgeInsets.all(30),
+        child: Container(
+          padding: EdgeInsets.all(30),
           height: 0.6 * height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -47,7 +50,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Text(
                 'We need to text you the OTP to authenticate your account',
-                style: TextStyle(color: Colors.grey, fontSize: 18,),textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
               ),
               Container(
                   width: 0.7 * width,
@@ -62,6 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                         fit: BoxFit.fitWidth,
                       ),
                       TextField(
+                        inputFormatters: [LengthLimitingTextInputFormatter(10)],
                         controller: pno,
                         keyboardType: TextInputType.number,
                         autofocus: false,
@@ -81,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: MaterialButton(
                         child: Text(
                           'Send OTP',
-                          style: TextStyle(color: Colors.white,fontSize: 20),
+                          style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                         onPressed: () {
                           setState(() {

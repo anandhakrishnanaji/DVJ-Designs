@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 import './loginPage.dart';
 import './OTPVerificationPage.dart';
@@ -101,6 +102,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     height: 0.02 * height,
                   ),
                   TextFormField(
+                      inputFormatters: [LengthLimitingTextInputFormatter(10)],
                       decoration: InputDecoration(
                           labelText: 'Enter your Mobile',
                           isDense: true,
