@@ -1,4 +1,4 @@
-package com.example.dvjdesign
+package com.dvjdesign
 
 import io.flutter.embedding.android.FlutterActivity
 
