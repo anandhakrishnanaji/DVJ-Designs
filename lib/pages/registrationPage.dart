@@ -18,6 +18,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _phonefocusnode = FocusNode();
   final _emailfocusnode = FocusNode();
   final _compfocusnode = FocusNode();
+  final _cityfocusnode = FocusNode();
   final _form = GlobalKey<FormState>();
 
   bool istickederror = true;
@@ -42,6 +43,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     'mobile': null,
     'email': null,
     'company': null,
+    'city': null
   };
 
   void _saveform() {
@@ -152,10 +154,30 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           isDense: true,
                           contentPadding: EdgeInsets.all(10)),
                       textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) => _cityfocusnode.requestFocus(),
                       focusNode: _compfocusnode,
                       validator: (value) =>
                           value.isEmpty ? "This field is Required" : null,
                       onSaved: (newValue) => _check['company'] = newValue),
+                  SizedBox(
+                    height: 0.02 * height,
+                  ),
+                  TextFormField(
+                      decoration: InputDecoration(
+                          labelText: 'Enter the City Name',
+                          isDense: true,
+                          contentPadding: EdgeInsets.all(10)),
+                      keyboardType: TextInputType.phone,
+                      textInputAction: TextInputAction.next,
+                      onFieldSubmitted: (_) => _emailfocusnode.requestFocus(),
+                      focusNode: _phonefocusnode,
+                      validator: (value) {
+                        if (value.isEmpty)
+                          return "The field cannot be empty";
+                        else
+                          return null;
+                      },
+                      onSaved: (newValue) => _check['city'] = newValue),
                   Container(
                     alignment: Alignment.topLeft,
                     //margin: EdgeInsets.all(0.01 * height),

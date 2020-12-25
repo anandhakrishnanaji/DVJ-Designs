@@ -20,8 +20,7 @@ class ProductTile extends StatelessWidget {
       var request = await HttpClient().getUrl(Uri.parse(product.imageUrl));
       var response = await request.close();
       Uint8List bytes = await consolidateHttpClientResponseBytes(response);
-      await Share.file('DVJ DESIGNS', '${product.name}.jpg', bytes, 'image/jpg',
-          text: 'https://www.dvj-design.com/Product.php?name=$title');
+      await Share.file('DVJ DESIGNS', '${product.name}.jpg', bytes, 'image/jpg');
     } catch (e) {
       print('error: $e');
     }
@@ -57,7 +56,7 @@ class ProductTile extends StatelessWidget {
                   Text(
                     product.name,
                     style:
-                        TextStyle(color: Colors.white, fontSize: 0.04 * width),
+                        TextStyle(color: Colors.white, fontSize: 0.037 * width),
                     overflow: TextOverflow.ellipsis,
                   ),
                   Divider(

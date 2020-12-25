@@ -50,10 +50,10 @@ class ProductListPage extends StatelessWidget {
                       child: GridView.builder(
                         itemCount: snapshot.data.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
+                          crossAxisCount: 1,
                           crossAxisSpacing: 6,
                           mainAxisSpacing: 12,
-                          childAspectRatio: 0.75,
+                          childAspectRatio: 1,
                         ),
                         itemBuilder: (context, index) =>
                             ProductTile(snapshot.data[index], title),
