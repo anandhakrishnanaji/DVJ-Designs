@@ -60,10 +60,10 @@ class Auth with ChangeNotifier {
   }
 
   Future<bool> register(String name, String mobile, String email,
-      String company, List<String> profession) async {
+      String company, List<String> profession, String city) async {
     _userdetails['mobile'] = mobile;
     final url =
-        'https://dvj-design.com/api_dvj/Serv_v1/registration?name=$name&mobile=$mobile&email=$email&company=$company&profession=$profession';
+        'http://dvj-design.com/api_dvj/Serv_v1/registration?name=$name&mobile=$mobile&email=$email&company=$company&profession=$profession&city=$city';
     print(url);
     try {
       final response = await http.get(url);

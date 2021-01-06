@@ -20,7 +20,8 @@ class ProductTile extends StatelessWidget {
       var request = await HttpClient().getUrl(Uri.parse(product.imageUrl));
       var response = await request.close();
       Uint8List bytes = await consolidateHttpClientResponseBytes(response);
-      await Share.file('DVJ DESIGNS', '${product.name}.jpg', bytes, 'image/jpg');
+      await Share.file(
+          'DVJ DESIGNS', '${product.name}.jpg', bytes, 'image/jpg');
     } catch (e) {
       print('error: $e');
     }
@@ -30,8 +31,10 @@ class ProductTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    print(product.bigImageUrl);
     return InkWell(
       child: Container(
+        width: double.infinity,
         margin: EdgeInsets.all(0.0136 * height),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.black, width: 2),
@@ -43,9 +46,13 @@ class ProductTile extends StatelessWidget {
               onTap: () => Navigator.of(context).pushNamed(
                   ProductPreview.routeName,
                   arguments: product.bigImageUrl),
-              child: Image.network(
-                product.imageUrl,
-                fit: BoxFit.cover,
+              child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(
+                          product.imageUrl,
+                        ))),
               ),
             )),
             Container(
@@ -81,7 +88,8 @@ class ProductTile extends StatelessWidget {
                                   label: 'Go to Enquiry',
                                   onPressed: () {
                                     print('hrllokunno');
-                                    Provider.of<ProductProvider>(currentScaffold.context,
+                                    Provider.of<ProductProvider>(
+                                            currentScaffold.context,
                                             listen: false)
                                         .homecallback(4);
                                     Navigator.of(currentScaffold.context)

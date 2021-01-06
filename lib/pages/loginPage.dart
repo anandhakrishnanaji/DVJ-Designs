@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Enter your mobile number',
+                'Enter your phone number',
                 style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               Text(
@@ -69,7 +69,10 @@ class _LoginPageState extends State<LoginPage> {
                         fit: BoxFit.fitWidth,
                       ),
                       TextField(
-                        inputFormatters: [LengthLimitingTextInputFormatter(10)],
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(10),
+                          WhitelistingTextInputFormatter.digitsOnly
+                        ],
                         controller: pno,
                         keyboardType: TextInputType.number,
                         autofocus: false,

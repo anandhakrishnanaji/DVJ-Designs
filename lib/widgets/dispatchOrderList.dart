@@ -7,11 +7,10 @@ import '../providers/auth.dart';
 import '../widgets/alertBox.dart';
 import '../widgets/orderListTile.dart';
 
-class OrderListPage extends StatelessWidget {
-  Future<List> _fetchOrders(final String session) async {
-    final String url =
-        'http://dvj-design.com/api_dvj/Serv_v1/orders?session=$session';
-    final response = await http.get(url);
+class DispatchOrderListPage extends StatelessWidget {
+  Future<List> _fetchOrders(String _session) async {
+    final response = await http.get(
+        'https://dvj-design.com/api_dvj/Serv_v1/dispatch_orders?session=$_session');
     final jresponse = json.decode(response.body);
     if (jresponse['status'] == 'failed') throw jresponse['message'];
     return jresponse['data']['Order_list'];
@@ -37,13 +36,17 @@ class OrderListPage extends StatelessWidget {
                       context: context,
                       child: Alertbox(snapshot.error.toString())));
               return SizedBox();
-            } else
+            } else {
+              if (snapshot.data.isEmpty)
+                return Center(
+                  child: Text('You have no completed orders currently'),
+                );
               return ListView(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: Text(
-                      'Orders',
+                      'Completed Orders',
                       style: TextStyle(fontSize: 0.041 * height),
                     ),
                   ),
@@ -58,14 +61,16 @@ class OrderListPage extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) => OrderListTile(
-                            snapshot.data[index]['enquiry_id'],
-                            snapshot.data[index]['created_date'],
-                            snapshot.data[index]['order_value']),
+                            id: snapshot.data[index]['enquiry_id'],
+                            date: snapshot.data[index]['created_date'],
+                            total: snapshot.data[index]['order_value'],
+                            pending: false),
                       ),
                     ),
                   )
                 ],
               );
+            }
           }),
     );
   }

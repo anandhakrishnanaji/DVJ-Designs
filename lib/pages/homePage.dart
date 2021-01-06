@@ -1,3 +1,6 @@
+import 'package:dvjdesign/widgets/dispatchOrderList.dart';
+import 'package:dvjdesign/widgets/orderList.dart';
+import 'package:dvjdesign/widgets/pendingOrderList.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,7 +15,6 @@ import '../providers/auth.dart';
 import '../widgets/homeTab.dart';
 import './searchPage.dart';
 import '../providers/productProvider.dart';
-import './orderListPage.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/homepage';
@@ -85,7 +87,7 @@ class _HomePageState extends State<HomePage> {
       HomeTab(),
       MosaicListPage(),
       TilesListPage(),
-      OrderListPage(),
+      OrderList(),
       ContactUsPage()
     ];
     super.initState();
@@ -102,6 +104,9 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.black,
         title: Image.asset('assets/images/logo.png'),
         centerTitle: true,
+        // bottom: _currentIndex == 3
+        //     ?
+        //     : null,
         actions: <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 0.024 * width),
@@ -116,6 +121,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: _children[_currentIndex],
+
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           showUnselectedLabels: true,

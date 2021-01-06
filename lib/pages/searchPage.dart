@@ -50,6 +50,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(_productlist.length);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
@@ -99,22 +100,24 @@ class _SearchPageState extends State<SearchPage> {
                         ? Center(
                             child: CircularProgressIndicator(),
                           )
-                        : Container(
-                            child: GridView.builder(
-                                scrollDirection: Axis.vertical,
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: _productlist.length,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 6,
-                                  mainAxisSpacing: 12,
-                                  childAspectRatio: 0.75,
-                                ),
-                                itemBuilder: (context, index) => ProductTile(
-                                    _productlist[index],
-                                    _productnames[index]))))
+                        : _productlist.length == 0
+                            ? SizedBox()
+                            : Container(
+                                child: GridView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: _productlist.length,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 1,
+                                      crossAxisSpacing: 6,
+                                      mainAxisSpacing: 12,
+                                      childAspectRatio: 1,
+                                    ),
+                                    itemBuilder: (context, index) =>
+                                        ProductTile(_productlist[index],
+                                            _productnames[index]))))
               ])
             ])));
   }

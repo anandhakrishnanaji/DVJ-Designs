@@ -169,8 +169,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           contentPadding: EdgeInsets.all(10)),
                       keyboardType: TextInputType.phone,
                       textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (_) => _emailfocusnode.requestFocus(),
-                      focusNode: _phonefocusnode,
+                      onFieldSubmitted: (_) => _cityfocusnode.unfocus(),
+                      focusNode: _cityfocusnode,
                       validator: (value) {
                         if (value.isEmpty)
                           return "The field cannot be empty";
@@ -243,7 +243,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                         _check['mobile'],
                                         _check['email'],
                                         _check['company'],
-                                        profession)
+                                        profession,
+                                        _check['city'])
                                     .then((value) {
                                   if (value)
                                     Navigator.of(context)
