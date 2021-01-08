@@ -167,7 +167,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           labelText: 'Enter the City Name',
                           isDense: true,
                           contentPadding: EdgeInsets.all(10)),
-                      keyboardType: TextInputType.phone,
+                      keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
                       onFieldSubmitted: (_) => _cityfocusnode.unfocus(),
                       focusNode: _cityfocusnode,

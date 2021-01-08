@@ -62,6 +62,7 @@ class _SearchPageState extends State<SearchPage> {
             child: ListView(children: <Widget>[
               Column(children: <Widget>[
                 TextField(
+                  keyboardType: TextInputType.text,
                   controller: pno,
                   autofocus: false,
                   decoration: InputDecoration(
