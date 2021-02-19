@@ -33,6 +33,8 @@ class _SearchPageState extends State<SearchPage> {
     final List lis = jresponse['data']['products'];
     print(lis.length);
     lis.forEach((element) {
+      print(element['AddToCart']);
+
       _productlist.add(Product(
           int.parse(element['product_id']),
           element['product_name'].replaceAll('+', ' '),
@@ -42,10 +44,12 @@ class _SearchPageState extends State<SearchPage> {
           element['product_price'],
           element['datec'],
           int.parse(element['is_new_arrival']),
-          int.parse(element['status'])));
+          int.parse(element['status']),
+          element['AddToCart'] == 'Yes',
+          element['share'] == 'Yes'));
       _productnames.add(element['category_name']);
     });
-    print(_productlist.length);
+    // print(_productlist);
   }
 
   @override

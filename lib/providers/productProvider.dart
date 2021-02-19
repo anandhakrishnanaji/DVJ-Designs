@@ -15,8 +15,20 @@ class Product {
   final String date;
   final int isNewArrival;
   final int status;
-  Product(this.id, this.name, this.imageUrl, this.bigImageUrl, this.categoryid,
-      this.productPrice, this.date, this.isNewArrival, this.status);
+  final bool add2cart;
+  final bool share;
+  Product(
+      this.id,
+      this.name,
+      this.imageUrl,
+      this.bigImageUrl,
+      this.categoryid,
+      this.productPrice,
+      this.date,
+      this.isNewArrival,
+      this.status,
+      this.add2cart,
+      this.share);
 }
 
 class Products {
@@ -157,6 +169,7 @@ class ProductProvider with ChangeNotifier {
       if (jresponse['status'] == 'failed') throw (jresponse['message']);
       final plist = jresponse['data']['products'];
       plist.forEach((element) {
+        print(element['AddToCart']);
         productlist.add(Product(
             int.parse(element['product_id']),
             element['product_name'].replaceAll('+', ' '),
@@ -166,9 +179,11 @@ class ProductProvider with ChangeNotifier {
             element['product_price'],
             element['datec'],
             int.parse(element['is_new_arrival']),
-            int.parse(element['status'])));
+            int.parse(element['status']),
+            element['AddToCart'] == 'Yes',
+            element['share'] == 'Yes'));
       });
-      print(productlist);
+      // print(productlist);
       return productlist;
     } catch (e) {
       throw e.toString();
@@ -189,6 +204,7 @@ class ProductProvider with ChangeNotifier {
         List<Map> prod = [];
         _cartlist.forEach((element) {
           prod.add({
+            '"product_id"': '"${element.product.id}"',
             '"product_name"': '"${element.product.name}"',
             '"product_qty"': '"${element.quantity}"'
           });
@@ -234,7 +250,7 @@ class ProductProvider with ChangeNotifier {
         print(element['name']);
         _cartlist.add(CartProduct(
             Product(element['id'], element['name'], element['link'], null, null,
-                null, null, null, null),
+                null, null, null, null, null, null),
             element['quantity']));
       });
       _obtainedCart = true;

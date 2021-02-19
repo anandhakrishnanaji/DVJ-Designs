@@ -1,3 +1,4 @@
+import 'package:dvjdesign/widgets/orderDetailsWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -58,6 +59,11 @@ class OrderStatusPage extends StatelessWidget {
                 return Container(
                     padding: EdgeInsets.all(20),
                     child: Column(children: [
+                      Text(
+                        'Order Details',
+                        style: TextStyle(fontSize: 0.041 * height),
+                      ),
+                      OrderDetailsWidget(snapshot.data),
                       Text(
                         'Order Status',
                         style: TextStyle(fontSize: 0.041 * height),

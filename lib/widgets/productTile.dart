@@ -49,7 +49,7 @@ class ProductTile extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        fit: BoxFit.fill,
+                        fit: BoxFit.contain,
                         image: NetworkImage(
                           product.imageUrl,
                         ))),
@@ -73,47 +73,52 @@ class ProductTile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      InkWell(
-                        onTap: () async => await showDialog(
-                                context: context,
-                                builder: (contex) => TextfieldDialog(product))
-                            .then((value) {
-                          if (value == 1) {
-                            var currentScaffold =
-                                globalScaffoldKey.currentState;
-                            currentScaffold.showSnackBar(SnackBar(
-                              content: Text('Item added to cart'),
-                              action: SnackBarAction(
-                                  textColor: Colors.grey[300],
-                                  label: 'Go to Enquiry',
-                                  onPressed: () {
-                                    print('hrllokunno');
-                                    Provider.of<ProductProvider>(
-                                            currentScaffold.context,
-                                            listen: false)
-                                        .homecallback(4);
-                                    Navigator.of(currentScaffold.context)
-                                        .popUntil((route) => route.isFirst);
-                                  }),
-                            ));
-                          }
-                        }),
-                        child: Container(
-                          margin: EdgeInsets.only(left: 0.024 * width),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.white)),
-                          child: Text(
-                            'ADD',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                          icon: Icon(
-                            Icons.share,
-                            color: Colors.white,
-                          ),
-                          onPressed: _share)
+                      product.add2cart
+                          ? InkWell(
+                              onTap: () async => await showDialog(
+                                  context: context,
+                                  builder: (contex) =>
+                                      TextfieldDialog(product)).then((value) {
+                                if (value == 1) {
+                                  var currentScaffold =
+                                      globalScaffoldKey.currentState;
+                                  currentScaffold.showSnackBar(SnackBar(
+                                    content: Text('Item added to cart'),
+                                    action: SnackBarAction(
+                                        textColor: Colors.grey[300],
+                                        label: 'Go to Enquiry',
+                                        onPressed: () {
+                                          print('hrllokunno');
+                                          Provider.of<ProductProvider>(
+                                                  currentScaffold.context,
+                                                  listen: false)
+                                              .homecallback(4);
+                                          Navigator.of(currentScaffold.context)
+                                              .popUntil(
+                                                  (route) => route.isFirst);
+                                        }),
+                                  ));
+                                }
+                              }),
+                              child: Container(
+                                margin: EdgeInsets.only(left: 0.024 * width),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.white)),
+                                child: Text(
+                                  'ADD',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            )
+                          : SizedBox(),
+                      product.share
+                          ? IconButton(
+                              icon: Icon(
+                                Icons.share,
+                                color: Colors.white,
+                              ),
+                              onPressed: _share)
+                          : SizedBox()
                     ],
                   )
                 ],
