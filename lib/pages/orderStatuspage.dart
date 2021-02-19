@@ -56,20 +56,21 @@ class OrderStatusPage extends StatelessWidget {
                         child: Alertbox(snapshot.error.toString())));
                 return SizedBox();
               } else
-                return Container(
-                    padding: EdgeInsets.all(20),
-                    child: Column(children: [
-                      Text(
-                        'Order Details',
-                        style: TextStyle(fontSize: 0.041 * height),
-                      ),
-                      OrderDetailsWidget(snapshot.data),
-                      Text(
-                        'Order Status',
-                        style: TextStyle(fontSize: 0.041 * height),
-                      ),
-                      OrderStatusWidget(snapshot.data)
-                    ]));
+                return SingleChildScrollView(
+                    child: Container(
+                        padding: EdgeInsets.all(20),
+                        child: Column(children: [
+                          Text(
+                            'Order Details',
+                            style: TextStyle(fontSize: 0.041 * height),
+                          ),
+                          OrderDetailsWidget(snapshot.data),
+                          Text(
+                            'Order Status',
+                            style: TextStyle(fontSize: 0.041 * height),
+                          ),
+                          OrderStatusWidget(snapshot.data)
+                        ])));
             }),
       ),
     );
