@@ -41,10 +41,11 @@ class OrderDetailsWidget extends StatelessWidget {
                               width: 50,
                               decoration: BoxDecoration(
                                   image: DecorationImage(
-                                      image: AssetImage(
+                                      image: NetworkImage(
                                           Uri.decodeFull(e['product_image'])))),
                             ),
                             title: Text(e['producName']),
+                            trailing: Text('Qty: ${e['qty']}'),
                           ),
                         ))
                     .toList(),
