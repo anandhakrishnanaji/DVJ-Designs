@@ -31,7 +31,7 @@ class ProductTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    print(product.bigImageUrl);
+    print(product.imageUrl);
     return InkWell(
       child: Container(
         width: double.infinity,
@@ -49,9 +49,9 @@ class ProductTile extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        fit: BoxFit.contain,
+                        fit: BoxFit.fill,
                         image: NetworkImage(
-                          product.imageUrl,
+                          product.bigImageUrl,
                         ))),
               ),
             )),
