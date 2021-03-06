@@ -20,8 +20,8 @@ class ProductTile extends StatelessWidget {
       var request = await HttpClient().getUrl(Uri.parse(product.imageUrl));
       var response = await request.close();
       Uint8List bytes = await consolidateHttpClientResponseBytes(response);
-      await Share.file(
-          'DVJ DESIGNS', '${product.name}.jpg', bytes, 'image/jpg');
+      await Share.file('DVJ DESIGNS', '${product.name}.jpg', bytes, 'image/jpg',
+          text: product.name);
     } catch (e) {
       print('error: $e');
     }
